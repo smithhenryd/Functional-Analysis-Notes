@@ -1,0 +1,69 @@
+\documentclass[11pt]{article}
+
+% Mathematical typesetting
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{bbm}
+
+% Document formatting
+\usepackage[utf8]{inputenc}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\usepackage{abstract}
+\usepackage{array}
+\usepackage{float}
+
+
+%% Remove abstract text
+\renewcommand{\abstractname}{\vspace{-\baselineskip}} 
+
+\usepackage[]{geometry}
+\geometry{margin=1in}
+\newlength{\tabcont}
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+\usepackage{framed}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lm}{Lemma}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{note}{Note}[section]
+
+\newtheorem{protoexamp}{Example}[section]
+\newenvironment{examp}
+{\colorlet{shadecolor}{orange!15}\begin{shaded}\begin{protoexamp}}
+{\end{protoexamp}\end{shaded}}
+
+\newtheorem{protoexer}{Exercise}[section]
+\newenvironment{exer}
+{\colorlet{shadecolor}{blue!15}\begin{shaded}\begin{protoexer}}
+{\end{protoexer}\end{shaded}}
+
+\title{\textbf{Notes on Functional Analysis}}
+\author{Henry Smith}
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+    These notes are prepared from my reading of \textit{Introductory Functional Analysis with Applications} by Erwin Kreyszig. They are intended to serve as an aid for my understanding the book content. I do not guarantee their accuracy, and they do not reflect the accuracy of the book.
+\end{abstract}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+
+
+\end{document}
