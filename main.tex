@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{gensymb}
 \usepackage{bbm}
+\usepackage{mathrsfs}
 
 % Document formatting
 \usepackage[utf8]{inputenc}
@@ -16,6 +17,7 @@
 \usepackage{abstract}
 \usepackage{array}
 \usepackage{float}
+\usepackage{caption}
 
 \usepackage{pgfplots}
 \usepgfplotslibrary{fillbetween}
@@ -292,15 +294,12 @@ The converse is not true. Consider the Euclidean metric space $(\mathbb{R}^2, d)
 \end{exer}
 
 \newpage
-\begin{exer}
+\begin{exer}\label{pttoset}
 The \textbf{distance} $D(x, B)$ from a point $x$ to a nonempty subset $B$ of a metric space $(X, d)$ is defined to be
 \begin{align*}
     D(x, B) = \inf_{b \in B} d(x, b).
 \end{align*}
-Show that for any $x, y \in X$,
-\begin{align*}
-    |D(x, B) - D(y, B)| \leq d(x, y).
-\end{align*}
+Show that for any $x, y \in X$, $|D(x, B) - D(y, B)| \leq d(x, y)$.
 \begin{proof}
 For each element $b \in B$, it holds that $d(x,b) \leq d(x, y) + d(y, b)$ by the triangle inequality. Consequently, we get the inequality 
 \begin{align*}
@@ -312,5 +311,213 @@ By starting with $d(y, b) \leq d(y, x) + d(x, b)$, we similarly have $D(y, b) - 
 
 \subsection{Set Theory, Continuity, and Separability}
 
+\subsubsection{Set Theory}\label{settheory}
+
+\begin{defn}[Ball and sphere]
+Let $(X, d)$ be a metric space. Given a point $x_0 \in X$ and a real number $r > 0$, we define three sets:
+\begin{enumerate}
+    \item \textbf{Open ball}: $B_r(x_0) = \{x \in X | d(x, x_0) < r \}$
+    \item \textbf{Closed ball}: $\tilde{B}_r(x_0) = \{x \in X | d(x, x_0) \leq r \}$
+    \item \textbf{Sphere}: $S_r(x_0) = \{x \in X | d(x, x_0) = r \}$
+\end{enumerate}
+\end{defn}
+
+% Add plot
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[samples=200, xlabel={$t$}, yticklabels={}, yticklabels={}]
+\addplot[semithick][name path=f, domain=-2:2] {x^2};
+\addplot[semithick, dashed][name path=g, domain=-2:2] {x^2 -1};
+\addplot[semithick, dashed][name path=h, domain=-2:2] {x^2 +1};
+\addplot[gray!50] fill between[of=g and h];
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\caption*{The open unit ball $B_{r=1}(x)$ for $x(t) = t^2$ in the function space $C[-2, 2]$}
+\end{figure}
+
+
+\begin{defn}[Open set, closed set]
+A subset $M$ of a metric space $X$ is said to be \textbf{open} if it contains a (open) ball about each of its points. A subset $K$ is said to be \textbf{closed} if its complement $X \setminus K$ is open.
+\end{defn}
+
+\begin{examp}\label{emptyopen}
+In an arbitrary metric space $X$, the subsets $\varnothing$ and $X$ are both open and closed.
+\end{examp}
+
+\begin{examp}
+In a discrete metric space $X$, every subset is both open and closed.
+\begin{proof}
+It suffices to show that for each $M \in 2^X$, then $M$ is open. One will recall that $\varnothing$ is open from Exercise \ref{emptyopen}, so we suppose $|M| > 0$. Let $m \in M$ be an arbitrary point in $M$. Then for each $r \in (0, 1]$, the open ball $B_r(x_0) = \{m \}$ is contained in the set $M$. This proves that $M$ is open, and we conclude that every subset of a discrete metric space is both open and closed.
+\end{proof}
+\end{examp}
+
+\begin{defn}
+Let $X$ be a metric space and $M$ a (nonempty) subset of $X$. Then $x_0 \in M$ is an \textbf{interior point} of the set $M$ if there exists some $r > 0$ such that $B_r(x_0) \subset M$. The \textbf{interior} of $M$, denoted $\text{Int}(M)$ is the set of all interior points of $M$.
+\end{defn}
+
+Immediately, we see that every point of an open set $M$ is an interior point, per our definition of an open set, and so $\text{Int}(M) = M$. Moreover, we have the following result which explains why we care about set interiors:
+
+\begin{thm}\label{interior}
+Let $X$ be a metric space and $M$ a nonempty subset of $X$. Then $\text{Int}(M)$ is the largest open set contained in $M$.
+\end{thm}
+\begin{proof}
+First we prove that $\text{Int}(M)$ is a subset of $M$ and is open. By our definition, it is clear that $\text{Int}(M) \subseteq M$. Toward contradiction, suppose that $\text{Int}(M)$ is not open, meaning there exists some $x_0 \in \text{Int}(M)$ such that $B_r(x_0) \not\subset \text{Int}(M)$ for each $r > 0$. But this mean that $B_r(x_0) \not\subset M$ for each $r > 0$, which contradicts our assumption that $x_0 \in \text{Int}(M)$.\newline
+We proceed to show that $\text{Int}(M)$ is the largest open set contained in $M$. Let $U$ be an arbitrary open set contained in $M$. Then for each $u \in U$ we have $u \in B_r(u) \subset U \subseteq M$, which implies $u \in \text{Int}(M)$. And so we conclude $U \subseteq \text{Int}(M)$.
+\end{proof}
+
+Having formally defined an open set for a metric space $(X, d)$, we give a more general notion of a space that satisfies the properties of open sets:
+\begin{defn}
+A \textbf{topological space} $(X, \mathscr{F})$ is a set $X$ and a collection $\mathscr{F}$ of subsets of $X$ such that $\mathscr{F}$ satifies the following axioms:
+\begin{enumerate}
+    \item $\varnothing, X \in \mathscr{F}$ 
+    \item $\{F_n\}_{n \in \mathcal{I}} \subseteq \mathscr{F} \implies \bigcup_{n \in \mathcal{I}} F_n \in \mathscr{F}$ \quad ($\mathscr{F}$ is closed under arbitrary unions)
+    \item $\{F_n\}_{n=1}^N \subseteq \mathscr{F} \implies \bigcap_{n=1}^N F_n \in \mathscr{F}$ \quad ($\mathscr{F}$ is closed under finite intersections)
+\end{enumerate}
+\end{defn}
+
+It is evident that each metric space $X$ is a topological space with $\mathscr{F}$ the collection of all open subsets of $X$.
+
+\begin{note}
+One should be careful in recognizing that open sets, and thus topological spaces, \textit{are not closed under countable intersections}. For a straightforward counterexample, let $(\mathbb{R}, d)$ be the Euclidean metric space and take $\{F_n \}_{n \in \mathbb{N}}$ where each $F_n := (-n^{-1}, n^{-1})$ is an open set. Then $\cap_{n \in \mathbb{N}} F_n = \{ 0 \}$ is not open.
+\end{note}
+
+\begin{defn}
+Let $X$ be a metric space and $M$ a (nonempty) subset of $X$. Then a point $x$ of $X$, which may or may not be a point of $M$, is called an \textbf{accumulation point} or \textbf{limit point} of $M$ if for every $\varepsilon > 0$, $B_{\varepsilon}(x)$ contains a point $m_{\varepsilon}\in M$ distinct from $x$. The set consisting of the points of $M$ and the limit points of $M$ is called the \textbf{closure} of $M$ and is denoted by $\bar{M}$.
+\end{defn}
+
+\begin{thm}
+Let $X$ be a metric space and $M$ a nonempty subset of $X$. Then $\bar{M}$ is the smallest closed set containing $M$.
+\end{thm}
+\begin{proof}
+Similar to the structure of our proof of Theorem \ref{interior}, we first show that $\bar{M}$ contains $M$ and is closed. The first statement is a consequence of the definition of the closure. As for the latter, let $x_0 \in X \setminus \bar{M}$ be an arbitrary point. Suppose towards contradiction that there exists no $\varepsilon > 0$ such that $B_{\varepsilon}(x_0) \subset X \setminus \bar{M}$. Then for every $\varepsilon > 0$, there exists some $m_{\varepsilon} \in M$ such that $m_{\varepsilon} \in B_{\varepsilon}(x_0)$. However, this means that $x_0$ is a limit point of the set $M$, and so $x_0 \in \bar{M}$, a contradiction.\newline
+Now we show that $\bar{M}$ is the smallest closed set containing $M$. In particular, let us consider an arbitrary closed set $U$ containing $M$. And choose an arbitrary point $m_0 \in \bar{M}$. Suppose towards contradiction that $m_0 \notin U \implies m_0 \in X \setminus U$. Also notice that since $M \subseteq U$, then the point $m_0$ cannot be contained in $M$. Thus, $m_0$ must be a limit point of $M$. This, however, is a contradiction, since it implies that $B_{\varepsilon}(m_0)$ contains a point $m_{\varepsilon} \in M \subseteq U$ for each $\varepsilon > 0$, and so $X \setminus U$ cannot be open. Thus, it must be the case that $\bar{M} \subseteq U$ for each closed set $U$ containing $M$.
+\end{proof}
+
+\subsubsection{Continuity}
+
+\begin{defn}[Continuous mapping]
+Let $(X, d)$ and $(Y, \tilde{d})$ be metric spaces. A mapping $T: X \longrightarrow Y$ is said to be \textbf{continuous at a point} $x_0 \in X$ if for every $\varepsilon > 0$, there exists some $\delta > 0$ such that
+\begin{align*}
+    d(x, x_0) < \delta \quad \implies \quad \tilde{d}(Tx, Tx_0) < \varepsilon.
+\end{align*}
+$T$ is said to be \textbf{continuous} if it is continuous at all points $x \in X$.
+\end{defn}
+
+Continuous mappings have an important connection with open sets as summarized by the following theorem:
+\begin{thm}[Continuous Mapping]
+A mapping $T$ of a metric space $X$ into a metric space $Y$ is continuous if and only if the inverse image of any open subset of $Y$ is an open subset of $X$.
+\end{thm}
+\begin{proof}
+$\implies$ Suppose $T$ is continuous, and let $A$ be any open subset of $Y$.
+Further, let $B = T^{-1}A$ be the inverse image of $A$. Consider an arbitrary $b_0 \in B$. Then $Tb_0 \in A$. By assumption that $A$ is open, there exists some $\varepsilon > 0$ such that $B_{\varepsilon}(Tb_0) \subset A$. And since $T$ is continuous, there exists some $\delta > 0$ such that $d(b, b_0) < \delta \implies \tilde{d}(Tb, Tb_0) < \varepsilon$. But because $B_{\varepsilon}(Tb_0) \subset A$, this implies that the ball $B_{\delta}(b_0)$ is contained in $B$.\newline
+$\impliedby$ Conversely, suppose the inverse image of any open subset of $Y$ is an open subset of $X$. Let us take $x_0 \in X$ to be arbitrary. Then for each $\varepsilon > 0$, $B_{\varepsilon}(Tx_0)$ is an open set. By our assumption, this means that the inverse image of  $B_{\varepsilon}(Tx_0)$, denoted $A$, is open. Consequently, by the definition of $A$ an open set, there exists some $\delta > 0$ such that $B_{\delta}(x_0) \subset A$. Thus we conclude $d(x, x_0) < \delta \implies \tilde{d}(Tx, Tx_0) < \varepsilon$.
+\end{proof}
+
+\subsubsection{Separability}
+The set theory we have built up in Section \ref{settheory} leads us to the important concept of dense subsets and separable spaces which will be important throughout the remainder of our studies:
+\begin{defn}[Dense set, separable space]
+A subset $M$ of a metric space $X$ is said to be \textbf{dense} in $X$ if $\bar{M} = X$. $X$ is said to be \textbf{separable} if it has a \textit{countable} subset which is dense in $X$.
+\end{defn}
+
+Consequently, if $M$ is dense in $X$, then every ball in $X$ (with nonzero radius), no matter how small, will contain a point of $M$.
+
+\begin{examp}
+$\mathbb{R}$ is separable.
+\begin{proof}
+$\mathbb{Q}$ is a countable, dense subset of $\mathbb{R}$.
+\end{proof}
+\end{examp}
+
+\begin{examp}
+$\mathbb{C}$ is separable.
+\end{examp}
+
+\begin{examp}
+$\ell^{\infty}$ is \textbf{not} separable. $\ell^P$ is separable for $1 \leq p < \infty$.
+\begin{proof}
+We prove that $\ell^p$ is separable.\newline
+Let us define the set 
+\begin{align*}
+    M_n = \{ (\eta_1, \ldots, \eta_n, 0, 0,\ldots ) \ | \  \eta_i \in \mathbb{Q} \ \text{for} \ 1 \leq i \leq n\}
+\end{align*}
+which consists of those sequences whose first $n$ terms are rational and remaining terms are zero. Each of these sequences is in $\ell^p$ since it only has finitely many nonzero terms. Note that $M_n$ is countable since it is equal to the Cartesian product of countable sets.\newline
+From here the set
+\begin{align*}
+    M = \bigcup_{n \in \mathbb{N}} M_n
+\end{align*}
+is countable because it is a countable union of countable sets.\newline
+We claim that $M$ is dense in $\ell^{p}$. To prove this, take an arbitrary element $x = (\xi_1, \xi_2, \ldots) \in \ell^p$. Then for each $\varepsilon > 0$, there must exist some $N_{\varepsilon}$ such that $\sum_{n > N_{\varepsilon}} |\xi_i|^p < \frac{\varepsilon^p}{2}$ (by definition of the space $\ell^p$). And since $\mathbb{Q}$ is dense in the Euclidean metric space $\mathbb{R}$, for each $\xi_n$, $1 \leq n \leq N_{\varepsilon}$ there exists an $\eta_n$ such that $|\xi_n - \eta_n| < \frac{\varepsilon^p}{2^{n+1}}$.\newline
+Let us define $w = (\eta_1, \ldots, \eta_n, 0, 0 \ldots,) \in M$. Then we have that
+\begin{align*}
+    d(x, w) &= \left( \sum_{n=1}^{\infty} |\xi_n - \eta_n|^p \right)^{1/p}
+    = \left( \sum_{n=1}^{N_{\varepsilon}} |\xi_n - \eta_n|^p + \sum_{n > N_{\varepsilon}} |\xi_n|^p \right)^{1/p}\\
+    &\leq \left( \frac{\varepsilon^p}{2} + \frac{\varepsilon^p}{2} \right)^{1/p} = \varepsilon.
+\end{align*}
+Because $\varepsilon > 0$ was chosen arbitrarily, we deduce that $M$ is indeed dense in $\ell^p$ for each $1 \leq p < \infty$, and so $\ell^p$ is separable.
+\end{proof}
+\end{examp}
+
+\begin{exer}
+Consider $C[0, 2\pi]$ and determine the smallest $r$ such that $y \in \tilde{B}_r(x)$, where $x(t) = \sin(t)$ and $y(t) = \cos(t)$.\newline
+First, we comment that
+\begin{align*}
+    y \in \tilde{B}_r(x) \iff \max_{t \in [0, 2\pi]} |\sin(t) - \cos(t)| \leq r.
+\end{align*}
+And so we must maximize the function $f(x) = |\sin(t) - \cos(t)|$ over the interval $[0, 2\pi]$. To do so, we find the extreme points of the function $\tilde{f}(t) = \sin(t) - \cos(t)$:
+\begin{align*}
+    &\tilde{f}'(t) = 0 \iff \frac{d}{dt}(\sin(t) - \cos(t)) = 0\\
+    &\implies \cos(t) + \sin(t) = 0 \implies t \in \bigg\{ \frac{3\pi}{4}, \frac{7 \pi}{4} \bigg\}.
+\end{align*}
+$t = \frac{3\pi}{4}$ is a maximizer of $\tilde{f}$, whereas $t = \frac{7\pi}{4}$ is a minimizer of $\tilde{f}$. Plugging each of these values for $t$ into the original objective $f$, we get that $\max_{t \in [0, 2\pi]} |\sin(t) - \cos(t)| = \sin\left( \frac{3\pi}{4} \right) - \cos \left(\frac{3\pi}{4} \right) = \sqrt{2}$. We conclude that the smallest value of $r$ such that  $y \in \tilde{B}_r(x)$ is $r = \sqrt{2}$.
+\end{exer}
+
+\begin{exer}
+If $x_0$ is a limit point of a set $A \subset (X, d)$, show that any neighborhood of $x_0$ contains infinitely many points of $A$. A \textbf{neighborhood} is defined to be any set which contains $B_{r}(x_0)$ for some $r > 0$.
+\begin{proof}
+Let $M$ be an arbitrary neighborhood of $x_0$. Suppose towards contradiction that $M$ contains only finitely many points of $A$. Let $a_1, \ldots, a_N$ be the points of $A$ contained in $M$ which are distinct from $x_0$. Since $M$ is a neighborhood of $x_0$, then $B_r(x_0) \subset M$ for some $r > 0$. Let $r^* = \min\{d(x_0, a_1), \ldots, d(x_0, a_N), r\}$. Then $B_{r^*}(x_0) \subset M$ and $B_{r^*}(x_0)$ does not contain any points of $A$ distinct from $x_0$. This, though, contradicts our assumption that $x_0$ is a limit point of the set $A$. Note that we needed $M$ to be a neighborhood of $x_0$ since this implies $r > 0$.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+A point $x$ not belonging to a closed set $M \subset (X, d)$ always has a nonzero distance from M (as defined in Exercise \ref{pttoset}). To prove this, show that $x \in \bar{A}$ if and only if $D(x, A) = 0$; here, $A$ is any nonempty subset of $X$.
+\begin{proof}
+$\implies$ First let us suppose that $x \in \bar{A}$. If $x \in A$, then $D(x, A) = 0$. Otherwise, $x$ must be a limit point of the set $A$. Accordingly, there exists a sequence of points $\{a_n\}_{n\in \mathbb{N}}$, $a_n \in A$ such that $a_n \in B_{n^{-1}}(x) \iff d(x, a_n) < n^{-1}$. Therefore, we have the sequence $\{d(x, a_n) \}_{n \in \mathbb{N}}$ with $\lim_{n \to \infty} d(x, a_n) = 0$. This implies $D(x_0, A) = 0$.\newline
+$\impliedby$ Otherwise, suppose $D(x, A) = 0$. By definition of the infimum, for every $\varepsilon > 0$, there exists an $a_{\varepsilon} \in A$ such that $d(x, a_{\varepsilon}) < D(x, A) + \varepsilon = \varepsilon$. However, this then implies $a_{\varepsilon} \in B_{\varepsilon}(x)$ for every $\varepsilon > 0$. We conclude that $x$ must be a limit point of $A$, and so $x \in \bar{A}$. 
+\end{proof}
+\end{exer}
+
+\begin{exer}[The function space $B(A)$]
+Let $X$ consist of all functions that are bounded on a set $A$. And define the metric function
+\begin{align*}
+    d(x, y) = \sup_{t \in A}|x(t) - y(t)| \quad x, y \in B(A).
+\end{align*}
+$(X, d)$ defines the metric space $B(A)$.\newline
+Show that $B[a, b]$, $a < b$, is not separable.
+
+\begin{proof}
+Let us consider the set of functions
+\begin{align*}
+    F = \bigcup_{x \in [a, b]\cap(\mathbb{R} \setminus \mathbb{Q})} \mathbbm{1}_x,
+\end{align*}
+where
+\begin{align*}
+    \mathbbm{1}_x(t) = \begin{cases}
+    1 & \text{if $t = x$}\\
+    0 & \text{otherwise}
+    \end{cases}.
+\end{align*}
+We make two comments regarding this set $F$. First, $F \subset B[a, b]$ since for each $f \in B[a, b]$, $\sup_{t \in [a, b]}|f(t)| = 1$. Also, our set $F$ contains uncountably many functions since the set $[a, b]\cap(\mathbb{R} \setminus \mathbb{Q})$ is uncountable.\newline
+Now that we have defined this set $F$, let us consider $\mathbbm{1}_x, \mathbbm{1}_y \in F$ for $x \neq y$. In particular, we have $d(\mathbbm{1}_x,\mathbbm{1}_y) = |\mathbbm{1}_x(x) - \mathbbm{1}_y(x)| = 1$. And so if we let each function $\mathbbm{1}_x \in F$ be the center of an open ball $B_r(\mathbbm{1}_x)$ with radius $r \leq 1$, we have uncountably many balls that are pairwise disjoint. That is, we can cover the set $F$ by an uncountable collection of disjoint, open balls. Accordingly, if $M$ is any dense set in $B[a,b]$, each of the uncountably many balls must contain an element of $M$. Therefore, there can exist no countable, dense subset of $B[a, b]$.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Show that the image of an open set under continuous mapping need not be open.\newline
+Let $X = Y = (\mathbb{R}, d)$ be the Euclidean metric space and define the map $T: X \longrightarrow Y$ according to $Tx := 0$ for every $x \in X$. Clearly $T$ is continuous because for every $x_0 \in X$ and for every $\varepsilon > 0$, $d(x, x_0) < 1 \implies d(Tx, Tx_0) = d(0, 0) = 0 < \varepsilon$. However, the image of the open set $X = \mathbb{R}$ under $T$ is $\{0\}$, a closed set in $(\mathbb{R}, d)$.
+\end{exer}
+
+\subsection{Convergence, Cauchy Series, and Completeness}
 
 \end{document}
