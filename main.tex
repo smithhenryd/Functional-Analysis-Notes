@@ -7,6 +7,7 @@
 \usepackage{gensymb}
 \usepackage{bbm}
 \usepackage{mathrsfs}
+\usepackage{centernot}
 
 % Document formatting
 \usepackage[utf8]{inputenc}
@@ -78,7 +79,7 @@
 A \textbf{metric space} is a pair $(X, d)$, where $X$ is a set and $d: X \times X \rightarrow \mathbb{R}_+$ is a \textbf{metric} on $X$. The metric $d$ must satisfy the following for all $x, y, z \in X$:
 \begin{enumerate}
     \item $d(x, y) = 0 \iff x = y$
-    \item $d(x, y) = d(y, x)$  \quad (symmetry)
+    \item $d(x, y) = d(y, x)$ \quad (symmetry)
     \item $d(x, z) \leq d(x, y) + d(y, z)$ \quad (triangle inequality)
 \end{enumerate}
 \end{defn}
@@ -118,11 +119,11 @@ For fixed $p \geq 1$, we define the space $\ell^p$ to consist of those complex s
 \end{align*}
 The metric defined on $\ell^p$ is 
 \begin{align*}
-    d(x, y) = \left( \sum_{n=1}^{\infty} |\xi_n - \eta_n|^p \right)^{1/p}, \qquad x = (\xi_n), \  y = (\eta_n) \in \ell^p.
+    d(x, y) = \left( \sum_{n=1}^{\infty} |\xi_n - \eta_n|^p \right)^{1/p}, \qquad x = (\xi_n), \ y = (\eta_n) \in \ell^p.
 \end{align*}
 One can verify that indeed $d(x, y) < \infty$ using the \textit{Minkowski inequality}:
 \begin{align*}
-    \left( \sum_{n=1}^{\infty} | \xi_n + \eta_n|^p  \right)^{1/p} \leq \left( \sum_{n=1}^{\infty} | \xi_n|^p  \right)^{1/p} + \left( \sum_{n=1}^{\infty} |\eta_n|^p  \right)^{1/p}.
+    \left( \sum_{n=1}^{\infty} | \xi_n + \eta_n|^p  \right)^{1/p} \leq \left( \sum_{n=1}^{\infty} | \xi_n|^p \right)^{1/p} + \left( \sum_{n=1}^{\infty} |\eta_n|^p \right)^{1/p}.
 \end{align*}
 Then $(\ell^p, d)$ defines a metric space. In the special case of $p = 2$, this is a \textbf{Hilbert space} (see Section \ref{}).
 \end{examp}
@@ -130,7 +131,7 @@ Then $(\ell^p, d)$ defines a metric space. In the special case of $p = 2$, this 
 \begin{examp}[The sequence space $\ell^{\infty}$]
 Similar to the space considered in Example \ref{ellp}, we let $\ell^{\infty}$ be the set of all bounded sequences in $\mathbb{C}$. That is,
 \begin{align*}
-    \ell^{\infty} = \{ x = (\xi_n) \subset \mathbb{C} \ | \  | \xi_n | \ \leq c_x \ \text{for some $c_x \in \mathbb{R}_+$} \}.
+    \ell^{\infty} = \{ x = (\xi_n) \subset \mathbb{C} \ | \ | \xi_n | \ \leq c_x \ \text{for some $c_x \in \mathbb{R}_+$} \}.
 \end{align*}
 The metric we define on $\ell^{\infty}$ is $d(x, y) = \sup_{n \in \mathbb{N}} |\xi_n - \eta_n |$. $(\ell^{\infty}, d)$ defines a metric space.
 \end{examp}
@@ -182,7 +183,7 @@ To verify axiom (1), we clearly see that $x = y$ implies $\tilde{d}(x, y) = 0$. 
 Symmetry (2) of the metric $\tilde{d}$ follows from the properties of the absolute value.\newline
 Finally, to prove the triangle inequality (3), we have that for $x, y, z$ continuous functions on $[a, b]$
 \begin{align*}
-    \tilde{d}(x, z) &= \int_a^b | x(t) - z(t) | dt \leq \int_a^b \bigg( | x(t) - y(t) | +  | y(t) - z(t) |\bigg) dt\\
+    \tilde{d}(x, z) &= \int_a^b | x(t) - z(t) | dt \leq \int_a^b \bigg( | x(t) - y(t) | + | y(t) - z(t) |\bigg) dt\\
     &= \int_a^b | x(t) - y(t) | dt + \int_a^b | y(t) - z(t) | dt\\
     &= \tilde{d}(x, y) + \tilde{d}(y, z).
 \end{align*}
@@ -208,8 +209,7 @@ And property (2) implies
 \end{proof}
 \end{exer}
 
-\begin{exer}
-
+\begin{exer}\label{sequencespaces}
 Define $s$ to be the space of all (bounded or unbounded) sequences of complex numbers and the metric $d$ defined by
 \begin{align*}
     d(x, y) = \sum_{n=1}^{\infty} \frac{1}{2^n} \frac{|\xi_n - \eta_n|}{1 + |\xi_n - \eta_n|}, \qquad x = (\xi_n), \ y= (\eta_n) \in s.
@@ -220,7 +220,7 @@ First, we point out that $\mu_n \cdot \frac{|\xi_n - \eta_n|}{1 + |\xi_n - \eta_
 Now, for (1) we have 
 \begin{align*}
     &\tilde{d}(x, y) = 0 \iff \sum_{n=1}^{\infty} \underbrace{\mu_n \cdot \frac{|\xi_n - \eta_n|}{1 + |\xi_n - \eta_n|}}_{\geq 0} = 0 \iff \mu_n \cdot \frac{|\xi_n - \eta_n|}{1 + |\xi_n - \eta_n|} = 0, \ n \in \mathbb{N}\\
-    \iff&  \frac{|\xi_n - \eta_n|}{1 + |\xi_n - \eta_n|} = 0, \ n \in \mathbb{N} \iff x = y.
+    \iff& \frac{|\xi_n - \eta_n|}{1 + |\xi_n - \eta_n|} = 0, \ n \in \mathbb{N} \iff x = y.
 \end{align*}
 (2) follows simply from the properties of the modulus function.\newline
 Finally, for the triangle inequality (3), we let $z = (\gamma_n) \in s$ and use the result from pp. 10 - 11:
@@ -423,6 +423,10 @@ A subset $M$ of a metric space $X$ is said to be \textbf{dense} in $X$ if $\bar{
 
 Consequently, if $M$ is dense in $X$, then every ball in $X$ (with nonzero radius), no matter how small, will contain a point of $M$.
 
+\begin{examp}[Weierstrass Approximation Theorem]\label{weierstrass}
+The set of polynomial functions defined on the interval $[a, b] \subset \mathbb{R}$ is dense in the metric space $C[a, b]$.\footnotemark
+\end{examp}\footnotetext{My favorite proof of the Weierstrass Approximation Theorem is that which relies upon \href{https://en.wikipedia.org/wiki/Fej\%C3\%A9r\%27s_theorem}{Fejer's Theorem}.}
+
 \begin{examp}
 $\mathbb{R}$ is separable.
 \begin{proof}
@@ -518,6 +522,478 @@ Show that the image of an open set under continuous mapping need not be open.\ne
 Let $X = Y = (\mathbb{R}, d)$ be the Euclidean metric space and define the map $T: X \longrightarrow Y$ according to $Tx := 0$ for every $x \in X$. Clearly $T$ is continuous because for every $x_0 \in X$ and for every $\varepsilon > 0$, $d(x, x_0) < 1 \implies d(Tx, Tx_0) = d(0, 0) = 0 < \varepsilon$. However, the image of the open set $X = \mathbb{R}$ under $T$ is $\{0\}$, a closed set in $(\mathbb{R}, d)$.
 \end{exer}
 
-\subsection{Convergence, Cauchy Series, and Completeness}
+\subsection{Convergence, Cauchy Sequences, and Completeness}
+
+\begin{defn}
+A sequence $(x_n)$ in a metric space $X=(X,d)$ is said to \textbf{converge} or to \textbf{be convergent} if there exists an $x \in X$ such that
+\begin{align*}
+    \lim_{n \to \infty} d(x_n, x) = 0.
+\end{align*}
+If this is the case, $x$ is called the \textbf{limit} of $(x_n)$ and we write \begin{align*}
+    \lim_{n \to \infty} x_n = x \qquad \text{or} \qquad x_n \longrightarrow x.
+\end{align*} 
+We say the sequence $(x_n)$ \textbf{converges to $x$} or \textbf{has the limit} $x$. If $(x_n)$ is not convergent, it is said to be \textbf{divergent}.
+\end{defn}
+
+\begin{note}\label{notecompleteness}
+One must be careful about the stipulation that $x \in X$. In particular, suppose our metric space satisfies $X = (a, b)$ with $d$ the Euclidean metric. Then the sequence $(x_n) \subset X$ defined $x_n = a + n^{-1}, \ n \in \mathbb{N}$ is divergent. If we were to let $X = \mathbb{R}$, though, then $x_n \longrightarrow a$ for any $a \in \mathbb{R}$.
+\end{note}
+
+Prior to introducing the first lemma regarding convergent sequences, we first define a bounded subset of a metric space:
+\begin{defn}[Bounded set, diameter]
+Let $(X, d)$ be a metric space and $M \subseteq X$ a (nonempty) subset of $X$. Then $M$ is a \textbf{bounded set} if
+\begin{align*}
+    \delta(M) = \sup_{x, y \in M}d(x, y) < \infty.
+\end{align*}
+For a bounded set $M$, $\delta(M)$ is called the \textbf{diameter} of $M$.
+\end{defn}
+
+\begin{lm}[Boundedness, uniqueness of convergent sequences]\label{uniquelimit}
+Let $X = (X, d)$ be a metric space. Then
+\begin{enumerate}
+    \item A convergent sequence in $X$ is bounded and its limit is unique.
+    \item If $x_n \longrightarrow x$ and $y_n \longrightarrow y$ in $X$, the  $d(x_n, y_n) \longrightarrow 0$.
+\end{enumerate}
+\begin{proof}
+We first prove statement (1). Let $(x_n)$ be a convergent sequence in $X$ with $x_n \longrightarrow x$. Then there exists a $N \in \mathbb{N}$ such that $n > N \implies d(x_n, x) < 1$. Let $k = \max \{ d(x_1, x), \ldots, d(x_N, x), 1\}$. With this $k$, we can say that $d(x_n, x) \leq k$ for every $n \in \mathbb{N}$. Therefore, for every $n, m \in \mathbb{N}$, $d(x_n, x_m) \leq d(x_n, x) + d(x_m, x) \leq 2k$ by the triangle inequality. We conclude $\sup_{n, m \in \mathbb{N}} d(x_n, x_m) \leq 2k$, and so $(x_n)$ is bounded.\newline
+For the second part of proof, suppose towards contradiction that we have both $x_n \longrightarrow x$ as well as $x_n \longrightarrow y$ but $x \neq y$. By the triangle inequality we know that
+\begin{align*}
+    &d(x, y) \leq d(x, x_n) + d(x_n, y), \quad \forall n \in \mathbb{N}\\
+    \implies& d(x, y) \leq \lim_{n \to \infty} d(x_n, x) + \lim_{n \to \infty} d(x_n, y) = 0.
+\end{align*}
+This is a contradiction, since by the axioms of $(X, d)$ a metric space we know $d(x,y) \leq 0 \implies d(x, y) = 0 \implies x = y$.\newline
+Next, we prove statement (2), which is a simple consequence of the triangle inequality. In particular,
+\begin{align*}
+    &d(x_n, y_n) \leq d(x_n, x) + d(x, y) + d(y, y_n)\\
+    \implies& d(x_n, y_n) - d(x, y) \leq d(x_n, x) + d(y_n, y).
+\end{align*}
+Similarly, we have
+\begin{align*}
+    &d(x, y) \leq d(x, x_n) + d(x_n, y_n) + d(y_n, y)\\
+    \implies&d(x, y) - d(x_n, y_n) \leq d(x_n, x) + d(y_n,y).
+\end{align*}
+And so, together, these two inequalities imply
+\begin{align*}
+    | d(x_n, y_n) - d(x, y) | \leq d(x_n, x) + d(y_n,y) \longrightarrow 0 \quad \text{as} \quad n \longrightarrow \infty.
+\end{align*}
+Therefore, we conclude $d(x_n, y_n) \longrightarrow d(x, y)$ (in the Euclidean metric space) as $n \longrightarrow \infty$.
+\end{proof}
+
+\end{lm}
+
+Now that we have defined convergent sequences in a metric space $(X, d)$, we expand our consideration to a more general class of sequences.
+\begin{defn}[Cauchy criterion, Cauchy sequence]\label{cauchy}
+A sequence $(x_n)$ in a metric space $X = (X, d)$ is said to be \textbf{Cauchy} if for every $\varepsilon > 0$, there is an $N_{\varepsilon} \in \mathbb{N}$ such that
+\begin{align*}
+    d(x_n, x_m) < \varepsilon \qquad \text{for every $m, n > N_{\varepsilon}$}.
+\end{align*}
+The previous statement is called the \textbf{Cauchy criterion}.
+\end{defn}
+
+\begin{defn}[Completeness]
+A metric space $X = (X, d)$ is \textbf{complete} if every Cauchy sequence in $X$ converges.
+\end{defn}
+
+\begin{examp}\label{realcomplete}
+The real line $(\mathbb{R}, d)$ and the complex plane $(\mathbb{C}, d)$ are complete metric spaces.
+\end{examp}
+
+\begin{examp}
+The metric space $((a, b), d)$, where $d$ is the Euclidean metric, is not complete. To understand why this is the case, see Note \ref{notecompleteness}.
+\end{examp}
+
+\begin{examp}
+The rational line $(\mathbb{Q}, d)$ ($d$ is the Euclidean metric) is not complete.\footnotemark
+\end{examp}\footnotetext{For an interesting example of a Cauchy sequence in $\mathbb{Q}$ that is divergent, see \href{https://www.maa.org/sites/default/files/Moraless200907137.pdf}{Morales, J. V. (2009). Math Bite: $\mathbb{Q}$ Is Not Complete. Mathematics Magazine, 82(4), 293-294.}}
+
+Although, as we have seen, $(x_n) \subset (X, d)$ is Cauchy $\centernot\implies$ $(x_n)$ is convergent, the opposite implication is, in fact, true:
+\begin{thm}\label{cauchycomplete}
+Every convergent sequence in a metric space $(X, d)$ is a Cauchy sequence.
+\end{thm}
+
+\begin{proof}
+Let $(x_n) \subset X$ be an arbitrary convergent sequence with $x_n \longrightarrow x$. And take $\varepsilon > 0$ to be arbitrary. Since $(x_n)$ converges, then there exists some $N_{\epsilon}$ such that $n > N_{\epsilon} \implies d(x_n, x) < \varepsilon$. Having established this fact, then for any $n, m > N_{\epsilon}$ it must be true that
+\begin{align*}
+    d(x_n, x_m) \leq d(x_n, x) + d(x, x_m) < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+\end{align*}
+Therefore, from the Definition \ref{cauchy}, the sequence $(x_n)$ is Cauchy.
+\end{proof}
+
+\begin{thm}\label{closedconvergent}
+Let $M$ be a nonempty subset of a metric space $(X,d)$ and $\bar{M}$ its closure. Then:
+\begin{enumerate}
+    \item $x \in \bar{M}$ is and only if there is a sequence $(x_n) \subset M$ such that $x_n \longrightarrow x$.
+    \item $M$ is closed if and only if $(x_n) \subset M$, $x_n \longrightarrow x$ implies that $x \in M$.
+\end{enumerate}
+\end{thm}
+\begin{proof}
+We begin with a proof of (1).\newline
+$\implies$ Suppose $x \in \bar{M}$. Then there are two cases to consider. First, if $x \in M$, then let $x_n := x$ be the constant sequence. Clearly we have $x_n \longrightarrow x$ since $d(x_n, x) = 0$ for every $n \in \mathbb{N}$. Otherwise, it must be the case that $x$ is a limit point of $M$. Therefore, for every $n \in \mathbb{N}$, there exists an $x_n \in M$ such that $x_n \in B_{n^{-1}}(x) \iff d(x, x_n) < n^{-1}$. This sequence of points $(x_n) \subset M$ satisfies $x_n \longrightarrow x$ since $\lim_{n \to \infty} n^{-1} = 0$. And so we deduce that there is a sequence $(x_n) \subset M$ such that $x_n \longrightarrow x$.\newline
+$\impliedby$ Conversely, suppose that there exists a sequence $(x_n) \subset M$ such that $x_n \longrightarrow x$. If $x_n = x$ for any $n \in \mathbb{N}$, then $x \in M \implies x \in \bar{M}$. Otherwise, we have that for every $\varepsilon > 0$, there exists an $N_{\varepsilon} \in \mathbb{N}$ such that $n > N_{\varepsilon} \implies d(x_n, x) <\varepsilon \iff x_n \in B_{\varepsilon}(x)$. But because $x_n \in M$ with $x_n \neq x$ for every $n \in \mathbb{N}$, this implies that $x$ must be a limit point of $M$. By definition of the closure, we deduce $x \in \bar{M}$. \newline
+Now we proceed to prove statement (2).\newline
+$\implies$ Let us first assume $M$ is closed. We know from (1) that $(x_n) \subset M$ and $x_n \longrightarrow x$ implies $x \in \bar{M}$. But $M$ closed implies $\bar{M} = M$, meaning $(x_n) \subset M$ and $x_n \longrightarrow x$ implies $x \in M$.\newline
+$\impliedby$ Conversely, assume $(x_n) \subset M$, $x_n \longrightarrow x$ implies $x \in M$. And let $x$ be an arbitrary point in $\bar{M}$. Then from (1) we have that there exists a sequence $(x_n) \subset M$ with $x_n \longrightarrow x$. By our assumption, this implies $x \in M$. Hence we have shown $\bar{M} = M$, and so $M$ is closed.
+\end{proof}
+
+Theorem \ref{closedconvergent} lends itself to the following result, which is important for understanding complete metric spaces:
+\begin{thm}\label{closedcomplete}
+A subspace $M$ of a complete metric space $X$ is itself complete if and only if the set $M$ is closed in $X$.
+\end{thm}
+\begin{proof}
+$\implies$ Suppose $M \subset X$ is complete. Let us consider an arbitrary $x \in \bar{M}$. Then by Theorem \ref{closedconvergent}, there exists a sequence $(x_n) \subset M$ such that $x_n \longrightarrow x$. By assumption, though, $M$ is complete, and the limit $x$ of the convergent sequence $(x_n)$ is unique (Lemma \ref{uniquelimit}), meaning that it must be true that $x \in M$. Thus $\bar{M} = M$, and so $M$ is closed in $X$.\newline
+$\impliedby$ Conversely, suppose that $M$ is closed in $X$. Take $(x_n)$ to be an arbitrary Cauchy sequence in $M$. Since $X$ is a complete metric space, it must be the case that $x_n \longrightarrow x$ for some $x \in X$. By Theorem, \ref{closedconvergent}, this implies that $x \in \bar{M}$. By assumption, though, $\bar{M} = M$, and so we have shown that each Cauchy sequence in $M$ converges to a limit in $M$.
+\end{proof}
+
+The final theorem in this section is of great importance when studying continuous maps. Specifically, it relates the concepts of continuity and convergence.
+\begin{thm}[Continuous mapping theorem]\label{continuousmapping}
+A mapping $T: X \longrightarrow Y$ of a metric space $(X, d)$ into a metric space $(Y, \tilde{d})$ is continuous at a point $x_0$ if and only if
+\begin{align*}
+    x_n \longrightarrow x_0 \quad \implies \quad Tx_n \longrightarrow Tx_0.
+\end{align*}
+\end{thm}
+\begin{proof}
+$\implies$ First suppose that $T$ is continuous at $x_0$. And let $(x_n) \subset X$ be an arbitrary convergent sequence in $X$ that satisfies $x_n \longrightarrow x_0$. By assumption, for each $\varepsilon > 0$, there exists a $\delta > 0$ such that $d(x, x_0) < \delta \implies \tilde{d}(Tx, Tx_0) < \varepsilon$. But since $x_n \longrightarrow x_0$, then there exists a $N_{\delta} \in \mathbb{N}$ such that $n > N_{\delta} \implies d(x_n, x_0) < \delta$. Therefore, it is true that for all $n > N_{\delta}$, $\tilde{d}(Tx_n, Tx_0) < \varepsilon$. We conclude that $Tx_n \longrightarrow Tx_0$.\newline
+$\impliedby$ Suppose $x_n \longrightarrow x_0 \implies Tx_n \longrightarrow Tx_0$. And in the direction of contradiction, let us suppose that $T$ is not continuous at $x_0$. This means that there exists some $\varepsilon' > 0$ such that for every $\delta > 0$, there exists a $x_{\delta} \in X$ with $d(x_{\delta}, x_0) < \delta$ but $\tilde{d}(Tx_{\delta},Tx_0) \geq \varepsilon'$. Therefore, we can form the sequence $(x_n) \subset X$ with $d(x_n, x_0) < n^{-1}$ and $d(Tx_n, Tx_0) \geq \varepsilon'$. Patently, since $\lim_{n \to \infty} n^{-1} = 0$, then $x_n \longrightarrow x_0$. However, $d(Tx_n, Tx_0) \geq \varepsilon'$ for every $n \in \mathbb{N}$ implies $\liminf_{n \to \infty} d(Tx_n, Tx_0) \geq \varepsilon' > 0$. This is a contradiction, though, to our assumption that $Tx_n \longrightarrow Tx_0$. We conclude that the map $T: X \longrightarrow Y$ must be continuous at $x_0$.
+\end{proof}
+
+\begin{exer}
+If a sequence $(x_n)$ in a metric space $X$ is convergent and has limit $x$, show that every subsequence $(x_{n_k})$ of $(x_n)$ is convergent and has the same limit $x$.
+
+\begin{proof}
+Suppose $(x_n)$ is an arbitrary convergent sequence in $X$ satisfying $x_n \longrightarrow x$. And suppose that $(x_{n_k})_{k \in \mathbb{N}}$ is an arbitrary subsequence of $(x_n)$.\footnotemark \ Because $(x_n)$ is convergent, then for each $\varepsilon > 0$ there exists an $N_{\varepsilon} \in \mathbb{N}$ such that $n > N_{\varepsilon} \implies d(x_n, x) < \varepsilon$. But this then means that there exists some $K_{\varepsilon} \in \mathbb{N}$ such that $k > K_{\varepsilon} \implies n_k > N_{\varepsilon} \implies d(x_{n_k}, x) < \varepsilon$. Therefore, we conclude that the subsequence $(x_{n_k})$ converges with limit $x$.
+\end{proof}
+\end{exer}\footnotetext{Notice that we index a subsequence $(x_{n_k})$ of $(x_n)$ by $k$ rather than by $n$. Particularly, $n_1, n_2, \ldots, n_k, \ldots$ defines a sequence of natural numbers such that $n_1 < n_2 < \ldots < n_k < \ldots$.}
+
+\begin{exer}
+If $(x_n)$ is Cauchy and has a convergent subsequence, say $x_{n_k} \longrightarrow x$, show that $(x_n)$ is convergent with the limit $x$.
+\begin{proof}
+Suppose that $(x_n)$ is a Cauchy sequence in metric space $(X, d)$ with convergent subsequence $x_{n_k} \longrightarrow x$. We will show that the sequence $(x_n)$ itself converges to the limit $x$.\newline
+To begin, fix $\varepsilon > 0$ to be arbitrary. By our assumption that $(x_n)$ is Cauchy, there exists a $N_{\varepsilon} \in \mathbb{N}$ such that $n, m > N_{\varepsilon} \implies d(x_n, x_m) < \frac{\varepsilon}{2}$. Additionally, since the subsequence $(x_{n_k})$ is convergent, then there exists some $K_{\varepsilon} \in \mathbb{N}$ such that $k > K_{\varepsilon} \implies d(x_{n_k}, x) < \frac{\varepsilon}{2}$.\newline 
+Using these two positive integers $N_{\varepsilon}$ and $K_{\varepsilon}$, let us define $M_{\varepsilon} := \max \{ N_{\varepsilon}, n_{K_{\varepsilon}} \}$. Note that because $M_{\varepsilon} \in \mathbb{N}$, then there also exists a $j \in \mathbb{N}$ such that $n_j > M_{\varepsilon}$. Therefore, we have that for all $n > M_{\varepsilon}$,
+\begin{align*}
+    &d(x_n, x) \leq d(x_n, x_{n_j}) + d(x_{n_j}, x)\\
+    &< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+\end{align*}
+The inequality on the second line follows from (1) the Cauchy criterion since $n, n_j > M_{\varepsilon} \geq N_{\varepsilon}$ as well as from (2) the convergence of the subsequence $(x_{n_k})$ since $n_j > M_{\varepsilon} \geq n_{K_{\varepsilon}} \implies j > K_{\varepsilon}$.\newline
+Because we let $\varepsilon > 0$ be arbitrary, this proves that $x_n \longrightarrow x$.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Show that every Cauchy sequence is bounded.
+\begin{proof}
+Let $X = (X, d)$ be a metric space and $(x_n) \subset X$ an arbitrary Cauchy sequence. Then by the Cauchy criterion (taking $\varepsilon = 1$), there exists an $N \in \mathbb{N}$ such that $n, m > N \implies d(x_n, d_m) < 1$. Using this positive integer $N$, let us define $k := \max \{d(x_1, x_{N+1}), \ldots, d(x_N, x_{N+1}), 1\}$. Then for every $n \in \mathbb{N}$, it must be the case that $d(x_n, x_{N+1}) \leq k$. By appealing to the triangle inequality, we deduce that for each $n , m \in \mathbb{N}$, 
+\begin{align*}
+    d(x_n, x_m) \leq d(x_n, x_{N+1}) + d(x_{N+1}, x_m) \leq 2k.
+\end{align*}
+We conclude that the Cauchy sequence $(x_n)$ is bounded.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Is boundedness of a sequence sufficient for the sequence to be Cauchy? How about convergent?\newline
+This is not the case. As a counterexample, consider the Euclidean metric space $(\mathbb{R}, d)$ and the sequence $(x_n)$ defined $x_n := (-1)^n$. For each $n, m \in \mathbb{N}$ we have 
+\begin{align*}
+d(x_n, x_m) = |x_n - x_m| \leq |x_n| + |x_m| = 2,
+\end{align*}
+and so the sequence is bounded.\newline
+We will show that the sequence is not convergent, and thus it is not Cauchy. Consider an arbitrary $x \in \mathbb{R}$ and define $k := \max\{|x - 1|, |x + 1|\}$, which is the maximum of the distances of $x$ to each of $-1$ and $1$. Evidently, it must be the case that $k > 0$. Then for each $\varepsilon < k$ and for every $N_{\varepsilon} \in \mathbb{N}$, there exists a $n > N_{\varepsilon}$ with $d(x_n , x) = k > \varepsilon$. Therefore, it cannot be the case that $x_n \longrightarrow x$. But we chose $x \in \mathbb{R}$ to be arbitrary, and so the sequence $(x_n)$ is divergent.
+\end{exer}
+
+\begin{exer}
+If $d_1$ and $d_2$ are metrics on the same set $X$ and there are positive numbers $a$ and $b$ such that for all $x, y \in X$,
+\begin{align*}
+    a \cdot d_1(x, y) \leq d_2(x, y) \leq b \cdot d_1(x, y)
+\end{align*}
+show that the Cauchy sequences in $(X, d_1)$ and $(X, d_2)$ are the same.
+\begin{proof}
+Start by assuming $(x_n) \subset X$ is a Cauchy sequence in $(X, d_1)$. Then for each $\varepsilon > 0$, there exists an $N_{\varepsilon} \in \mathbb{N}$ such that $n, m > N_{\varepsilon} \implies d_1(x_n, x_m) < \frac{\varepsilon}{b}$. Note that $b, \varepsilon > 0 \implies \frac{\varepsilon}{b} > 0$. But by the properties of $d_1$ and $d_2$, we also know that $n, m > N_{\varepsilon}$ implies
+\begin{align*}
+    d_2(x_n, x_m) \leq b \cdot d_1(x_n, x_m) < b \cdot \frac{\varepsilon}{b} = \varepsilon.
+\end{align*}
+Thus, the sequence $(x_n)$ is also a Cauchy sequence in the metric space $(X, d_2)$.\newline
+Now, suppose that $(x_n) \subset X$ is a Cauchy sequence in $(X, d_2)$. Accordingly, for each $\varepsilon > 0$ there exists an $N_{\varepsilon} \in \mathbb{N}$ such that $n, m > N_{\varepsilon} \implies d_2(x_n, x_m) < a \cdot \varepsilon$. Just as in the previous argument, $a, \varepsilon > 0 \implies a \cdot \varepsilon$. Therefore, we have that for every $n, m > N_{\varepsilon}$, 
+\begin{align*}
+    d_1(x_n, x_m) \leq \frac{1}{a} \cdot d_2(x_n, x_m) < \frac{1}{a} \cdot a \cdot \varepsilon = \varepsilon.
+\end{align*}
+And so we conclude that $(x_n)$ must also be a Cauchy sequence in $(X, d_1)$.\newline
+Since we have shown that every Cauchy in $(X, d_1)$ is a Cauchy sequence in $(X, d_2)$ and vice versa, then the Cauchy sequences in $(X, d_1)$ and $(X, d_2)$ are the same. 
+\end{proof}
+\end{exer}
+
+\subsection{Examples of Complete Metric Spaces}
+
+Prior to diving into examples of complete metric spaces, we present a general overview of how one would prove that an arbitrary metric space $(X, d)$ is complete.
+\begin{note}
+Suppose we have a metric space $X = (X, d)$ and want to show that $X$ is complete. To do so, we consider an arbitrary Cauchy sequence $(x_n) \subset X$. Using this Cauchy sequence, we 
+\begin{enumerate}
+    \item Find a candidate $x$ for the limit of $(x_n)$
+    \item Prove that this candidate $x$ is in the metric space $X$
+    \item Prove $x_n \longrightarrow x$ in the metric space $X$
+\end{enumerate}
+Since we have shown that an arbitrary Cauchy sequence in $X$ is convergent, then we conclude $X$ is complete.
+\end{note}
+
+Let us see this proof technique in action:
+
+\begin{examp}
+The Euclidean metric space $(\mathbb{R}^n, d)$ and unitary metric space $(\mathbb{C}^n, d)$ are complete.
+\end{examp}
+
+\begin{examp}
+The sequence space $\ell^{\infty}$ is complete.
+\begin{proof}
+Suppose $(x_n)$ is an arbitrary Cauchy sequence in $\ell^{\infty}$. Let $x_n = (\xi_1^{(n)}, \xi_2^{(n)}, \ldots )$ be the $n$th element of our Cauchy sequence. Then by the Cauchy criterion, we know that for each $\varepsilon > 0$, there exists a $N_{\varepsilon} \in \mathbb{N}$ such that $n, m > N_{\varepsilon} \implies d(x_n, x_m) < \varepsilon$. By the definition of metric $d$, we also know that
+\begin{align}
+    &d(x_n, x_m) < \varepsilon \iff \sup_{i \in \mathbb{N}} | \xi_i^{(n)} - \xi_i^{(m)}| < \varepsilon & (n, m > N_{\varepsilon})\nonumber\\
+    &\implies | \xi_i^{(n)} - \xi_i^{(m)}| < \varepsilon \quad \text{$\forall i \in \mathbb{N}$}. & (n, m > N_{\varepsilon})\label{linftycauchy}
+\end{align}
+That is, $n, m > N_{\varepsilon} \implies | \xi_i^{(n)} - \xi_i^{(m)}| < \varepsilon$ for each $i \in \mathbb{N}$. Therefore, $\left(\xi_i^{(n)} \right)_{n \in \mathbb{N}}$ is a Cauchy sequence in the Euclidean metric space $(\mathbb{R}, d)$ for each $i \in \mathbb{N}$. And since $(\mathbb{R}, d)$ is complete (see Example \ref{realcomplete}), then this means $\xi_i^{(n)} \longrightarrow \xi_i$ for each $i \in \mathbb{N}$, where the limit $\xi_i$ is in $\mathbb{R}$.\newline
+From here, we have a candidate for the limit of our Cauchy sequence $(x_n)$, namely $x = (\xi_1, \xi_2, \ldots)$. By the continuous mapping theorem (Theorem \ref{continuousmapping}), we know 
+\begin{align*}
+    \xi_i^{(m)} \longrightarrow \xi_i \implies  | \xi_i^{(n)} - \xi_i^{(m)}| \longrightarrow | \xi_i^{(n)} - \xi_i|.
+\end{align*} 
+And from (\ref{linftycauchy}) $n, m > N_{\varepsilon} \implies | \xi_i^{(n)} - \xi_i^{(m)}| < \varepsilon$, which, together with the previous statement, means 
+\begin{align}
+     n  > N_{\varepsilon} \implies |\xi_i^{(n)} - \xi_i| \leq \varepsilon. \label{linftybound}
+\end{align}
+Now, by our assumption that $(x_n) \subset \ell^{\infty}$, then for each $n \in \mathbb{N}$ we have $|\xi_i^{(n)}| \leq k_n, \forall i \in \mathbb{N}$ for some $k_n \in \mathbb{R}_+$. That is, the terms in each sequence $x_n$ are bounded by some constant $k_n$. Consequently, by the triangle inequality in the Euclidean metric space,
+\begin{align*}
+    |\xi_i| \leq |\xi_i - \xi_i^{(n)}| + |\xi_i^{(n)}| \leq \varepsilon + k_n
+\end{align*}
+for each $n \in \mathbb{N}$ satisfying $n > N_{\varepsilon}$. Because the right-hand side of the inequality does not depend on the particular term $i \in \mathbb{N}$ of the sequence $x$, we have proven 
+\begin{align*}
+    \sup_{i \in \mathbb{N}} |\xi_i| \leq \varepsilon + k_n \implies x \in \ell^{\infty}.
+\end{align*}
+Finally, to show that $x_n \longrightarrow x$, recall our statement (\ref{linftybound}) that $n > N_{\varepsilon} \implies |\xi_i^{(n)} - \xi_i| \leq \varepsilon$ for each $i \in \mathbb{N}$. Accordingly, we have $n > N_{\varepsilon} \implies d(x_n, x) = \sup_{i \in \mathbb{N}} |\xi_i^{(n)} - \xi_i| \leq \varepsilon$. Because $\varepsilon > 0$ was chosen arbitrarily, this proves that $x_n \longrightarrow x$.\newline
+We conclude that an arbitrary Cauchy sequence $(x_n)$ in $\ell^{\infty}$ converges, and so $\ell^{\infty}$ is complete.
+\end{proof}
+\end{examp}
+
+\begin{examp}
+The space $c$ consists of all convergent sequences $x = (\xi_i)$ of complex numbers, with the metric induced from the space $\ell^{\infty}$. $c$ is complete.
+\begin{proof}
+$c$ is a closed subset of $\ell^{\infty}$, which implies by Theorem \ref{closedcomplete} that $c$ is complete.
+\end{proof}
+\end{examp}
+
+\begin{examp}
+The sequence space $\ell^p$ is complete for $p$ is fixed and $1 \leq p < \infty$.
+\end{examp}
+
+\begin{examp}\label{functioncomplete}
+The function space $C[a, b]$ is complete; $[a,b]$ is any given closed interval on $\mathbb{R}$.
+\begin{proof}
+Let $(x_n)$ be any Cauchy sequence in $C[a, b]$. Then for every $\varepsilon > 0$, there exists a $N_{\varepsilon} \in \mathbb{N}$ such that $n, m > N_{\varepsilon} \implies d(x_n, x_m) = \max_{t \in [a, b]}|x_n(t) - x_m(t)| < \varepsilon$. This implies that for each fixed $t_0 \in [a, b]$, 
+\begin{align}\label{uniformconvergence1}
+    n, m > N_{\varepsilon} \implies |x_n(t_0) - x_m(t_0)| \leq \max_{t \in [a, b]}|x_n(t) - x_m(t)| < \varepsilon,
+\end{align}
+and so $(x_n(t_0))$ is a Cauchy sequence in the Euclidean space $(\mathbb{R}, d)$. Because $(\mathbb{R}, d)$ is a complete metric space (Theorem \ref{realcomplete}), then this implies that $x_n(t_0) \longrightarrow x(t_0)$ for each $t_0 \in [a, b]$. Using these individual limits $x(t_0)$, $t_0 \in [a, b]$, we define the function $x(t)$.\newline
+And so it remains to show that the candidate limit $x$ is indeed in $C[a, b]$ and $x_n \longrightarrow x$. In order to do so, we use the continuous mapping theorem to say that for each $t_0 \in [a, b]$, 
+\begin{align*}
+x_m(t_0) \longrightarrow x(t_0) \implies |x_n(t_0) - x_m(t_0)| \longrightarrow |x_n(t_0) - x(t_0)|.
+\end{align*}
+Therefore, from (\ref{uniformconvergence1}) we get that for each $t_0 \in [a, b]$
+\begin{align}\label{uniformconvergence2}
+    n > N_{\varepsilon} \implies |x_n(t_0) - x(t_0)| \leq \varepsilon.
+\end{align}
+Equipped with this result, we claim the proposed limit $x$ is continuous on the interval $[a, b]$. In particular, let us consider an arbitrary $t_0 \in [a, b]$. And take $\tilde{\varepsilon} > 0$ to be arbitrary. Then by (\ref{uniformconvergence2}), there exists a $M_{\tilde{\varepsilon}} \in \mathbb{N}$ such that $n > M_{\tilde{\varepsilon}} \implies |x_n(t) - x(t)| \leq \frac{\tilde{\varepsilon}}{3}$ for all $t \in [a, b]$.
+Using this value $M_{\tilde{\varepsilon}}$, choose some $k > M_{\tilde{\varepsilon}}$. Since $x_k$ is continuous, then there exists a $\delta > 0$ such that $|t - t_0| < \delta \implies |x_k(t) - x_k(t_0)| < \frac{\tilde{\varepsilon}}{3}$. Altogether, we have
+\begin{align*}
+    &|t - t_0| < \delta \implies |x(t) - x(t_0)| \leq |x(t) - x_k(t)| + |x_k(t) - x_k(t_0)| + |x_k(t_0) - x(t_0)|\\
+    &\leq \frac{\tilde{\varepsilon}}{3} + \frac{\tilde{\varepsilon}}{3} + \frac{\tilde{\varepsilon}}{3} = \tilde{\varepsilon}.
+\end{align*}
+This proves that $x$ is continuous on $[a, b]$, meaning $x \in C[a, b]$.\newline
+Finally to prove $x_n \longrightarrow x$, we invoke (\ref{uniformconvergence2}) to say 
+\begin{align*}
+    n > N_{\varepsilon} \implies d(x_n, x) = \max_{t \in [a, b]} |x_n(t) - x(t)| \leq \varepsilon.
+\end{align*}
+While this may have seemed obvious when we initially stated (\ref{uniformconvergence2}), we could not consider $d(x_n, x)$ since we did not a priori know that $x \in C[a, b]$. Because $\varepsilon > 0$ was chosen to be arbitrary, we conclude that $x_n \longrightarrow x$.\newline
+$(x_n)$ was an arbitrary Cauchy sequence, and so we have proven the metric space $C[a,b]$ is complete.
+\end{proof}
+\end{examp}
+
+Although we assumed our functions $x \in C[a,b]$ are real-valued, this does not need to be the case. That is, we only considered the real $C[a,b]$. The complex $C[a,b]$, consisting of those complex-valued, continuous functions defined on the interval $[a,b] \subset \mathbb{R}$, is also a complete metric space. Note that for the complex $C[a,b]$, the metric $d$ is defined in terms of the complex modulus function rather than the absolute value. The proof is nearly identical to that we presented in Example \ref{functioncomplete}.
+
+\begin{thm}[Uniform convergence]
+Convergence $x_n \longrightarrow x$ in the space $C[a,b]$ is \textbf{uniform convergence}. That is, $(x_m)$ converges uniformly on $[a,b]$ to $x$.
+\end{thm}
+Hence, the metric on $C[a,b]$ describes uniform convergence on $[a, b]$ and, for this reason, is called the \textbf{uniform metric}.
+
+Now that we have given some examples of complete metric spaces, let us turn our attention to examples of incomplete metric spaces:
+
+\begin{examp}
+Consider the subset of $C[a, b]$, denoted $\mathcal{P}$, consisting of all polynomials defined on $[a, b]$. Then the metric space $(\mathcal{P}, d)$, where $d$ is the metric induced on $\mathcal{P}$ by $C[a, b]$, is not complete.
+\begin{proof}
+Let $x$ be an arbitrary continuous function on $[a, b]$ that is not a polynomial (i.e. $x \in C[a, b] \setminus \mathcal{P}$). By the Weierstrass Approximation Theorem (Example \ref{weierstrass}) $\mathcal{P}$ is dense in $C[a, b]$, meaning there exists a sequence $(x_n) \subset P$ such that $x_n \longrightarrow x$. By Theorem \ref{cauchycomplete}, $(x_n)$ a convergent sequence in $C[a, b]$ implies $(x_n)$ is a Cauchy sequence in $C[a, b]$. And because $d$ is the metric induced on $\mathcal{P}$ by $C[a,b]$, then $(x_n)$ is also a Cauchy sequence in $\mathcal{P}$. Therefore, we have given an instance of a Cauchy sequence $(x_n)$ in $(\mathcal{P}, d)$ that is divergent. We conclude that $(\mathcal{P}, d)$ is an incomplete metric space.
+\end{proof}
+\end{examp}
+
+\begin{examp}
+Let $X$ be the set of all continuous, real-valued functions on $[0, 1]$ and let 
+\begin{align*}
+    d(x, y) := \int_0^1 |x(t) - y(t)| dt.
+\end{align*}
+The metric space $(X, d)$ is incomplete.
+\begin{proof}
+Consider the sequence of continuous functions $(x_n) \subset X$ defined as follows
+\begin{align*}
+    x_n(t) = \begin{cases}
+    0 & 0 \leq t \leq \frac{1}{2}\\
+    nt - \frac{n}{2} & \frac{1}{2} < t \leq \frac{1}{2} + \frac{1}{n}\\
+    1 & \frac{1}{2} + \frac{1}{n} < t \leq 1
+    \end{cases}.
+\end{align*}
+We can compute the distance between $x_n$ and $x_m$, $n > m$ as
+\begin{align*}
+    d(x_n, x_m) &= \int_0^1 |x_n(t) - x_m(t)|dt = \frac{1}{2}\left(\frac{1}{m} - \frac{1}{n}\right).
+\end{align*}
+Notice that this integral is simply equal to the area of the triangle with base of length $\frac{1}{m} - \frac{1}{n}$ and height of length $1$.\newline
+Now for each $\varepsilon > 0$, there exists an $N_{\varepsilon} \in \mathbb{N}$ such that $\frac{1}{N_{\varepsilon}} < \varepsilon$. And so by our previous computation, for each $n, m > N_{\varepsilon}$, $n > m$ we have
+\begin{align*}
+  d(x_n, x_m) =  \frac{1}{2}\left(\frac{1}{m} - \frac{1}{n}\right) < \frac{1}{2} \cdot \frac{1}{m}  < \frac{1}{2} \cdot \frac{1}{N_{\varepsilon}} <  \varepsilon.
+\end{align*}
+We deduce that $(x_n)$ is a Cauchy sequence in the metric space $(X, d)$.\newline
+However, we claim that $(x_n)$ is a divergent sequence. Assume towards contradiction that $(x_n)$ converges to a limit $x$ in $X$. Then by splitting the integral over the regions $\left[0, \frac{1}{2} \right]$, $\left(\frac{1}{2},\frac{1}{2} + \frac{1}{n} \right)$, and $\left[\frac{1}{2} + \frac{1}{n}, 1 \right]$, we compute the distance between $x_n$ and $x$ as
+\begin{align*}
+    d(x_n, x) = \int_0^{\frac{1}{2}}|x(t)| dt + \int_{\frac{1}{2}}^{\frac{1}{2} + \frac{1}{n}}|x(t) - x_n(t)| dt  +  \int_{\frac{1}{2} + \frac{1}{n}}^1|1-x(t)| dt, \quad n \in \mathbb{N}.
+\end{align*}
+And so by the Dominated Convergence Theorem
+\begin{align*}
+    d(x_n, x) \longrightarrow 0 \implies \int_0^{\frac{1}{2}}|x(t)| dt + \int_{\frac{1}{2}}^1|1-x(t)| dt = 0.
+\end{align*}
+However, each of the integrands is strictly nonnegative, which means
+\begin{align*}
+    \int_0^{\frac{1}{2}}|x(t)| dt = \int_{\frac{1}{2}}^1|1-x(t)| dt = 0.
+\end{align*}
+And since $x \in X$, then $x$ is continuous on $[0,1]$. This implies
+\begin{align*}
+    x(t) = \begin{cases}
+    0 & 0 \leq t < \frac{1}{2}\\
+    1 & \frac{1}{2}< t < 1
+    \end{cases}.
+\end{align*}
+
+Clearly, though, this violates the continuity of $x$ on $[0, 1]$ as $\lim_{t \to \frac{1}{2}^-} x(t) \neq \lim_{t \to \frac{1}{2}^+} x(t)$. We conclude that the Cauchy sequence $(x_n)$ in the metric space $(X, d)$ does not converge. Thus, $(X, d)$ is incomplete.
+\end{proof}
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[
+  declare function={
+    func1(\x)= (\x < 1/2) * (0)   +
+              and (\x >= 1/2, \x < 1/2 + 1/5) * (5*\x - 5/2)  +
+              (\x >= 1/2 + 1/5) * (1)
+   ;
+  },
+  declare function={
+    func2(\x)= (\x < 1/2) * (0)   +
+              and (\x >= 1/2, \x < 1/2 + 1/10) * (10*\x - 10/2)  +
+              (\x >= 1/2 + 1/10) * (1)
+   ;
+  }
+]
+\begin{axis}[xlabel=$t$, xmin=0, xmax=1, domain=0:1, xlabel=$t$, xtick={0, 0.5, 0.6, 0.7, 1}, xticklabels={0,$1/2$,,,1}, ytick={0,1}, samples=1000]
+\addplot [semithick] {func1(x)} node [pos=0.6, below right] {$x_m$};
+\addplot [semithick, dashed] {func2(x)} node [pos=0.5, above left] {$x_n$};
+\end{axis}
+\end{tikzpicture} 
+\end{center}
+\caption*{Two functions $x_n$ and $x_m$ in our Cauchy sequence $(x_n) \subset X$}
+\end{figure}
+\end{examp}
+
+\begin{exer}\label{subsetlinfty}
+Let $M \subset \ell^{\infty}$ be the subspace consisting of all sequences $x = (\xi_n)$ with at most finitely nonzero terms. Find a Cauchy sequence in $M$ which does not converge in $M$, so that $M$ is incomplete.\newline
+Consider the sequence $(x_n) \subset M$ defined $x_n := (1, 1/2, \ldots, 1/n, 0, 0, \ldots)$, $n \in \mathbb{N}$. Notice that for $x_n = (\xi_i^{(n)})$, $|\xi_i^{(n)}| \leq 1$ and $\xi_i^{(n)} = 0, \forall i > n$, meaning that $x_n \in M$. This is a Cauchy sequence because for each $\varepsilon > 0$, there exists a $N_{\varepsilon} \in \mathbb{N}$ such that $\frac{1}{N_{\varepsilon}} < \varepsilon$. And so for $n, m > N_{\varepsilon}$, $n \neq m$  we have
+\begin{align*}
+    d(x_n, x_m) = \sup_{i \in \mathbb{N}}|\xi_i^{(n)} -\xi_i^{(m)}| = \sup_{\substack{i \in \mathbb{N}\\ \min\{n, m\} < i \leq \max\{n, m\}}} i^{-1} = (\min\{n, m\} + 1)^{-1} < \varepsilon.
+\end{align*}
+Thus, the sequence $(x_n)$ is indeed Cauchy in $M$.\newline However, $(x_n)$ does not converge in $M$. To see why this is the case, we show $x_n \longrightarrow x$ for $x \in \ell^{\infty}\setminus M$. But by the uniqueness of the limit, this would imply that $(x_n)$ cannot converge in $M$. In particular, we claim $x_n \longrightarrow x$ where $x = (1, 1/2, \ldots, 1/n, \ldots)$. Clearly $x=(\xi_i)$ satisfies $|\xi_i| \leq 1$, and so $x \in \ell^{\infty}$; but we also know $|\xi_i| > 0, \forall i \in \mathbb{N}$, so $x \notin M$. For an arbitrary $\varepsilon > 0$, there exists a $N_{\varepsilon} \in \mathbb{N}$ such that $\frac{1}{N_{\varepsilon}} < \varepsilon$. And so for all $n > N_{\varepsilon}$
+\begin{align*}
+    d(x_n, x) = \sup_{i \in \mathbb{N}}|\xi_i^{(n)} - \xi_i| = \sup_{\substack{i \in \mathbb{N}\\i > n}} i^{-1} = (n+1)^{-1} < \varepsilon.
+\end{align*}
+This proves that $x_n \longrightarrow x$ in $\ell^{\infty}$. We have given an example of a Cauchy sequence in $M$ that is divergent, and so we conclude that $M$ is incomplete.
+\end{exer}
+
+\begin{exer}
+Show that $M$ in Exercise \ref{subsetlinfty} is incomplete by using Theorem \ref{closedcomplete}.
+\begin{proof}
+We wish to show that $M$ is incomplete by showing that the set $M$ is not closed in the metric space $\ell^{\infty}$. To do so, it suffices to find some $x \in \bar{M}$ such that $x \notin M$. An example of such an $x$ is $x = (1, 1/2, \ldots, 1/n, \ldots) \in X \setminus M$ from the previous problem. For every $\varepsilon > 0$, there exists an $N_{\varepsilon} \in \mathbb{N}$ such that $\frac{1}{N_{\varepsilon}} < \varepsilon$. Then for $x_n = (1, 1/2, \ldots, 1/n, 0, \ldots) \in M$ with $n > N_{\varepsilon}$ we have 
+\begin{align*}
+    d(x, x_n) = (n+1)^{-1} < \varepsilon \iff x_n \in B_{\varepsilon}(x).
+\end{align*}
+Because $\varepsilon > 0$ was taken to be arbitrary, this proves that $x$ is a limit point of $M$. Thus $\bar{M} \neq M$, which implies by Theorem \ref{closedcomplete} that $M$ is incomplete.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Show that the subspace $Y \subset C[a,b]$ consisting of all $x \in C[a,b]$ such that $x(a) = x(b)$ is complete.
+\begin{proof}
+    Let us consider an arbitrary element $y \in \bar{Y}$. By Theorem \ref{closedconvergent}, there exists a sequence $(y_n) \subset Y$ such that $y_n \longrightarrow y$. Suppose towards contradiction that $y(a) \neq y(b)$. Then because $y_n \longrightarrow y$, for each $\varepsilon > 0$ there exists a $N_{\varepsilon} \in \mathbb{N}$ such that
+    \begin{align*}
+        n > N_{\varepsilon} \implies d(y_n, y) = \sup_{t \in [a,b]} |y_n(t) - y(t)| < \varepsilon.
+    \end{align*}
+    But this also implies
+    \begin{align*}
+        &n > N_{\varepsilon} \implies |y_n(a) - y(a)| < \varepsilon, |y_n(b) - y(b)| < \varepsilon.
+    \end{align*}
+Therefore, the sequence $(y_n(a))$ satisfies $y_n(a) \longrightarrow y(a)$ and $(y_n(b))$ satisfies $y_n(b) \longrightarrow y(b)$ in the Euclidean metric space $(\mathbb{R}, d)$. But because $(y_n) \subset Y$, we know $y_n(a) = y_n(b), \forall n \in \mathbb{N}$. And so we have proven both $y_n(a) \longrightarrow y(a)$ and $y_n(a) \longrightarrow y(b)$ for $y(a) \neq y(b)$. This, though, contradicts the uniqueness of the limit of a convergent sequence (Theorem \ref{uniquelimit}).\newline
+Thus $y \in Y$, which implies that $\bar{Y} = Y$ since we chose $y$ to be arbitrary. Finally  by Theorem \ref{closedcomplete}, $Y$ closed in $C[a,b]$ implies $Y$ is a complete metric space.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Show that a discrete metric space is complete.
+\begin{proof}
+Let $(X, d)$ be a discrete metric space, and suppose $(x_n) \subset X$ is an arbitrary Cauchy sequence in $X$.\newline
+We claim that there exists an $N \in \mathbb{N}$ such that $n, m > N \implies x_n = x_m$. By the Cauchy criterion, there exists an $N_{\varepsilon = 1} \in \mathbb{N}$ such that $n, m > N_{\varepsilon = 1} \implies d(x_n, x_m) < 1$. However, because $X$ is a discrete metric space, $d(x_n, x_m) < 1 \implies d(x_n, x_m) = 0 \implies x_n = x_m$. Thus, $n, m > N = N_{\varepsilon = 1} \implies x_n = x_m$.\newline
+Now that we have established this fact, we claim that $x_n \longrightarrow x$ where $x = x_{N + 1} \in X$. To see why this is the case, let $\varepsilon > 0$ be arbitrary. For all $n > N$, the Cauchy sequence $(x_n)$ satisfies
+\begin{align*}
+    d(x_n, x) = d(x_n, x_{N+1}) = 0 < \varepsilon.
+\end{align*}
+Because $\varepsilon > 0$ was chosen arbitrarily, we conclude that indeed $x_n \longrightarrow x$. And since $(x_n) \subset X$ was taken to be an arbitrary Cauchy sequence, we have proven that every Cauchy sequence in $X$ is convergent. Thus, $(X,d)$ is a complete metric space.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Show that in the space $s$ defined in Exercise \ref{sequencespaces} we have $x_n \longrightarrow x$ if and only if $\xi_j^{(n)} \longrightarrow \xi_j$ for all $j \in \mathbb{N}$, where $x_n = (\xi_j^{(n)})$ and $x = (\xi_i)$.
+\begin{proof}
+$\implies$ Suppose $x_n \longrightarrow x$ and consider an arbitrary $j \in \mathbb{N}$. Then for each $\varepsilon > 0$, there exists a $N_{\varepsilon} \in \mathbb{N}$ such that 
+\begin{align*}
+   n > N_{\varepsilon} \implies d(x_n, x) = \sum_{i=1}^{\infty} \frac{1}{2^i} \frac{|\xi_i^{(n)} - \xi_i|}{1 + |\xi_i^{(n)} - \xi_i|} < \frac{1}{2^j}\frac{\varepsilon}{1+\varepsilon}.
+\end{align*}
+But since the individual terms of the infinite series are nonnegative, this also implies 
+\begin{align*}
+    &\frac{1}{2^j} \frac{|\xi_j^{(n)} - \xi_j|}{1 + |\xi_j^{(n)} - \xi_j|} \leq d(x_n, x) < \frac{1}{2^j}\frac{\varepsilon}{1+\varepsilon}\\
+    \iff& \frac{|\xi_j^{(n)} - \xi_j|}{1 + |\xi_j^{(n)} - \xi_j|} < \frac{\varepsilon}{1+\varepsilon}\\
+    \iff&  |\xi_j^{(n)} - \xi_j| < \varepsilon.
+\end{align*}
+The last implication follows from the fact that the function $f(t) = t/(1+t)$ is strictly increasing on the interval $t > 0$. Because $\varepsilon > 0$ was taken to be arbitrary, this proves $\xi_j^{(n)} \longrightarrow \xi_j$ in the Euclidean metric space $(\mathbb{R}, d)$. And $j \in \mathbb{N}$ was also chosen arbitrarily, which implies that this result holds for all $j \in \mathbb{N}$.\newline
+$\impliedby$ Conversely, suppose $\xi_j^{(n)} \longrightarrow \xi_j$ for each $j \in \mathbb{N}$. Notice that for all $n \in \mathbb{N}$,
+\begin{align*}
+    d(x_n, x) = \sum_{i=1}^{\infty} \frac{1}{2^i}\frac{|\xi_i^{(n)} - \xi_i|}{1 + |\xi_i^{(n)} - \xi_i|} < \sum_{i=1}^{\infty}\frac{1}{2^i} = 1.
+\end{align*}
+Therefore, by the Dominated Convergence Theorem\footnotemark
+\begin{align*}
+    \lim_{n \to \infty} d(x_n, x) = \lim_{n \to \infty} \sum_{i=1}^{\infty} \frac{1}{2^i}\frac{|\xi_i^{(n)} - \xi_i|}{1 + |\xi_i^{(n)} - \xi_i|} =  \sum_{i=1}^{\infty} \frac{1}{2^i} \left( \lim_{n \to \infty}\frac{|\xi_i^{(n)} - \xi_i|}{1 + |\xi_i^{(n)} - \xi_i|} \right).
+\end{align*}
+Also, the continuous mapping theorem tells us that for each $j \in \mathbb{N}$,
+\begin{align*}
+    \xi_j^{(n)} \longrightarrow \xi_j \implies \frac{|\xi_j^{(n)} - \xi_j|}{1 + |\xi_j^{(n)}- \xi_j|} \longrightarrow 0,
+\end{align*}
+which implies
+\begin{align*}
+    \lim_{n \to \infty} \frac{|\xi_j^{(n)} - \xi_j|}{1 + |\xi_j^{(n)}- \xi_j|} = 0.
+\end{align*}
+Finally, we can compute the limit
+\begin{align*}
+    \lim_{n \to \infty} d(x_n, x) = \sum_{i=1}^{\infty} \frac{1}{2^i} \left( \lim_{n \to \infty}\frac{|\xi_i^{(n)} - \xi_i|}{1 + |\xi_i^{(n)} - \xi_i|} \right) = 0. 
+\end{align*}
+Hence, we have $x_n \longrightarrow x$.
+\end{proof}
+\end{exer}\footnotetext{{This is because we can write $\sum_{i=1}^{\infty} \frac{1}{2^i}\frac{|\xi_i^{(n)} - \xi_i|}{1 + |\xi_i^{(n)} - \xi_i|} = \int f_n(i) \ d\mu(i)$}, where $\mu$ is the counting measure on $\mathbb{N}$. And so if we can prove $|f_n(i)| \leq g(i)$ for $g$ satisfying $\int g(i) \ d\mu(i) < \infty$, then we can invoke the Dominated Convergence Theorem to say $\lim_{n \to \infty} \int f_n(i) \ d\mu(i) = \int \lim_{n \to \infty}f_n(i) \  d\mu(i)$.}
+
+\subsection{Completing Metric Spaces}
 
 \end{document}
