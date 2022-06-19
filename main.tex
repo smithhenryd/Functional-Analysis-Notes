@@ -12,7 +12,7 @@
 % Document formatting
 \usepackage[utf8]{inputenc}
 \usepackage{comment}
-\usepackage{enumitem}
+\usepackage[shortlabels]{enumitem}
 \usepackage{hyperref}
 \usepackage{csquotes}
 \usepackage{abstract}
@@ -700,6 +700,29 @@ and so the sequence is bounded.\newline
 We will show that the sequence is not convergent, and thus it is not Cauchy. Consider an arbitrary $x \in \mathbb{R}$ and define $k := \max\{|x - 1|, |x + 1|\}$, which is the maximum of the distances of $x$ to each of $-1$ and $1$. Evidently, it must be the case that $k > 0$. Then for each $\varepsilon < k$ and for every $N_{\varepsilon} \in \mathbb{N}$, there exists a $n > N_{\varepsilon}$ with $d(x_n , x) = k > \varepsilon$. Therefore, it cannot be the case that $x_n \longrightarrow x$. But we chose $x \in \mathbb{R}$ to be arbitrary, and so the sequence $(x_n)$ is divergent.
 \end{exer}
 
+\begin{exer}\label{twocauchyconverge}
+If $(x_n)$ and $(y_n)$ are Cauchy sequences in a metric space $(X, d)$, show that $(a_n)$, where $a_n = d(x_n, y_n)$, converges.
+\begin{proof}
+Let $X =(X, d)$ be an arbitrary metric space and $(x_n)$, $(y_n)$ two Cauchy sequences. Take $\varepsilon > 0$ to be arbitrary. Then by the Cauchy criterion, there exists a $N_{\varepsilon}^{(1)} \in \mathbb{N}$ such that $n, m > N_{\varepsilon}^{(1)} \implies d(x_n, x_m) < \frac{\varepsilon}{2}$ as well as a $N_{\varepsilon}^{(2)} \in \mathbb{N}$ such that $n, m > N_{\varepsilon}^{(2)} \implies d(y_n, y_m) < \frac{\varepsilon}{2}$. Using these $N_{\varepsilon}^{(1)}$ and $N_{\varepsilon}^{(e)}$, define $N = \max\{N_{\varepsilon}^{(1)}, N_{\varepsilon}^{(2)}\}$. Then by the triangle inequality inequality, we have that
+\begin{align*}
+    n, m > N \implies &d(x_n , y_n) \leq d(x_n, x_m) + d(x_m, y_m) + d(y_m, y_n)\\
+    \iff& d(x_n, y_n) - d(x_m, y_m) \leq d(x_n, x_m) + d(y_m, y_n)\\
+    \iff& d(x_n, y_n) - d(x_m, y_m) < \frac{\varepsilon}{2} +\frac{\varepsilon}{2} = \varepsilon.
+\end{align*}
+Similarly, 
+\begin{align*}
+     n, m > N \implies &d(x_m , y_m) \leq d(x_m, x_n) + d(x_n, y_n) + d(y_n, y_m)\\
+     \iff&d(x_m , y_m) -  d(x_n, y_n)\leq d(x_m, x_n) + d(y_n, y_m)\\
+     \iff& d(x_m , y_m) -  d(x_n, y_n) < \frac{\varepsilon}{2} +\frac{\varepsilon}{2} = \varepsilon.
+\end{align*}
+Altogether, we have shown
+\begin{align*}
+    n, m > N \implies |d(x_n, y_n) - d(x_m, y_m)| < \varepsilon.
+\end{align*}
+Because $\varepsilon > 0$ was taken to be arbitrary, this proves that $(a_n)$ defined $a_n := d(x_n, y_n)$ is a Cauchy sequence in the Euclidean metric space. And since the real line is complete, we conclude that $(a_n)$ converges.
+\end{proof}
+\end{exer}
+    
 \begin{exer}
 If $d_1$ and $d_2$ are metrics on the same set $X$ and there are positive numbers $a$ and $b$ such that for all $x, y \in X$,
 \begin{align*}
@@ -995,5 +1018,118 @@ Hence, we have $x_n \longrightarrow x$.
 \end{exer}\footnotetext{{This is because we can write $\sum_{i=1}^{\infty} \frac{1}{2^i}\frac{|\xi_i^{(n)} - \xi_i|}{1 + |\xi_i^{(n)} - \xi_i|} = \int f_n(i) \ d\mu(i)$}, where $\mu$ is the counting measure on $\mathbb{N}$. And so if we can prove $|f_n(i)| \leq g(i)$ for $g$ satisfying $\int g(i) \ d\mu(i) < \infty$, then we can invoke the Dominated Convergence Theorem to say $\lim_{n \to \infty} \int f_n(i) \ d\mu(i) = \int \lim_{n \to \infty}f_n(i) \  d\mu(i)$.}
 
 \subsection{Completing Metric Spaces}
+We already know that the metric space $(\mathbb{Q}, d)$, where $d$ is the Euclidean metric, can be \textbf{completed} by enlarging the rational line to the entire real line $\mathbb{R}$. This begs the question, though, of whether an arbitrary incomplete metric space can be completed in a similar manner.
+
+\begin{defn}[Isometric mapping, isometric spaces]
+Let $X = (X, d)$ and $\tilde{X} = (\tilde{X}, \tilde{d})$ be metric spaces. Then
+\begin{enumerate}
+    \item A mapping $T: X \longrightarrow \tilde{X}$ is said to be \textbf{isometric} or an \textbf{isometry} if $T$ preserves distances, that is, if for all $x, y \in X$
+    \begin{align*}
+        \tilde{d}(Tx, Ty) = d(x, y).
+    \end{align*}
+    \item The space $X$ is said to be \textbf{isometric} with the space $\tilde{X}$ if there exists a bijective isometry of $X$ onto $\tilde{X}$. The spaces $X$ and $\tilde{X}$ are then called \textbf{isometric spaces}.
+\end{enumerate}
+\end{defn}
+To parse this definition, isometric spaces may differ at most by the \enquote{nature of their points}, but these points are indistinguishable in terms of the respective metrics. 
+
+\begin{thm}[Completion]
+For a metric space $X = (X, d)$ there exists a complete metric space $\hat{X} = (\hat{X}, \hat{d})$ which has a subspace $W$ which isometric with $X$ and is dense in $\hat{X}$. This space $\hat{X}$ is unique except for isometries, that is, if $\tilde{X}$ is any complete metric space having a dense subspace $\tilde{W}$ isometric with $X$, then $\tilde{X}$ and $\hat{X}$ are isometric.
+\end{thm}
+\begin{proof}
+Just as is done by Kreyszig, we break down this proof into a number of smaller steps:
+\begin{enumerate}[(a)] 
+\item Construct the metric space $\hat{X} = (\hat{X}, \hat{d})$:\newline
+Let $(x_n)$ and $(x_n')$ be two Cauchy sequences in the metric space $X$. We define the equivalence relation $\sim$ such that 
+\begin{align*}
+ (x_n) \sim (x_n') \iff \lim_{n \longrightarrow \infty} d(x_n, x_n') = 0.   
+\end{align*}
+From Exercise \ref{twocauchyconverge}, we know that the sequence $(a_n)$ defined $a_n := d(x_n, x_n')$ converges, and so limit $\lim_{n \longrightarrow \infty} d(x_n, x_n')$ indeed exists. One can verify that $\sim$ indeed defines an equivalence relation on the set of Cauchy sequences of $X$.\newline
+Let $\hat{X}$ be defined to be the set of all equivalence classes under the the equivalence relation $\sim$. Then for any two elements $\hat{x}, \hat{y} \in \hat{X}$, we define the metric $\hat{d}$ on $\hat{X}$ such that
+\begin{align*}
+    \hat{d}(\hat{x}, \hat{y}) := \lim_{n \to \infty} d(x_n, y_n),
+\end{align*}
+where $(x_n) \in \hat{x}$ and $(y_n) \in \hat{y}$ are any two representatives of the equivalence classes $\hat{x}$ and $\hat{y}$, respectively. We must show that $\hat{d}$ does not depend on which representatives from the equivalence classes $\hat{x}$ and $\hat{y}$ we select.\newline 
+To see why this is indeed the case, suppose $(x_n), (x_n') \in \hat{x}$ and $(y_n), (y_n') \in \hat{y}$. Let $l_1 = \lim_{n \to \infty} d(x_n, y_n)$ and $l_2 = \lim_{n \to \infty} d(x_n', y_n')$. And take $\varepsilon > 0$ to be arbitrary. Then we have
+\begin{align*}
+    |l_1 - l_2| \leq |d(x_n, y_n) - l_1|  + |d(x_n, y_n)  - d(x_n', y_n')| + |d(x_n', y_n') - l_2|.
+\end{align*}
+Clearly, we can find an $N \in \mathbb{N}$ sufficiently large such that $n > N$ implies $|d(x_n, y_n) - l_1| < \frac{\varepsilon}{3}$ and $|d(x_n', y_n') - l_2| < \frac{\varepsilon}{3}$. For the middle term, one can invoke the triangle inequality to show
+\begin{align*}
+    &d(x_n, y_n) \leq d(x_n, x_n') + d(x_n', y_n') + d(y_n', y_n)\\
+    \implies&d(x_n, y_n) - d(x_n', y_n') \leq d(x_n, x_n') + d(y_n', y_n)
+\end{align*}
+and similarly $d(x_n', y_n') - d(x_n, y_n) \leq d(x_n, x_n') + d(y_n', y_n)$. Together, these statements imply \begin{align*}
+    |d(x_n', y_n') - d(x_n, y_n)| \leq d(x_n, x_n') + d(y_n', y_n).
+\end{align*}
+But because $(x_n) \sim (x_n')$ and $(y_n) \sim (y_n')$ we know it must the case that $\lim_{n \to \infty} d(x_n, x_n') = \lim_{n \to \infty} d(y_n, y_n') = 0$. Therefore, we can also find an $M \in \mathbb{N}$ sufficiently large so that $n > M$ implies
+\begin{align*}
+    |d(x_n', y_n') - d(x_n, y_n)| \leq d(x_n, x_n') + d(y_n', y_n) < \frac{\varepsilon}{3}.
+\end{align*}
+Altogether, we have proven that for $n > \max\{N, M\}$, then
+\begin{align*}
+    |l_1 - l_2| < \varepsilon.
+\end{align*}
+Since $\varepsilon > 0$ was chosen to be arbitrary, we deduce
+\begin{align*}
+    |l_1 - l_2| \leq 0 \implies |l_1 - l_2| = 0 \iff l_1 = l_2.
+\end{align*}\newline
+Now that we have shown that $\hat{d}$ is well-defined, it remains to prove that $\hat{d}$ is indeed a metric. From our previous note, we know that $\hat{d}(\hat{x}, \hat{y}) = \lim_{n \to \infty} d(x_n, y_n)$ exists as well as $d(x_n, y_n) \geq 0, \forall n \in \mathbb{N} \implies \hat{d}(\hat{x}, \hat{y}) = \lim_{n \to \infty} d(x_n, y_n) \geq 0$. For the second axiom, let us first suppose that $\hat{d}(\hat{x}, \hat{y}) = \lim_{n \to \infty} d(x_n, y_n) = 0$. By definition of our equivalence relation $\sim$, this means $(x_n) \sim (y_n) \implies \hat{x} = \hat{y}$. Conversely, $\tilde{d}(\hat{x}, \hat{x}) = \lim_{n\to \infty} d(x_n, x_n) = 0$. For the third axiom, we have $\tilde{d}(\hat{x}, \hat{y}) = \lim_{n \to \infty} d(x_n, y_n) = \lim_{n \to \infty} d(y_n, x_n) = \tilde{d}(\hat{y}, \hat{x})$. Finally, for the triangle inequality, we know that since $(X, d)$ is a metric space, then it holds that for every $n \in \mathbb{N}$,
+\begin{align*}
+    d(x_n, z_n) \leq d(x_n, y_n) + d(y_n, z_n),
+\end{align*}
+where $(x_n) \in \hat{x}$, $(y_n) \in \hat{y}$, and $(z_n) \in \hat{z}$. Taking the limit on both sides of the inequality, 
+\begin{align*}
+    \hat{d}(\hat{x}, \hat{z}) = \lim_{n \to \infty} d(x_n, z_n) \leq \lim_{n \to \infty} d(x_n, y_n) + \lim_{n \to \infty} d(y_n, z_n) = \hat{d}(\hat{x}, \hat{y}) + \hat{d}(\hat{y}, \hat{z}).
+\end{align*}\newline
+And so we have proven $(\hat{X}, \hat{d})$ is indeed a metric space.
+
+\item There exists an isometry $T: X \longrightarrow W \subset \hat{X}$, where $\bar{W} = \hat{X}$:\newline
+Define $T: X \longrightarrow \hat{X}$ such that $Tx = \hat{x}$, where $\hat{x}$ is equivalence class which contains the constant sequence $(x, x, \ldots)$. Clearly $(x_n) = (x, x, \ldots) \in \hat{X}$ because $d(x_n, x_m) = d(x, x) = 0$ for every $n, m \in \mathbb{N}$. For our set $W$, we let $W = T(X)$, where $T(X)$ denotes the image of $X$ under the map $T$.\newline
+Now we show that $X$ is isometric with $W$ by proving that $T: X \longrightarrow W$ is a bijective isometry. We see that $T$ is an isometry because for $Tx = (x_n), Ty = (y_n)$, we have $\hat{d}(Tx, Ty) = \lim_{n \to \infty}d(x_n, y_n) = \lim_{n \to \infty}d(x, y) = d(x, y)$. $T$ is injective because $Tx = Ty \iff \hat{d}(Tx, Ty) = 0 \iff d(x, y) = 0 \iff x=y$. And $T: X \longrightarrow W$ is surjective since we have defined $W = T(X)$.\newline
+Finally, we must prove that $\bar{W} = \hat{X}$, that is, $W$ is a dense subset of the metric space $\hat{X}$. To prove that this, we show that every point in $\hat{X}$ is a limit point of $W$. In particular, consider an arbitrary $\hat{x} \in \hat{X}$. And let $(x_n)$ be an arbitrary element of the equivalence class $\hat{x}$. Take $\varepsilon > 0$ to be arbitrary. Since $(x_n)$ is a Cauchy sequence in $X$, there exists an $N \in \mathbb{N}$ such that
+\begin{align*}
+    n > N \implies d(x_n, x_N) < \frac{\varepsilon}{2}.
+\end{align*}
+Clearly, it is also the case that the constant sequence $(x_N, x_N, \ldots) \in W$. Let $\hat{x}_N$ denote the equivalence class containing this sequence. Then we have
+\begin{align*}
+    \hat{d}(\hat{x}, \hat{x}_N) = \lim_{n \to \infty}d(x_n, x_N) \leq \frac{\varepsilon}{2} < \varepsilon.
+\end{align*}
+Because $\varepsilon > 0$ was chosen arbitrarily, this proves that $\hat{x}$ is a limit point of $X$. And because $\hat{x}$ was taken to be arbitrary as well, we conclude $\bar{W} = \hat{X}$.
+
+\item $\hat{X}$ is complete:\newline
+Let $(\hat{x}_n)$ be an arbitrary Cauchy sequence in $\hat{X}$. Because $W$ is dense in $\hat{X}$, then for every $n \in \mathbb{N}$, we can find a $\hat{z}_n \in W$ which satisfies
+\begin{align*}
+    \hat{d}(\hat{x}_n, \hat{z}_n) < \frac{1}{n}.
+\end{align*}
+From here, we claim that the sequence $(\hat{z}_n)$ is Cauchy in $\hat{X}$. Take $\varepsilon > 0$ to be arbitrary. Then we can choose $N \in \mathbb{N}$ such that $\frac{1}{N} < \frac{\varepsilon}{3}$ and $n, m > N \implies \hat{d}(\hat{x}_n, \hat{x}_m) < \frac{\varepsilon}{3}$ (because $(\hat{x}_n)$ is a Cauchy sequence). By the triangle inequality, this gives us 
+\begin{align*}
+    n, m > N \implies \hat{d}(\hat{z}_n, \hat{z}_m) \leq \hat{d}(\hat{z}_n, \hat{x}_n) + \hat{d}(\hat{x}_n, \hat{x}_m) + \hat{d}(\hat{x}_m, \hat{z}_m) < \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon.
+\end{align*}
+And so because $\varepsilon > 0$ was chosen to be arbitrary, we deduce that $(\hat{z}_n)$ is indeed a Cauchy sequence.\newline Now, since $(\hat{z}_n) \subset W$ and $T: X \longrightarrow W$ is injective, then we can define the sequence $(z_n) \subset X$, where $z_n := T^{-1}\hat{z}_n$. But by our previous result that $(\hat{z}_n)$ is Cauchy and since $T$ is an isometry, then the sequence $(z_n)$ is Cauchy in the metric space $X$. That is, we have that $(z_n)$ belongs to some equivalence class $\hat{x} \in \hat{X}$. This $\hat{x}$ is our candidate for the limit of $(\hat{x}_n)$.\newline
+It remains only to show that $\hat{x}_n \longrightarrow \hat{x}$ in the metric space $(\hat{X}, \hat{d})$. To start, let us take $\varepsilon > 0$ be arbitrary. And choose $N \in \mathbb{N}$ such that $\frac{1}{N} < \varepsilon$ as well as $n, m > N \implies d(z_n, z_m) < \frac{\varepsilon}{2}$, which we can do since $(z_n)$ is a Cauchy sequence. Then we get that for $n > N$
+\begin{align*}
+    \hat{d}(\hat{x}_n, \hat{x}) &\leq \hat{d}(\hat{x}_n, \hat{z}_n) + \hat{d}(\hat{z}_n, \hat{x})\\
+    &< \frac{1}{n} + \hat{d}(\hat{z}_n, \hat{x})\\
+    &< \frac{\varepsilon}{2} + \hat{d}(\hat{z}_n, \hat{x}).
+\end{align*}
+And since $\hat{z}_n \in W$ then we have $(z_n, z_n, \ldots) \in \hat{z}_n$, where $z_n = T^{-1}\hat{z}_n$ as we previously defined. By the definitions of $\hat{d}$ and $\hat{x}$, this implies
+\begin{align*}
+    \hat{d}(\hat{x}_n, \hat{x}) &< \frac{\varepsilon}{2} + \lim_{m \to \infty}d(z_n, z_m)\\
+    &= \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+\end{align*}
+Because $\varepsilon > 0$ was taken to be arbitrary, we have proven that $\hat{x}_n \longrightarrow \hat{x}$. And as $(\hat{x}_n)$ was chosen to be an arbitrary Cauchy sequence in $\hat{X}$, then we conclude that the metric space $(\hat{X}, \hat{d})$ is complete.
+
+\item $\hat{X}$ is unique except for isometries:\newline
+Finally, we must prove that if $(\tilde{X}, \tilde{d})$ is another complete metric space with a dense subset $\tilde{W}$ that is isometric with $X$, then $\tilde{X}$ and $\hat{X}$ are isometric. Let $\tilde{x}$ and $\tilde{y}$ be arbitrary elements of $\tilde{X}$. By Theorem \ref{closedconvergent}, there exists sequences $(\tilde{x}_n)$ and $(\tilde{y}_n)$ in $\tilde{W}$ such that $\tilde{x}_n \longrightarrow \tilde{x}$ and $\tilde{y}_n \longrightarrow \tilde{y}$. By the triangle inequality, we have that 
+\begin{align*}
+    |\tilde{d}(\tilde{x}, \tilde{y}) - \tilde{d}(\tilde{x}_n, \tilde{y}_n)| \leq \tilde{d}(\tilde{x}_n, \tilde{x}) + \tilde{d}(\tilde{y}_n, \tilde{y}) \longrightarrow 0,
+\end{align*}
+which proves that
+\begin{align*}
+    \tilde{d}(\tilde{x}, \tilde{y}) = \lim_{n \longrightarrow \infty} \tilde{d}(\tilde{x}_n, \tilde{y}_n).
+\end{align*}
+Since $\tilde{W}$ is isometric with $X$ and $X$ is isometric with $\hat{W}$, then $\tilde{W}$ is isometric with $\hat{W}$. And because $\bar{W} = \hat{X}$, then the distances on $\hat{X}$ and $\tilde{X}$ must be identical. Thus, $\hat{X}$ and $\tilde{X}$ must be isometric spaces.
+\end{enumerate}
+\end{proof}
 
 \end{document}
