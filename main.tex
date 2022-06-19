@@ -162,7 +162,7 @@ Let $x = (\xi_n), y = (\eta_n) \in A$. Then if $x \neq y$, it must be the case t
 \end{proof}
 \end{exer}
 
-\begin{exer}
+\begin{exer}\label{intmetric}
 Show that a metric on the space $X$ from Example \ref{contfun} is 
 \begin{align*}
     \tilde{d}(x, y) = \int_a^b |x(t) - y(t)| dt.
@@ -1032,7 +1032,7 @@ Let $X = (X, d)$ and $\tilde{X} = (\tilde{X}, \tilde{d})$ be metric spaces. Then
 \end{defn}
 To parse this definition, isometric spaces may differ at most by the \enquote{nature of their points}, but these points are indistinguishable in terms of the respective metrics. 
 
-\begin{thm}[Completion]
+\begin{thm}[Completion]\label{completion}
 For a metric space $X = (X, d)$ there exists a complete metric space $\hat{X} = (\hat{X}, \hat{d})$ which has a subspace $W$ which isometric with $X$ and is dense in $\hat{X}$. This space $\hat{X}$ is unique except for isometries, that is, if $\tilde{X}$ is any complete metric space having a dense subspace $\tilde{W}$ isometric with $X$, then $\tilde{X}$ and $\hat{X}$ are isometric.
 \end{thm}
 \begin{proof}
@@ -1132,4 +1132,150 @@ Since $\tilde{W}$ is isometric with $X$ and $X$ is isometric with $\hat{W}$, the
 \end{enumerate}
 \end{proof}
 
+\begin{exer}
+If $X_1$ and $X_2$ are isometric and $X_1$ is complete, show that $X_2$ is complete. 
+\begin{proof}
+Let $(x_n)$ be an arbitrary Cauchy sequence in $X_2$. Since $X_1$ and $X_2$ are isometric, there exists a map $T: X_2 \longrightarrow X_1$ which is bijective and satisfies $d_2(x, y) = d_1(Tx, Ty)$. Accordingly, let us define the sequence $(Tx_n)$ in $X_1$. Because $(x_n)$ is a Cauchy sequence in $X_2$, then $(Tx_n)$ is a Cauchy sequence in $X_1$. And so since $X_1$ is complete, this implies $Tx_n \longrightarrow x$ for some $x \in X_1$. We propose that $T^{-1}x \in X_2$ is the limit of the Cauchy sequence $(x_n)$.\newline
+To see that this is the case, consider an arbitrary $\varepsilon > 0$. Because $Tx_n \longrightarrow x$, there exists an $N_{\varepsilon} \in \mathbb{N}$ such that $n > N_{\varepsilon} \implies d_1(Tx_n, x) < \varepsilon$. This fact allows us to deduce
+\begin{align*}
+    n > N \implies d_2(x_n, T^{-1}x) = d_1(Tx_n, x) < \varepsilon.  
+\end{align*}
+Because $\varepsilon > 0$ was taken to be arbitrary, this proves that $x_n \longrightarrow T^{-1}x$. And since $(x_n)$ was chosen to be an arbitrary Cauchy sequence in $X_2$, then $X_2$ must be a complete metric space.
+\end{proof}
+\end{exer}
+
+\begin{exer}[Homeomorphism]
+A \textbf{homeomorphism} is a continuous bijective map $T: X \longrightarrow Y$ whose inverse is continuous; the metric spaces $X$ and $Y$ are said to be \textbf{homeomorphic}. Show that 
+\begin{enumerate}
+    \item If $X$ and $Y$ are isometric, they are homeomorphic.
+    \item Illustrate with an example that a complete and an incomplete metric space may be homeomorphic.
+\end{enumerate}
+\begin{proof}
+We start with a proof of (1). Since the metric spaces $(X, d)$ and $(Y, \tilde{d})$ are isometric, then there exists a bijective map $T: X \longrightarrow Y$ which satisfies $d(x_1, x_2) = \tilde{d}(Tx_1, Tx_2)$. And so it remains to show that $T$ and $T^{-1}$ are continuous.\newline
+Let us consider an arbitrary $x_0 \in X$. And take $\varepsilon > 0$ to be be arbitrary. Then we have that
+\begin{align*}
+    d(x, x_0) < \varepsilon \implies \tilde{d}(Tx, Tx_0) < \varepsilon.
+\end{align*}
+This proves that the map $T$ is continuous. Similarly, we can take an arbitrary $y_0 \in Y$. Note that because $X$ and $Y$ are isometric, then the inverse of $T$ is defined to be $y \mapsto T^{-1}y$, where $T^{-1}$ is the inverse image of the point $y \in Y$. $T^{-1}$ satisfies $\tilde{d}(y_1, y_2) = d(T^{-1}y_1, T^{-1}y_2)$. Consequently, we have
+\begin{align*}
+    \tilde{d}(y, y_0) < \varepsilon \implies d(T^{-1}y, T^{-1}y_0) < \varepsilon.
+\end{align*}
+And so we have proven that $T^{-1}$ is also continuous.\newline
+Therefore, the metric spaces $X$ and $Y$ are homeomorphic.\newline
+Now for (2), let us consider the Euclidean metric space $X = (\mathbb{R}, d)$ as well as the metric space $Y= ((-1, 1), \tilde{d})$, where $\tilde{d}$ is the Euclidean metric. From Example \ref{realcomplete}, $X$ is complete; but since $(-1, 1)$ is not a closed subset of $\mathbb{R}$, then $Y$ is not complete. And so we must find a homeomorphism between the metric spaces $X$ and $Y$.\newline Define the map $T: X \longrightarrow Y$ such that $Tx = \frac{x}{|x| + 1}$. We claim that $T$ is a homeomorphism. First, $T$ is injective since $Tx_1 = Tx_2 \iff \frac{x_1}{|x_1| + 1} = \frac{x_2}{|x_2| + 1} \iff \frac{|x_2| + 1}{|x_1| + 1} = \frac{x_2}{x_1} \iff |x_2| + 1 = k(|x_1| + 1), x_2 = kx_1, k > 0 \implies k|x_1| + 1 = k(|x_1| + 1) \iff k = 1  \implies x_2 = x_1$. And for the surjectivity of $T$, we have that $y \in (-1, 1)$, $\frac{x}{|x|+1} = y \iff x = (|x|+1)y \iff x = |x|y + y$. Now, if $y \geq 0 \iff x \geq 0$, then $x = \frac{y}{1-y}$, and if $y < 0 \iff x < 0$, then $x = \frac{y}{1+y}$. Since for each $y \in (-1, 1)$ we have found a $x \in X$ such that $Tx = y$, then the map $T$ is surjective. Thus, $T$ is a bijection.\newline
+Finally, we must show that $T$ and $T^{-1}$ are continuous. For $T$, notice that we can write $Tx = \frac{f(x)}{g(x)}$, where $f(x) = x$ and $g(x) = |x| + 1$ are continuous functions mapping from $X$ to itself. Then since $g(x) > 0$, we conclude that $T$, the quotient of two continuous functions, is also continuous. And for $T^{-1}$, we recall that
+\begin{align*}
+    T^{-1}y = 
+    \begin{cases}
+    \frac{y}{1-y} & y \geq 0\\
+     \frac{y}{1+y} & y < 0
+    \end{cases} = \frac{y}{1-|y|}.
+\end{align*}
+Thus, just as we had for $T$, $T^{-1}$ is the quotient of two functions $f(y) = y$ and $g(y)= 1-|y|$ that  are continuous maps from $Y$ to itself. Also, have $g(y) > 0$. Therefore, we conclude that $T^{-1}$ is continuous.\newline
+Altogether, we have shown that $T: X \longrightarrow Y$ is a homeomorphism, and so the complete metric space $X$ and the incomplete metric space $Y$ are homeomorphic.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Recall from our proof of Theorem \ref{completion} that for an arbitrary metric space $(X,d)$ and any two Cauchy sequences $(x_n), (x_n')$ in $X$, we define the relation $\sim$ such that
+\begin{align*}
+ (x_n) \sim (x_n') \iff \lim_{n \longrightarrow \infty} d(x_n, x_n') = 0.   
+\end{align*}
+Prove that $\sim$ defines an equivalence relation on the set of all Cauchy sequences of $X$.
+\begin{proof}
+In order to show that $\sim$ is an equivalence relation, we must show that it is symmetric, reflexive, and transitive:
+\begin{enumerate}[(a)]
+    \item Symmetry:
+    \begin{align*}
+    (x_n) \sim (x_n') \iff \lim_{n \longrightarrow \infty} d(x_n, x_n') = 0 \iff \lim_{n \longrightarrow \infty} d(x_n', x_n) = 0 \iff (x_n') \sim (x_n)
+    \end{align*}
+    \item Reflexivity:
+    For $(x_n)$ an arbitrary Cauchy sequence in $X$, we have that $d(x_n, x_n) = 0$ for every $n \in \mathbb{N}$. This implies that
+    \begin{align*}
+        \lim_{n \longrightarrow \infty} d(x_n, x_n) = \lim_{n \longrightarrow \infty} 0 = 0. 
+    \end{align*}
+    And so indeed $(x_n) \sim (x_n)$.
+    \item Transitivity: Suppose $(x_n), (y_n), (z_n)$ are Cauchy sequences in $X$ that satisfy $(x_n) \sim (y_n)$ and $(y_n) \sim (z_n)$. Let $\varepsilon > 0$ be arbitrary. Then by definition of $\sim$, we know that there exists a $N_{\varepsilon} \in \mathbb{N}$ such that $n > N_{\varepsilon} \implies d(x_n, y_n) < \frac{\varepsilon}{2}, d(y_n, z_n) < \frac{\varepsilon}{2}$. Accordingly,
+    \begin{align*}
+        n > N_{\varepsilon} \implies d(x_n, z_n) \leq d(x_n, y_n) + d(y_n, z_n) < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+    \end{align*}
+    Because $\varepsilon > 0$ was taken to be arbitrary, this implies $\lim_{n \to \infty} d(x_n, z_n) = 0 \iff (x_n) \sim (z_n)$.
+\end{enumerate}
+\end{proof}
+\end{exer}
+
+\begin{exer}[Pseudometric]\label{pseudometric}
+A \textbf{finite pseudometric} on a set $X$ is a function $d: X \times X \longrightarrow \mathbb{R}_+$ which satisfies the following for all $x, y, z \in X$:
+\begin{enumerate}
+    \item $d(x, x) = 0$
+    \item $d(x, y) = d(y, x)$
+    \item $d(x, z) \leq d(x, y) + d(y,z)$
+\end{enumerate}
+What is the difference between a metric and a pseudometric? Show that $d(x, y) = |\xi_1 - \eta_n|$ defines a pseudometric on the set of all ordered pairs of real numbers, where $x = (\xi_1, \xi_2), y = (\eta_1, \eta_2)$.\newline
+The difference between a metric and a pseudometric is that for a pseudometric $d$ we can have $x, y \in X$ with $x \neq y$ but also $d(x, y) = 0$.
+\begin{proof}
+Let $X$ be the set of all ordered pairs of real numbers. We will now prove that $d$ defines a pseudometric on $X$.\newline Since $x = (\xi_1, \xi_2), y = (\eta_1, \eta_2) \in \mathbb{R}^2$, then $d(x, y) = |\xi_1 - \eta_1| \in \mathbb{R}_+$ by the properties of the absolute value function. For the first axiom, we have $d(x, x) = |\xi_1 - \xi_1| = 0$. Similarly, by the properties of the absolute value, we have $d(x, y) = |\xi_1 - \eta_1| = |\eta_1 - \xi_1| = d(y, x)$. Finally for $z = (\gamma_1, \gamma_2) \in X$, we have $d(x, z) = |\xi_1 - \gamma_1| \leq |\xi_1 - \eta_1| + |\eta_1 - \gamma_1| = d(x, y) + d(y, z)$. Notice that here we invoked the triangle inequality on the real line. Hence $d$, does indeed define a pseudometric on $X$.\newline
+Notice, though, that $d$ does not define a metric on $X$. In fact, for any $x=(\xi_1, \xi_2)$, $y=(\eta_1, \eta_2)$ with $\xi_1 = \eta_1$ we have $d(x,y) = 0$.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Does
+\begin{align*}
+    d(x, y) = \int_a^b |x(t) - y(t)|dt
+\end{align*}
+define a metric or pseudometric on $X$ if $X$ is 
+\begin{enumerate}
+    \item the set of all real-valued, continuous functions on $[a,b]$.
+    \item the set of all real-valued, Riemann integrable functions on $[a,b]$.
+\end{enumerate}
+We know from Exercise \ref{intmetric} that $d$ defines a metric on (1), the set of all real-valued, continuous functions on $[a,b]$. Now for (2), we claim that $d$ defines a pseudometric on $X$ but not a metric.\newline
+To see that $d$ cannot define a metric on $X$, recall the \textbf{Riemann-Lebesgue lemma}, which states that a function $f: [a,b] \longrightarrow \mathbb{R}$ is Riemann integrable if and only if $f$ is bounded and the set $\mathcal{N}(f)$ of points at which $f$ is discontinuous has Lebesgue measure zero. Accordingly, the function $f: [a, b] \longrightarrow \mathbb{R}$ defined
+\begin{align*}
+    x(t) = \begin{cases}
+    0 & a \leq t < b\\
+    1 & t = b
+    \end{cases}
+\end{align*}
+is Riemann integrable. Then for $x_0$ the zero function, we have 
+\begin{align*}
+    d(x, x_0) = \int_a^b \mathbbm{1}_{t = b} dt = 0
+\end{align*}
+but $x(b) \neq x_0(b) \implies x \neq x_0$. This implies that $d$ cannot define a metric on $X$.\newline
+We can prove, though, that $d$ defines a pseudometric on $X$. For the sake of not repeating ourselves, we do not include it here. The proof is identical to that in Exercise \ref{intmetric} except for the following pieces:
+\begin{enumerate}
+    \item To prove $d(x, y) < \infty$, we use the result of the Riemann-Lebesgue lemma that $|x(t) - y(t)|$ is Riemann integrable on $[a,b]$ implies $|x(t) - y(t)| \leq c$ for all $t \in [a, b]$. Here $c \in \mathbb{R}_+$ is some constant.
+    \item We only need to prove $d(x, x) = 0$, not $d(x, y) = 0 \implies x = y$. As we showed above, the latter statement is not true.
+\end{enumerate}
+\end{exer}
+
+\begin{exer}
+If $(X, d)$ is a pseudometric space, we call a set 
+\begin{align*}
+    B_r(x_0) = \{ x\in X \ | \ d(x, x_0) < r\}
+\end{align*}
+an \textbf{open ball} with \textbf{center} $x_0$ and \textbf{radius} $r$. What are open balls of radius $r=1$ in Exercise \ref{pseudometric}?\newline
+Let $x_0 = (\xi_1, \xi_2)$ be an arbitrary point in the pseudometric space $(X,d)$. Then we have
+\begin{align*}
+   &x = (\eta_1, \eta_2) \in B_{r=1}(x_0) \iff d(x, x_0) < 1 \iff |\eta_1 - \xi_1| < 1\\
+   \iff& x \in \{(\eta_1, \eta_2) \ | \ |\eta_1 - \xi_1 | < 1 \}.
+\end{align*}
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[axis lines=middle, axis on top, xmin=-2, xmax=2, ymin= -5, ymax=5, samples=200]
+\draw[dashed, name path = f] (axis cs:-1,-5) -- (axis cs:-1,5);
+\draw[dashed, name path = g] (axis cs:1,-5) -- (axis cs:1,5);
+\draw (axis cs:0,0) node[fill,circle, inner sep=2pt, minimum size=1pt, label={45:$x_0$}] {};
+\addplot[gray!50] fill between[of=f and g];
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\caption*{The open unit ball $B_{r=1}(x_0)$ centered at $x_0 = (0, 0)$ in the pseudometric space $(X,d)$. Note that $B_{r=1}(x_0) = B_{r=1}(x_0')$ for any $x_0' = (\xi_1', \xi_2') \in \mathbb{R}^2$ with $\xi_1' = 0$.}
+\end{figure}
+\end{exer}
+
+\section{Normed Spaces, Banach Spaces}
+\subsection{Vector Spaces: a Review}
 \end{document}
