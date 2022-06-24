@@ -54,6 +54,8 @@
 {\colorlet{shadecolor}{blue!15}\begin{shaded}\begin{protoexer}}
 {\end{protoexer}\end{shaded}}
 
+\newcommand{\0}{\mathbf{0}}
+
 \title{\textbf{Notes on Functional Analysis}}
 \author{Henry Smith}
 \date{\today}
@@ -71,7 +73,7 @@
 
 \newpage
 
-\section{Metric Spaces}
+\section{Metric Spaces}\label{secmetric}
 
 \subsection{Metric Spaces: Definition and Examples}
 
@@ -93,7 +95,8 @@ A metric can be thought of as a measure of distance between any two elements $x,
 
 \end{examp}
 
-\begin{examp}[The Euclidean space $\mathbb{R}^n$, unitary space $\mathbb{C}^n$] For $X = \mathbb{R}^n$, we define $d(x, y) := \sqrt{(\xi_1 - \eta_1)^2 + \ldots + (\xi_n - \eta_n)^2 }$, where $x = (\xi_1, \ldots, \xi_n), y = (\eta_1, \ldots, \eta_n) \in \mathbb{R}^n$. $(X, d)$ defines the Euclidean metric space.\newline
+\begin{examp}[The Euclidean space $\mathbb{R}^n$, unitary space $\mathbb{C}^n$]\label{euclideanunitary}
+For $X = \mathbb{R}^n$, we define $d(x, y) := \sqrt{(\xi_1 - \eta_1)^2 + \ldots + (\xi_n - \eta_n)^2 }$, where $x = (\xi_1, \ldots, \xi_n), y = (\eta_1, \ldots, \eta_n) \in \mathbb{R}^n$. $(X, d)$ defines the Euclidean metric space.\newline
 Similarly, let $X = \mathbb{C}^n$ and define $d(x, y) := \sqrt{|\xi_1 - \eta_1|^2 + \ldots + |\xi_n - \eta_n|^2}$ for $x, y \in \mathbb{C}^n$. $(X, d)$ defines the unitary metric space.
 \end{examp}
 
@@ -128,7 +131,7 @@ One can verify that indeed $d(x, y) < \infty$ using the \textit{Minkowski inequa
 Then $(\ell^p, d)$ defines a metric space. In the special case of $p = 2$, this is a \textbf{Hilbert space} (see Section \ref{}).
 \end{examp}
 
-\begin{examp}[The sequence space $\ell^{\infty}$]
+\begin{examp}[The sequence space $\ell^{\infty}$]\label{ellinfty}
 Similar to the space considered in Example \ref{ellp}, we let $\ell^{\infty}$ be the set of all bounded sequences in $\mathbb{C}$. That is,
 \begin{align*}
     \ell^{\infty} = \{ x = (\xi_n) \subset \mathbb{C} \ | \ | \xi_n | \ \leq c_x \ \text{for some $c_x \in \mathbb{R}_+$} \}.
@@ -759,7 +762,7 @@ Since we have shown that an arbitrary Cauchy sequence in $X$ is convergent, then
 
 Let us see this proof technique in action:
 
-\begin{examp}
+\begin{examp}\label{euclideanunitarycomplete}
 The Euclidean metric space $(\mathbb{R}^n, d)$ and unitary metric space $(\mathbb{C}^n, d)$ are complete.
 \end{examp}
 
@@ -852,7 +855,7 @@ Let $x$ be an arbitrary continuous function on $[a, b]$ that is not a polynomial
 \end{proof}
 \end{examp}
 
-\begin{examp}
+\begin{examp}\label{continuousincomplete}
 Let $X$ be the set of all continuous, real-valued functions on $[0, 1]$ and let 
 \begin{align*}
     d(x, y) := \int_0^1 |x(t) - y(t)| dt.
@@ -1017,7 +1020,7 @@ Hence, we have $x_n \longrightarrow x$.
 \end{proof}
 \end{exer}\footnotetext{{This is because we can write $\sum_{i=1}^{\infty} \frac{1}{2^i}\frac{|\xi_i^{(n)} - \xi_i|}{1 + |\xi_i^{(n)} - \xi_i|} = \int f_n(i) \ d\mu(i)$}, where $\mu$ is the counting measure on $\mathbb{N}$. And so if we can prove $|f_n(i)| \leq g(i)$ for $g$ satisfying $\int g(i) \ d\mu(i) < \infty$, then we can invoke the Dominated Convergence Theorem to say $\lim_{n \to \infty} \int f_n(i) \ d\mu(i) = \int \lim_{n \to \infty}f_n(i) \  d\mu(i)$.}
 
-\subsection{Completing Metric Spaces}
+\subsection{Completing Metric Spaces}\label{completingmetric}
 We already know that the metric space $(\mathbb{Q}, d)$, where $d$ is the Euclidean metric, can be \textbf{completed} by enlarging the rational line to the entire real line $\mathbb{R}$. This begs the question, though, of whether an arbitrary incomplete metric space can be completed in a similar manner.
 
 \begin{defn}[Isometric mapping, isometric spaces]
@@ -1278,4 +1281,472 @@ Let $x_0 = (\xi_1, \xi_2)$ be an arbitrary point in the pseudometric space $(X,d
 
 \section{Normed Spaces, Banach Spaces}
 \subsection{Vector Spaces: a Review}
+
+\begin{defn}[Vector space]
+A \textbf{vector space} $V$ over a field $K$ is a nonempty set of elements called \textbf{vectors} together with two algebraic operations. The operations are \textbf{vector addition} and \textbf{multiplication of vectors by scalars}, that is, by elements of $K$.\newline
+~\newline
+\textbf{Vector addition} associates with every ordered pair of $(x, y) \subset V \times V$ of vectors a vector $x + y \in V$, called the \textbf{sum} of $x$ and $y$, in such a way that the following properties hold:
+\begin{enumerate}
+    \item $x + y = y + x$ \quad (commutativity)
+    \item $x + (y + z) = (x + y) + z$  \quad (associativity)
+\end{enumerate}
+Furthermore, there exists a \textbf{zero vector} $\0 \in V$, the \textbf{additive identity}, which satisfies
+\begin{align*}
+    x + \0 = x \quad \forall x \in V.
+\end{align*}
+And for every vector $x$ there exists an \textbf{additive inverse}, $-x \in V$, which satisfies
+\begin{align*}
+    x + (-x) = \0.
+\end{align*}
+~\newline
+\textbf{Multiplication by scalars} associates with every vector $x \in V$ and scalar $\alpha \in K$ a vector $\alpha x \in V$ called the \textbf{product} of $\alpha$ and $x$, in such a way that for all vectors $x, y \in V$ and scalars $\alpha, \beta \in K$
+\begin{enumerate}
+    \item $\alpha(\beta x) = (\alpha \beta)x$ \quad (associativity)
+    \item $\alpha(x + y) = \alpha x + \alpha y$\newline $(\alpha + \beta)x = \alpha x + \beta x$ \quad (distributivity)
+\end{enumerate}
+Also, there exists a \textbf{multiplicative identity} element in the field $K$, $1 \in K$, which satisfies
+\begin{align*}
+    1x = x, \quad \forall x \in V.
+\end{align*}
+~\newline
+If $K = \mathbb{R}$, then $V$ is called a \textbf{real vector space}. And if $K = \mathbb{C}$, then $V$ is called a \textbf{complex vector space}.
+\end{defn}
+
+\begin{thm}
+Let $V$ be a vector space over the field $K$. Then the following hold for all vectors $x \in V$ and scalars $\alpha \in K$:
+\begin{enumerate}
+    \item $0x = \0$
+    \item $\alpha \0 = \0$
+    \item $(-1)x = -x$
+\end{enumerate}
+\end{thm}
+
+\begin{examp}[The Euclidean vector space]\label{euclideanvector}
+The set $V = \mathbb{R}^n$ with field $K = \mathbb{R}$ is a vector space with the following definitions of vector addition and scalar multiplication: for $x = (\xi_1, \ldots, \xi_n), y = (\eta_1, \ldots, \eta_n) \in \mathbb{R}^n$ and $\alpha \in \mathbb{R}$, 
+\begin{align*}
+    &x + y = (\xi_1 + \eta_1, \ldots, \xi_n + \eta_n)\\
+    &\alpha x = (\alpha \xi_1, \ldots, \alpha \xi_n)
+\end{align*}
+\end{examp}
+
+\begin{examp}[The unitary vector space]
+The set $V = \mathbb{C}^n$ with field $K = \mathbb{C}$ is a vector space. The operations of vector addition and scalar multiplication are defined analogously to as in Example \ref{euclideanvector}.
+\end{examp}
+
+\begin{examp}
+The set $V$ consisting of all real-valued, continuous functions on $[a, b] \subset \mathbb{R}$ is a vector space over the field $K = \mathbb{R}$. The operations of vector addition and scalar multiplication are defined as follows:
+\begin{align*}
+    &(x+y)(t) = x(t) + y(t)\\
+    &(\alpha x)(t) = \alpha x(t), \quad t \in [a, b]
+\end{align*}
+\end{examp}
+Other function spaces that are also vector spaces include
+\begin{enumerate}
+    \item $B(A)$, the vector space of all real-valued, bounded functions on a set $A \subseteq \mathbb{R}$
+    \item The vector space of all differentiable functions on $\mathbb{R}$
+    \item The vector space of all real-valued functions on $[a, b]$ that are integrable in some sense
+\end{enumerate}
+
+\begin{examp}
+Recall from Example \ref{ellp} that $\ell^2$ consists of all (complex-valued) sequences $x = (\xi_1, \xi_2, \ldots)$ such that $\sum_{n=1}^{\infty} |\xi_n|^2 < \infty$, that is, $x$ is square summable. $\ell^2$ is a vector space over $K = \mathbb{C}$ with vector addition and scalar multiplication defined as follows:
+\begin{align*}
+    &(\xi_1, \xi_2, \ldots) + (\eta_1, \eta_2, \ldots) = (\xi_1 + \eta_1, \xi_2 + \eta_2, \ldots)\\
+    &\alpha(\xi_1, \xi_2, \ldots) = (\alpha \xi_1, \alpha \xi_2, \ldots)
+\end{align*}
+The fact that $x + y \in \ell^2$ for $x, y \in \ell^2$ follows from the Minkowski inequality:
+\begin{align*}
+   \sum_{n=1}^{\infty} |\xi_n + \eta_n|^2 \leq \left( \left(\sum_{n=1}^{\infty} |\xi_n|^2 \right)^{1/2} + \left(\sum_{n=1}^{\infty} |\eta_n|^2 \right)^{1/2} \right)^2 < \infty.
+\end{align*}
+\end{examp}
+Other sequence spaces that are also vector spaces include $\ell^{\infty}$ and $\ell^{p}$ for $1 \leq p < \infty$.
+
+\begin{defn}[Subspace]
+A \textbf{subspace} of a vector space $X$ is a nonempty subset $Y$ of $X$ such that for all $y_1, y_2 \in Y$ and all scalars $\alpha, \beta \in K$, we have $\alpha y_1 + \beta y_2 \in Y$. Hence, $Y$ itself is a vector space, the two algebraic operations being induced from $X$.\newline
+$Y = X$ is an \textbf{improper} subspace of $X$. Any other subspace of $X$ is called \textbf{proper}. $Y = \{\0\}$ is called the \textbf{trivial subspace}.
+\end{defn}
+
+\begin{defn}[Linear combination]\label{lincomb}
+A \textbf{linear combination} of vectors $x_1, \ldots, x_n$ in a vector space $X$ over field $K$ is an expression of the form
+\begin{align*}
+    a_1 x_1 + a_2 x_2 + \ldots + a_n x_n, \quad a_1, a_2, \ldots, a_n \in K.
+\end{align*}
+It is important to note that linear combinations consist of \textit{finitely-many} vectors in $X$.
+\end{defn}
+
+\begin{defn}[Subspace spanned by a set]
+For any nonempty subset $M \subset X$ the set of all linear combinations of vectors of $M$ is called the \textbf{span} of $M$, written
+\begin{align}
+    \text{span} \ M.
+\end{align}
+From Definition \ref{lincomb}, it should be apparent that for any $M$, $\text{span} \ M$ is a subspace. We call this subspace $Y$ the subspace \textbf{generated} by $M$.
+\end{defn}
+
+\begin{examp}\label{notlinear}
+Consider the vector space $X$ of all sequences in $\mathbb{R}$ over the field $\mathbb{R}$. Define the subset $M$ of $X$ to be
+\begin{align*}
+  M = \bigcup_{i \in \mathbb{N}} e_i,  \qquad (e_i)_n = \begin{cases}
+  1 & i = n\\
+  0 & \text{otherwise}
+  \end{cases}
+\end{align*}
+Then $\text{span} \ M \neq X$. To see why this is the case, consider any vector $x \in X$ with infinitely many nonzero terms. An example of such a vector is $x = (n^{-1})_{n \in \mathbb{N}}$. Then $x$ cannot be written as a (finite) linear combination of vectors in $X$. In fact, $\text{span} \ M$ is equal to the subspace consisting of all sequences with only finitely-many nonzero terms.
+\end{examp}
+
+\begin{defn}[Linear independence, dependence]
+A (finite) set of vectors $\{x_1, \ldots, x_n\}$ is said to be \textbf{linearly independent} if 
+\begin{align*}
+    a_1 x_1 + a_2 x_2 + \ldots + a_n x_n = \0, \quad a_1, a_2, \ldots, a_n \in K \implies a_1 = a_2 = \ldots = a_n = 0.
+\end{align*}
+That is, the only representation of the zero vector by $x_1, \ldots, x_n$ is the trivial representation. If there exists a nontrivial representation of $\0$ by $x_1, \ldots, x_n$,
+\begin{align*}
+    a_1 x_1 + a_2 x_2 + \ldots + a_n x_n = \0, \quad x_i \neq 0, \ 1 \leq i \leq n,
+\end{align*}
+then the set of vectors $\{x_1, \ldots x_n\}$ is said to be \textbf{linearly dependent}.\newline
+An arbitrary set of vectors $\boldsymbol{\beta}$ is said to be \textbf{linearly independent} if every nonempty finite subset of $\boldsymbol{\beta}$ is linearly independent.
+\end{defn}
+One should consider why the terms independent and dependent are used here. Specifically, if a set of vectors $\{x_1, \ldots, x_n \}$ is linearly dependent, then at least one vector $x_i, \ 1 \leq i \leq n$ can be written as a linear combination of the remaining vectors.
+
+The notions of linear independence and dependence lead us to the following definition which tells us about the structure of a vector space $X$:
+\begin{defn}[Basis]
+A set of vectors $\boldsymbol{\beta}$ is a \textbf{basis} (or \textbf{Hamel basis}) for the vector space $X$ if
+\begin{enumerate}
+    \item $\boldsymbol{\beta}$ is linearly independent
+    \item $\text{span} \ \boldsymbol{\beta} = X$
+\end{enumerate}
+\end{defn}
+
+\begin{examp}
+Let us consider the Euclidean vector space $\mathbb{R}^n$ over the field $\mathbb{R}$. Define $e_i \in \mathbb{R}^n, \ 1 \leq i \leq n$ such that
+\begin{align*}
+    (e_i)_j = \begin{cases}
+    1 & \text{if $i = j$}\\
+    0 & \text{otherwise}
+    \end{cases}, \quad 1 \leq j \leq n.
+\end{align*}
+Then $(e_i)_{i=1}^n$ is a basis for $\mathbb{R}^n$. This basis is called the \textbf{canonical basis} for $\mathbb{R}^n$.
+\end{examp}
+
+\begin{examp}\label{notbasis}
+Consider the vector space $X$ and the set $M$ defined in Example \ref{notlinear}. Then $M$ is \textbf{not} a basis for $X$.
+\end{examp}
+
+\begin{thm}\label{vectorbasis}
+Every vector space $X \neq \{\0\}$ has a basis.
+\end{thm}
+Theorem \ref{vectorbasis} is surprising, especially in light of Example \ref{notbasis}.
+
+\begin{thm}\label{basiselt}
+Let $X$ be a vector space, and suppose $\boldsymbol{\beta}_1$ and $\boldsymbol{\beta}_2$ are two bases for $X$. Then $|\boldsymbol{\beta}_1| = |\boldsymbol{\beta}_2|$. This means that all bases for $X$ must have the same number of elements.
+\end{thm}
+
+\begin{defn}[Dimension]
+The \textbf{dimension} of a vector space $X$ is the cardinality of any of its bases. As a consequence of Theorem \ref{basiselt}, the dimension is well-defined. If the dimension of a vector space $X$ is finite, then it is \textbf{finite-dimensional}. Otherwise, it is \textbf{infinite-dimensional}.
+\end{defn}
+
+\begin{thm}[Dimension of a subspace]
+Let $X$ be an $n$-dimensional vector space. Then any proper subspace of $X$ has dimension less than $X$.
+\end{thm}
+
+\begin{exer}
+Show that in an $n$-dimensional vector space $X$, the representation of any $x$ as a linear combination of given basis vectors $e_1, \ldots, e_n$ is unique.
+\begin{proof}
+Suppose towards contradiction that for an arbitrary $x \in X$ we have
+\begin{align*}
+    &x = a_1 e_1 + \ldots + a_n e_n\\
+    &x = b_1 e_1 + \ldots + b_n e_n
+\end{align*}
+where $a_i \neq b_i$ for some $1 \leq i \leq n$. That is, $x$ has two distinct representations as a linear combination of basis vectors $e_1, \ldots, e_n$. This implies that
+\begin{align*}
+    &x + (-x) = (a_1 - b_1)e_1 + \ldots + (a_n - b_n)e_n\\
+    &\0 = (a_1 - b_1)e_1 + \ldots + (a_n - b_n)e_n.
+\end{align*}
+But because $a_i \neq b_i$, then $a_i - b_i \neq 0$. And so we have expressed $\0$ as a nontrivial linear combination of vectors $e_1, \ldots, e_n$, and so the set of vectors $\{e_1, \ldots, e_n\}$ cannot cannot be linearly independent. Clearly, though, this contradicts our assumption that $\{e_1, \ldots, e_n\}$ is a basis for $X$.\newline
+We conclude that each vector $x \in X$ must have a unique representation as a linear combination of $e_1, \ldots, e_n$.
+\end{proof}
+\end{exer}
+
+\begin{exer}[The vector space of polynomials with degree at most $n$]
+On a fixed interval $[a, b] \subset \mathbb{R}$, consider the set $X$ consisting of all polynomials with real coefficients and of degree not exceeding a given $n$, and the polynomial $x = 0$ (for which a degree is not defined in the usual discussion of degree). $X$ is a real vector space with the usual addition and the usual multiplication by real numbers. Find a basis for $X$, and then give the dimension of $X$. We can obtain a complex vector space $\tilde{X}$ in a similar fashion if we let those coefficients be complex. Is $X$ a subspace of $\tilde{X}$?\newline
+A basis for the real vector space $X$ is $\{0, t^1, t^2, \ldots, t^n\}$, and so the dimension of $X$ is $n + 1$. $X$ is not a subspace of $\tilde{X}$ because the field over which $\tilde{X}$ is defined is $\mathbb{C}$. Thus, $X$ is not closed under scalar multiplication. For instance, $t + 3t^2 \in X$ but $i(t + 3t^2) \notin X$.
+\end{exer}
+
+\begin{exer}
+If $Y$ and $Z$ are subspaces of a vector space $X$, show that $Y \cap Z$ is a subspace of $X$, but $Y \cup Z$ need not be one.\newline
+We first show that $Y \cap Z$ is a subspace of $X$:
+\begin{proof}
+Let $x_1, x_2 \in Y \cap Z$ and $a_1, a_2 \in K$. Then because $x_1, x_2 \in Y$ and $Y$ is a subspace, $a_1 x_1 + a_2 x_2 \in Y$. The same holds for $Z$. Therefore, $a_1 x_1 + a_2 x_2 \in Y \cap Z$. Because vectors $x_1, x_2 \in Y \cap Z$ were chosen to be arbitrary, as were scalars $a_1, a_2 \in K$, this shows that $Y \cap Z$ is a subspace of $X$.
+\end{proof}
+
+Now, we show that $Y \cup Z$ need not be a subspace of the vector space $X$.\newline 
+To do so, let us consider the Euclidean vector space $\mathbb{R}^2$ over the field $\mathbb{R}$. It is easy to verify that $Y = \{(x,y) \ | \ y = 2x\}$ and $Z = \{(x,y) \ | \ y = x\}$ are subspaces of $\mathbb{R}^2$. However, consider $(1, 2) \in Y$ and $(1, 1) \in Z$. Then $(1, 2) + (1, 1) = (2, 3) \notin Y \cup Z$. This counterexample shows that $Y \cup Z$ need not be a subspace of $X$.
+\end{exer}
+
+\begin{exer}[Quotient space, codimension]
+Let $Y$ be a subspace of a vector space $X$. The \textbf{coset} of an element $x \in X$ with respect to $Y$ is denoted by $x + Y$ and is defined to be
+\begin{align*}
+    x + Y := \{v \ | \ v = x + y, y \in Y \}.
+\end{align*}
+Show that the distinct cosets form a partition of $X$.
+\begin{proof}
+First, we show that every element $x \in X$ belongs to at least one coset. In particular, since $Y$ is a subspace, it must be true that $\0 \in Y$. Therefore, we have that $x = x + \0 \implies x \in x + Y$.\newline
+It remains to show that each $x$ belongs to no more than one coset. Suppose that $v \in X$ satisfies $v \in x + Y$ as well as $v \in x' + Y$ for $x \neq x$. Then 
+\begin{align*}
+    &v = x + y, \quad v = x' + y'\\
+    \iff& x + y = x' + y'\\
+    \iff& x - x' = y' - y  \in Y.
+\end{align*}
+This, however, tells us $x = x' + y_0$ for some $y_0 \in Y$. And so $v = x + y = (x' + y_0) + y = x' + (y_0 + y)$, which implies $x + Y \subseteq x' + Y$. Also, the statement $y = x' + y_0$ implies $x' = x + (-y_0)$ for $(-y_0) \in Y$, and so $x + Y \supseteq x' + Y$. We deduce $x + Y = x' + Y$, meaning each $v \in X$ must belong to a unique coset. 
+\end{proof}
+
+Show that under the algebraic operations defined by
+\begin{align*}
+    &(w + Y) + (x + Y) = (w + x) + Y\\
+    &\alpha(x + Y) = \alpha x + Y
+\end{align*}
+these cosets constitute the elements of a vector space.
+\begin{proof}
+    We begin by proving that the operations of addition and scalar multiplication are well-defined. In particular, we want to show that if $x + Y = x' + Y$ and $w + Y = w' + Y$, then $(x + w) + Y = (x' + w') + Y$ as well as $\alpha x + Y = \alpha x' + Y$.\newline
+    For vector addition, notice that $x + Y = x' + Y \implies x = x' + y_1, \ y_1 \in Y$ as well as $w + Y = w' + Y \implies w = w' + y_2, \ y_2 \in Y$. Therefore, $v = (w + x) + y \implies  v = (x' + w') + (y_1 + y_2 + y)$, which tells us $(w + x) + Y \subseteq (w' + x') + Y$. The opposite direction of containment follows similarly.\newline
+    And for scalar multiplication, once again we have  $x + Y = x' + Y \implies x = x' + y_1, \ y_1 \in Y$. Therefore, $v = \alpha x + y \implies v = \alpha x' + (\alpha y_1 + y)$, and so $\alpha x + Y \subseteq \alpha x' + Y$. By a similar argument we also get the opposite containment.\newline
+    Now that we have shown that the operations of vector addition and scalar multiplication are well-defined, we prove that the cosets form a vector space. Note that the vector space is defined over the same field $K$ as that of $X$. \newline
+    Commutativity follows from the commutativity of $X$: $(x + Y) + (w + Y) = (x + w) + Y = (w + x) + Y = (w + Y) + (x + Y)$. And associativity follows from the associativity of $X$: $((x + Y) + (w + Y)) + (z + Y) = ((x + w) + z) + Y = (x +( w + z)) + Y = (x + Y) + ((w + Y) + (z + Y))$.\newline
+    The additive identity element is given by $\0 + Y$ since $(x + Y) + (\0 + Y) = (x + \0) + Y = x + Y$. The additive inverse of $x + Y$ is $(-x) + Y$ because $(x + Y) + (-x + Y) = (x + (-x)) + Y = \0 + Y$.\newline
+    Similar to our arguments for commutativity and associativity, distributivity follows from that of the vector space $X$: $\alpha( (x + Y) + (w + Y)) = \alpha ((x + w) + Y) = (\alpha x + \alpha w) + Y = (\alpha x + Y) + (\alpha w + Y) = \alpha(x + Y) + \alpha (w + Y)$ and $(\alpha + \beta)(x + Y) = (\alpha + \beta)x + Y = (\alpha x + \beta x) + Y = (\alpha x + Y) + (\beta x + Y) = \alpha(x + Y) + \beta (x + Y)$.\newline
+    The same is true for multiplicative associativity: $\alpha(\beta(x +Y)) = \alpha(\beta x + Y) = \alpha \beta x + Y = \beta \alpha x + Y = \beta (\alpha x + Y) = \beta(\alpha(x +Y))$.\newline
+    Finally for $1 \in K$, we have $1(x + Y) = 1x + Y = x + Y$. \newline
+    This proves that for a vector space $X$ defined over a field $K$ with subspace $Y$, the set of cosets of $X$ with respect to $Y$ forms a vector space over field $K$.
+\end{proof}
+This space is called the \textbf{quotient space} or \textbf{factor space} of $X$ by $Y$ and is denoted by $X/Y$. Its dimension is called the \textbf{codimension} of $Y$ and is denoted by $\text{codim} \ Y$, that is, 
+\begin{align*}
+    \text{codim} \ Y = \text{dim}(X/Y).
+\end{align*}
+\end{exer}
+
+\begin{exer}
+Let $X = \mathbb{R}^3$ and $Y = \{ (\xi_1, 0, 0) \ | \ \xi_1 \in \mathbb{R}\}$. Find $X/Y, X/X, X/\{\0\}$.\newline
+Let $x = (\eta_1, \eta_2, \eta_3) \in \mathbb{R}^3$. For $X/Y$, we have that $x + Y = \{(\xi, \eta_2, \eta_3) \ | \ \xi \in \mathbb{R} \}$; that is, $x + Y$ is a line $\{ (0, \eta_2, \eta_3) + t(1, 0, 0) \ | \  t \in \mathbb{R} \}$. Because the direction vector of this line $(1, 0, 0)$ is equal to that of the $x$-axis, we deduce that $X/Y$ is the set of all lines that are parallel to the $x$-axis.\newline
+For $X/X$, we have $x + X = \0_{X} + X = \0_{X/X}$. This is because $\{ v \ | \ v = x + y, y \in X \} = X$; for each $v \in X$, we can let $y = v + (-x) \in X$ so that $x + y = v$.\newline
+And lastly we have $X/\{\0\} = X$. This is because $X + \{\0\} = \{ v \ | \ v = x + \0 \} = \{x\}$.
+\end{exer}
+
+\subsection{Normed Spaces, Banach Spaces}
+
+\begin{defn}\label{normedbanach}
+A \textbf{normed space} $X$ \textit{is a vector space} with a \textbf{norm} defined on it. A norm on a (real or complex) vector space $X$ is a real-valued function on $X$ whose value at $x \in X$ is denoted by $\|x\|$. A norm satisfies the following axioms for every $x, y \in X$ and $\alpha \in K$:
+\begin{enumerate}
+    \item $\| x \| \geq 0$
+    \item $\| x \| = 0 \iff x = \0$
+    \item $\| \alpha x \| = |\alpha| \|x\|$
+    \item $\| x + y \| \leq \| x \| + \| y \|$ \quad (triangle inequality)
+\end{enumerate}
+
+A norm on $X$ defines a metric $d$ by
+\begin{align*}
+    d(x, y) := \| x - y\|, \qquad x, y \in X
+\end{align*}
+and is called the \textbf{metric induced by the norm}. The normed space defined is denoted by $(X, \| \cdot \|)$ or simply by $X$.
+
+A \textbf{Banach space} is a normed space that is complete in the metric induced by the norm.
+\end{defn}
+Intuitively, the norm assigns a nonnegative length to each vector in the vector space $X$.
+
+\begin{thm}[Reverse triangle inequality]\label{reversetriangle}
+Let $X$ be a normed space. Then it holds that for every $x, y \in X$,
+\begin{align*}
+    |\|y\| - \|x\|| \leq \| y - x\|.
+\end{align*}
+\begin{proof}
+By the the triangle inequality we have
+\begin{align*}
+    &\|y \| = \|y - x + x\| \leq \| y - x\| + \|x\|\\
+    \iff&\|y \| - \| x\| \leq \| y - x\|.
+\end{align*}
+Similarly, by starting with $\|x\|$ instead, we have
+\begin{align*}
+    &\|x\| \leq \|x- y + y\| \leq \|y - x\| + \|y\|\\
+    \iff&\| x\| - \| y \| \leq \|y - x\|.
+\end{align*}
+We conclude $| \|y\| - \|x\| | \leq \| y-x \|$.
+\end{proof}
+\end{thm}
+
+\begin{thm}[Continuity of the norm]
+The norm is continuous, that is, $x \longmapsto \| x\|$ is a continuous mapping of $(X, \| \cdot \|)$ into $\mathbb{R}$.
+\begin{proof}
+Let $d$ denote the metric induced by the norm $\| \cdot \|$, and let $\tilde{d}$ denote the Euclidean metric.
+Suppose $x_0 \in X$ is an arbitrary vector. And take $\varepsilon > 0$ be arbitrary.\newline
+Then by the reverse triangle inequality from Theorem \ref{reversetriangle}, we have that
+\begin{align*}
+    d(x, x_0) < \varepsilon \implies \tilde{d}(\| x\|, \| x_0\|) = \left| \|x\| - \| x_0 \| \right| \leq \| x - x_0\| = d(x, x_0) < \varepsilon.
+\end{align*}
+Because $\varepsilon > 0$ was taken to be arbitrary, this proves that $x \longmapsto \| x\|$ is continuous at $x_0 \in X$. And because $x_0$ was chosen to be an arbitrary vector, we conclude that the map $x \longmapsto \| x\|$ is continuous.
+\end{proof}
+\end{thm}
+
+Now that we have defined a normed space and presented two fundamental results regarding normed spaces, we provide some examples. The first set of normed spaces will be familiar from our discussion of metric spaces in Section \ref{secmetric}. In particular, many of the metrics we discussed in this section can be obtained from a norm.
+\begin{examp}[Euclidean space $\mathbb{R}^n$, unitary space $\mathbb{C}^n$]\label{euclideanunitarynorm}
+The Euclidean space $\mathbb{R}^n$ and unitary space $\mathbb{C}^n$ were defined in Example \ref{euclideanunitary}. They are Banach spaces with norm defined by
+\begin{align*}
+    \| x \| = \left( \sum_{i=1}^n |\xi_i|^2 \right)^{1/2} = \sqrt{|\xi_1|^2 + \ldots + |\xi_n|^2}.
+\end{align*}
+This norm induces the metric
+\begin{align*}
+    d(x, y) = \| x - y\| = \sqrt{|\xi_1 - \eta_1|^2 + \ldots + |\xi_n - \eta_n|^2}.
+\end{align*}
+From Example \ref{euclideanunitarycomplete}, we know that the metric spaces $(\mathbb{R}^n, d)$ and $(\mathbb{C}^n, d)$ are complete, which justifies why the Euclidean and unitary spaces are Banach spaces.
+\end{examp}
+
+\begin{examp}[The sequence space $\ell^p$]
+The space $\ell^p, \ 1 \leq p < \infty$ defined in Example \ref{ellp} is a Banach space with norm defined by
+\begin{align*}
+    \| x\| = \left( \sum_{i=1}^{\infty} |\xi_i|^p \right)^{1/p}.
+\end{align*}
+This norm induces the metric
+\begin{align*}
+    d(x, y) = \| x - y \| = \left( \sum_{i=1}^{\infty} |\xi_i - \eta_i| ^p \right)^{1/p}.
+\end{align*}
+\end{examp}
+
+\begin{examp}[The sequence space $\ell^{\infty}$]
+The space $\ell^{\infty}$ defined in Example \ref{ellinfty} is a Banach space with norm defined by
+\begin{align*}
+    \| x \| = \sup_{i \in \mathbb{N}} |\xi_i|.
+\end{align*}
+The norm induces the metric
+\begin{align*}
+    d(x, y) = \| x - y\| = \sup_{i \in \mathbb{N}} |\xi_i - \eta_i|.
+\end{align*}
+\end{examp}
+
+\begin{examp}[The function space $C{[a, b]}$]
+The space $C[a, b]$ defined in Example \ref{contfun} is a Banach space with norm given by
+\begin{align*}
+    \| x \| = \max_{t \in [a, b]} |x(t)|.
+\end{align*}
+The norm induces the metric
+\begin{align*}
+    d(x, y) = \| x - y \| = \max_{t \in [a, b]} |x(t) - y(t)|.
+\end{align*}
+\end{examp}
+
+\begin{examp}[An incomplete normed space]
+Let $X$ be the vector space consisting of all continuous, real-valued functions on $[0,1]$ over the field $K = \mathbb{R}$. Then $(X, \| \cdot \|)$ is a normed space with
+\begin{align*}
+    \|x\| := \int_0^1|x(t)| dt.
+\end{align*}
+However, one will recall from Example \ref{continuousincomplete} that the metric space $(X, d)$ is incomplete, where $d$ is the metric induced by $\| \cdot \|$. Therefore, $(X, \| \cdot \|)$ is not a Banach space.
+\end{examp}
+
+We already know from Section \ref{completingmetric} that every incomplete metric space can be completed, and so it is natural to ask the same question about incomplete normed spaces. The following example details an incomplete normed space that can be completed.
+\begin{examp}[The function space $L^p{[a,b]}$]
+The vector space $X$ of all continuous, real-valued functions on $[a, b]$ forms a normed space $(X, \| \cdot \|_p)$ for $p \geq 1$ with norm defined by
+\begin{align*}
+    \|x\|_p = \left( \int_a^b |x(t)|^p dt \right)^{1/p}.
+\end{align*}
+This normed space is not complete. Consider, for example, the Cauchy sequence proposed in Example \ref{continuousincomplete}. To prove that the Cauchy sequence does not converge, one must simply replace the metric from Example \ref{continuousincomplete} with that induced by the norm $\| \cdot \|_p$ and modify each term in the Cauchy sequence to be defined on $[a, b]$ rather than on $[0,1]$.\newline
+In Theorem \ref{}, however, we prove that this normed space $(X, \| \cdot \|_p)$ can be completed. The completion is denoted by $L^p[a, b]$ and is a Banach space. As we shall see in Theorem \ref{}, the operations of the vector space $X$ can be extended to the completion of $X$.\newline
+This is not the only way to construct the $L^p[a, b]$ spaces, though. For instance, let $\tilde{X}$ consist of all Lebesgue measurable functions $x$ on $[a, b]$ such that $|x|^p$ is Lebesgue integrable on $[a, b]$. And define the equivalence relation $\sim$ such that 
+\begin{align*}
+    x \sim y \iff \int_a^b |x(t) - y(t)|^p d\mu = 0.
+\end{align*}
+Here, $\mu$ denotes the Lebesgue measure on $\mathbb{R}$. Then $L^p[a, b]$ can equivalently be defined as $\tilde{X}/\sim$, the set of equivalence classes of $\tilde{X}$ under the equivalence relation $\sim$. 
+\end{examp}
+
+For our last example in this section, we present an example of a metric which cannot be obtained from a norm.
+\begin{examp}
+Recall the space $s$ in Example \ref{sequencespaces} which consists of all sequences (bounded or unbounded) in $\mathbb{C}$. We showed that $s$ is a metric space with metric $d$ defined
+\begin{align*}
+    d(x, y) := \sum_{n=1}^{\infty} \frac{1}{2^i} \frac{|\xi_n - \eta_n|}{1 + |\xi_n - \eta_n|}, \quad x = (\xi_n), y =(\eta_n) \in s.
+\end{align*}
+The metric $d$, however, cannot be obtained from a norm. This is a consequence of Theorem \ref{translationinvariant}. In particular, it is not in general true that $d(\alpha x, \alpha y) = |\alpha| d(x, y)$.
+\end{examp}
+
+\begin{thm}[Translation invariance]\label{translationinvariant}
+A metric $d$ induced by a norm on a normed space $X$ satisfies the following for all $x, y, a\in X$ and $\alpha \in K$:
+\begin{enumerate}
+    \item $d(x + a, y + a) = d(x, y)$
+    \item $d(\alpha x, \alpha y) = |\alpha| d(x, y)$
+\end{enumerate}
+\end{thm}
+\begin{proof}
+Let $(X, \| \cdot \|)$ be a normed space and $(X, d)$ the metric space with $d(x, y) = \| x - y\|$. Then it holds that
+\begin{align*}
+    d(x + a, y + a) = \| (x + a) - (y + a) \| = \| x - y\| = d(x, y)
+\end{align*}
+as well as
+\begin{align*}
+    d(\alpha x, \alpha y) = \| \alpha x - \alpha y\| = \| \alpha(x - y) \| = |\alpha| \| x - y\| = |\alpha| d(x,y).
+\end{align*}
+\end{proof}
+
+\begin{exer}
+Show that we may replace axiom (2) in Definition \ref{normedbanach} by 
+\begin{align*}
+    \| x \| = 0 \implies x = \0.
+\end{align*}
+Show that nonnegativity also follows from axioms (3) and (4).
+\begin{proof}
+First, we prove that $x = \0 \implies \|x\| = 0$. This is a simple consequence of axiom (3) since by taking $x = \0$ and $\alpha = 0$ we must have
+\begin{align*}
+    \|0\0\| = 0\|\0\| \iff \| \0\| = 0. 
+\end{align*}
+And for nonnegativity, we can invoke axioms (3) and (4) to say
+\begin{align*}
+    &\| x + (-x) \| \leq \| x \| + \| -x \| & \text{axiom (4)}\\
+    \iff& \| x + (-x) \| \leq 2\|x \|  & \text{\text{axiom (3)}}\\
+    \iff&\|\0\| \leq 2\|x\|\\
+    \iff& 0 \leq \|x\|.
+\end{align*}
+\end{proof}
+\end{exer}
+
+\begin{exer}
+There are several norms of practical importance on the vector space of ordered $n$-tuples from Example \ref{euclideanunitarynorm}, notably those defined by
+\begin{enumerate}
+    \item $\|x\|_1 = |\xi_1| + |\xi_2| + \ldots + |\xi_n|$
+    \item $\|x\|_p = (|\xi_1|^p + |\xi_2|^p + \ldots + |\xi_n|^p)^{1/p}$, \quad $1 < p < \infty$
+    \item $\|x\|_{\infty} = \max\{|\xi_1|, \ldots, |\xi_n| \}$
+\end{enumerate}
+In each case, verify that Definition \ref{normedbanach} is satisfied.
+\begin{proof}
+\begin{enumerate}
+    \item By the definition of the complex modulus function $| \cdot |: \mathbb{C} \longrightarrow \mathbb{R}_+$, we know that $|\xi_i| \geq 0, \ 1 \leq i \leq n \implies \| x\|_1 \geq 0$, which proves nonnegativity. Also by the nonnegativity of the modulus function, we have $\| x \| = 0 \iff  | \xi | = 0, \ 1 \leq i \leq n \iff x = \0$, and so axiom (2) holds. For axiom (3), we have $\| \alpha x \|_1 = |\alpha \xi_1| + |\alpha \xi_2| + \ldots + |\alpha \xi_n| = \alpha (|\xi_1| + |\xi_2| + \ldots + |\xi_n|) = \alpha \| x \|_1$. Finally, the triangle inequality follows from that for the complex plane $\mathbb{C}$: $\| x + y \| = |\xi_1 + \eta_1| + |\xi_2 + \eta_2| + \ldots + |\xi_n + \eta_n| \leq (|\xi_1| + |\xi_2| + \ldots + |\xi_n|) + (|\eta_1| + |\eta_2| + \ldots + |\eta_n|) = \|x\| + \|y\|$. We conclude that $\|\cdot\|_1$ is a metric on $\mathbb{R}^n$ and $\mathbb{C}^n$.
+    \item Axioms (1) and (2) follow similarly to as in our proof for $\| \cdot \|_1$: $|\xi_i| \geq 0, \ 1 \leq i \leq n \implies |\xi_1|^p + |\xi_2|^p + \ldots + |\xi_n|^p \geq 0 \implies \|x\|_p = (|\xi_1|^p + |\xi_2|^p + \ldots + |\xi_n|^p)^{1/p} \geq 0$ and $\|x\|_p = 0 \iff |\xi_1|^p + |\xi_2|^p + \ldots + |\xi_n|^p = 0 \iff |\xi_i| = 0, \ 1 \leq i \leq n \iff x = \0$. As for axiom (3), we have $\| \alpha x \|_p = (| \alpha \xi_1|^p + | \alpha \xi_2|^p + \ldots + |\alpha \xi_n|^p)^{1/p} = (\alpha^p(|\xi_1|^p + |\xi_2|^p + \ldots + |\xi_n|^p))^{1/p} = |\alpha|(|\xi_1|^p + |\xi_2|^p + \ldots + |\xi_n|^p)^{1/p} = |\alpha| \| x\|_p$. Finally, for axiom (4), the triangle inequality, we invoke the Minkowski inequality for finite sums: $\| x + y \|_p = (\sum_{i=1}^n |\xi_i + \eta_i|^p)^{1/p} \leq (\sum_{i=1}^n |\xi_i|^p)^{1/p} + (\sum_{i=1}^n |\eta_i|^p)^{1/p} = \|x\|_p + \|y\|_p$. Thus, $\| \cdot \|_p$ is a norm on $\mathbb{R}^n$ and $\mathbb{C}^n$.
+    \item For axiom (1), we once again have $|\xi_i| \geq 0, \ 1 \leq i \leq n \implies \|x\|_{\infty} =  \max\{|\xi_1|, |\xi_2|, \ldots, |\xi_n|\} \geq 0$. And for axiom (2), $\|x\|_{\infty} = 0 \iff \max\{|\xi_1|, \ldots, |\xi_n|\} = 0 \iff |\xi_i| = 0, \ 1 \leq i \leq n \iff x = \0$. For axiom (3), $\| \alpha x \|_{\infty} = \max\{ |\alpha\xi_1|, |\alpha\xi_2|, \ldots, |\alpha\xi_n|\} = \max\{|\alpha||\xi_1|, |\alpha||\xi_2|, \ldots, |\alpha||\xi_n|\} = |\alpha| \max\{|\xi_1|, |\xi_2|, \ldots, |\xi_n|\} = |\alpha| \|x\|_{\infty}$. Finally for the triangle inequality we have $\| x + y \|_{\infty} = \max\{|\xi_1 + \eta_1|, |\xi_2 + \eta_2|, \ldots, |\xi_n + \eta_n|\}  \leq \max\{|\xi_1| + |\eta_1|, |\xi_2| + |\eta_2|, \ldots, |\xi_n| + |\eta_n|\} \leq  \max\{|\xi_1|, |\xi_2|, \ldots, |\xi_n|\} + \max\{|\eta_1|, |\eta_2|, \ldots, |\eta_n|\} = \|x\|_{\infty} + \|y\|_{\infty}$. Therefore, $\| \cdot \|_{\infty}$ is a norm defined on $\mathbb{R}$ and $\mathbb{C}$.
+\end{enumerate}
+\end{proof}
+\end{exer}
+
+\begin{exer}[Convex set, segment]
+A subset $A$ of a vector space $X$ is said to be \textbf{convex} if
+\begin{align*}
+    x, y \in A \implies M = \{z \in X \ | \ z = \alpha x + (1-\alpha)y, \ 0 \leq \alpha \leq 1 \} \subseteq A.
+\end{align*}
+$M$ is called a \textbf{closed segment} with \textbf{boundary points} $x$ and $y$. Any other $z \in M$ is called an interior point of $M$. Show that the closed unit ball
+\begin{align*}
+    \tilde{B}_{r=1}(\0) = \{x \in X \ | \ \|x\| \leq 1\}
+\end{align*}
+in a normed space $X$ is convex.
+\begin{proof}
+Consider arbitrary vectors $x, y \in \tilde{B}_{r=1}(\0)$ as well as arbitrary $t \in [0, 1]$.\newline
+Then $\|tx + (1-t)y\| \leq \|tx\| + \|(1-t)y\| = t\|x\| + (1-t)\|y\| \leq t + (1-t) = 1$. Notice that the final inequality follows from our assumption that $x, y \in \tilde{B}_{r=1}(\0)$. We deduce $\|tx + (1-t)y\| \leq 1 \implies tx + (1-t)y \in \tilde{B}_{r=1}(\0)$.\newline
+And since $t \in [0, 1]$ was chosen arbitrarily, we conclude that the closed segment $M = \{z \in X \ | \ z = \alpha x + (1-\alpha)y, \ 0 \leq \alpha \leq 1 \}$ is contained in $\tilde{B}_{r=1}(\0)$. Finally, because  we chose $x, y \in X$ to be arbitrary, then we conclude that the closed unit ball $\tilde{B}_{r=1}(\0)$ is convex.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Show that the discrete metric space on a vector space $X \neq \{\0\}$ cannot be obtained from a norm.\newline
+Suppose that $X$ is a nontrivial vector space. Then the discrete metric on $X$, which defines the metric space $(X, d)$, is not translation invariant. To see why this is the case, let $x \neq y$ be any pair of vectors in $X$. Then $d(\alpha x, \alpha y) = 1 \neq |\alpha| = |\alpha| d(x, y)$ for any $\alpha \notin \{0, \pm 1\}$. By the contrapositive to Theorem \ref{translationinvariant}, we conclude that the discrete metric $d$ cannot be induced by a norm on $X$.
+\end{exer}
+
+\begin{exer}[Bounded set]
+Show that a subset $M$ in a normed space $X$ is bounded if and only if there is a positive number $c$ such that $\|x\| \leq c$ for every $x \in M$.
+\begin{proof}
+$\implies$ 
+\newline$\impliedby$
+\end{proof}
+\end{exer}
+
+\subsection{Further Properties of Normed Spaces}
+
 \end{document}
