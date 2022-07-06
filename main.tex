@@ -525,7 +525,7 @@ Show that the image of an open set under continuous mapping need not be open.\ne
 Let $X = Y = (\mathbb{R}, d)$ be the Euclidean metric space and define the map $T: X \longrightarrow Y$ according to $Tx := 0$ for every $x \in X$. Clearly $T$ is continuous because for every $x_0 \in X$ and for every $\varepsilon > 0$, $d(x, x_0) < 1 \implies d(Tx, Tx_0) = d(0, 0) = 0 < \varepsilon$. However, the image of the open set $X = \mathbb{R}$ under $T$ is $\{0\}$, a closed set in $(\mathbb{R}, d)$.
 \end{exer}
 
-\subsection{Convergence, Cauchy Sequences, and Completeness}
+\subsection{Convergence, Cauchy Sequences, and Completeness}\label{convergencemetric}
 
 \begin{defn}
 A sequence $(x_n)$ in a metric space $X=(X,d)$ is said to \textbf{converge} or to \textbf{be convergent} if there exists an $x \in X$ such that
@@ -667,7 +667,7 @@ Suppose $(x_n)$ is an arbitrary convergent sequence in $X$ satisfying $x_n \long
 \end{proof}
 \end{exer}\footnotetext{Notice that we index a subsequence $(x_{n_k})$ of $(x_n)$ by $k$ rather than by $n$. Particularly, $n_1, n_2, \ldots, n_k, \ldots$ defines a sequence of natural numbers such that $n_1 < n_2 < \ldots < n_k < \ldots$.}
 
-\begin{exer}
+\begin{exer}\label{cauchysubsequenceconvergent}
 If $(x_n)$ is Cauchy and has a convergent subsequence, say $x_{n_k} \longrightarrow x$, show that $(x_n)$ is convergent with the limit $x$.
 \begin{proof}
 Suppose that $(x_n)$ is a Cauchy sequence in metric space $(X, d)$ with convergent subsequence $x_{n_k} \longrightarrow x$. We will show that the sequence $(x_n)$ itself converges to the limit $x$.\newline
@@ -726,7 +726,7 @@ Because $\varepsilon > 0$ was taken to be arbitrary, this proves that $(a_n)$ de
 \end{proof}
 \end{exer}
     
-\begin{exer}
+\begin{exer}\label{equivalentmetrics}
 If $d_1$ and $d_2$ are metrics on the same set $X$ and there are positive numbers $a$ and $b$ such that for all $x, y \in X$,
 \begin{align*}
     a \cdot d_1(x, y) \leq d_2(x, y) \leq b \cdot d_1(x, y)
@@ -761,7 +761,6 @@ Since we have shown that an arbitrary Cauchy sequence in $X$ is convergent, then
 \end{note}
 
 Let us see this proof technique in action:
-
 \begin{examp}\label{euclideanunitarycomplete}
 The Euclidean metric space $(\mathbb{R}^n, d)$ and unitary metric space $(\mathbb{C}^n, d)$ are complete.
 \end{examp}
@@ -780,8 +779,8 @@ From here, we have a candidate for the limit of our Cauchy sequence $(x_n)$, nam
     \xi_i^{(m)} \longrightarrow \xi_i \implies  | \xi_i^{(n)} - \xi_i^{(m)}| \longrightarrow | \xi_i^{(n)} - \xi_i|.
 \end{align*} 
 And from (\ref{linftycauchy}) $n, m > N_{\varepsilon} \implies | \xi_i^{(n)} - \xi_i^{(m)}| < \varepsilon$, which, together with the previous statement, means 
-\begin{align}
-     n  > N_{\varepsilon} \implies |\xi_i^{(n)} - \xi_i| \leq \varepsilon. \label{linftybound}
+\begin{align}\label{linftybound}
+     n  > N_{\varepsilon} \implies |\xi_i^{(n)} - \xi_i| \leq \varepsilon.
 \end{align}
 Now, by our assumption that $(x_n) \subset \ell^{\infty}$, then for each $n \in \mathbb{N}$ we have $|\xi_i^{(n)}| \leq k_n, \forall i \in \mathbb{N}$ for some $k_n \in \mathbb{R}_+$. That is, the terms in each sequence $x_n$ are bounded by some constant $k_n$. Consequently, by the triangle inequality in the Euclidean metric space,
 \begin{align*}
@@ -942,7 +941,7 @@ Thus, the sequence $(x_n)$ is indeed Cauchy in $M$.\newline However, $(x_n)$ doe
 This proves that $x_n \longrightarrow x$ in $\ell^{\infty}$. We have given an example of a Cauchy sequence in $M$ that is divergent, and so we conclude that $M$ is incomplete.
 \end{exer}
 
-\begin{exer}
+\begin{exer}\label{subsetlinftyclosed}
 Show that $M$ in Exercise \ref{subsetlinfty} is incomplete by using Theorem \ref{closedcomplete}.
 \begin{proof}
 We wish to show that $M$ is incomplete by showing that the set $M$ is not closed in the metric space $\ell^{\infty}$. To do so, it suffices to find some $x \in \bar{M}$ such that $x \notin M$. An example of such an $x$ is $x = (1, 1/2, \ldots, 1/n, \ldots) \in X \setminus M$ from the previous problem. For every $\varepsilon > 0$, there exists an $N_{\varepsilon} \in \mathbb{N}$ such that $\frac{1}{N_{\varepsilon}} < \varepsilon$. Then for $x_n = (1, 1/2, \ldots, 1/n, 0, \ldots) \in M$ with $n > N_{\varepsilon}$ we have 
@@ -1280,7 +1279,7 @@ Let $x_0 = (\xi_1, \xi_2)$ be an arbitrary point in the pseudometric space $(X,d
 \end{exer}
 
 \section{Normed Spaces, Banach Spaces}
-\subsection{Vector Spaces: a Review}
+\subsection{Vector Spaces: a Review}\label{vectorspace}
 
 \begin{defn}[Vector space]
 A \textbf{vector space} $V$ over a field $K$ is a nonempty set of elements called \textbf{vectors} together with two algebraic operations. The operations are \textbf{vector addition} and \textbf{multiplication of vectors by scalars}, that is, by elements of $K$.\newline
@@ -1360,7 +1359,7 @@ The fact that $x + y \in \ell^2$ for $x, y \in \ell^2$ follows from the Minkowsk
 \end{examp}
 Other sequence spaces that are also vector spaces include $\ell^{\infty}$ and $\ell^{p}$ for $1 \leq p < \infty$.
 
-\begin{defn}[Subspace]
+\begin{defn}[Subspace]\label{subspace}
 A \textbf{subspace} of a vector space $X$ is a nonempty subset $Y$ of $X$ such that for all $y_1, y_2 \in Y$ and all scalars $\alpha, \beta \in K$, we have $\alpha y_1 + \beta y_2 \in Y$. Hence, $Y$ itself is a vector space, the two algebraic operations being induced from $X$.\newline
 $Y = X$ is an \textbf{improper} subspace of $X$. Any other subspace of $X$ is called \textbf{proper}. $Y = \{\0\}$ is called the \textbf{trivial subspace}.
 \end{defn}
@@ -1375,9 +1374,9 @@ It is important to note that linear combinations consist of \textit{finitely-man
 
 \begin{defn}[Subspace spanned by a set]
 For any nonempty subset $M \subset X$ the set of all linear combinations of vectors of $M$ is called the \textbf{span} of $M$, written
-\begin{align}
+\begin{align*}
     \text{span} \ M.
-\end{align}
+\end{align*}
 From Definition \ref{lincomb}, it should be apparent that for any $M$, $\text{span} \ M$ is a subspace. We call this subspace $Y$ the subspace \textbf{generated} by $M$.
 \end{defn}
 
@@ -1481,7 +1480,7 @@ Now, we show that $Y \cup Z$ need not be a subspace of the vector space $X$.\new
 To do so, let us consider the Euclidean vector space $\mathbb{R}^2$ over the field $\mathbb{R}$. It is easy to verify that $Y = \{(x,y) \ | \ y = 2x\}$ and $Z = \{(x,y) \ | \ y = x\}$ are subspaces of $\mathbb{R}^2$. However, consider $(1, 2) \in Y$ and $(1, 1) \in Z$. Then $(1, 2) + (1, 1) = (2, 3) \notin Y \cup Z$. This counterexample shows that $Y \cup Z$ need not be a subspace of $X$.
 \end{exer}
 
-\begin{exer}[Quotient space, codimension]
+\begin{exer}[Quotient space, codimension]\label{quotientspace}
 Let $Y$ be a subspace of a vector space $X$. The \textbf{coset} of an element $x \in X$ with respect to $Y$ is denoted by $x + Y$ and is defined to be
 \begin{align*}
     x + Y := \{v \ | \ v = x + y, y \in Y \}.
@@ -1570,7 +1569,7 @@ We conclude $| \|y\| - \|x\| | \leq \| y-x \|$.
 \end{proof}
 \end{thm}
 
-\begin{thm}[Continuity of the norm]
+\begin{thm}[Continuity of the norm]\label{normcontinuous}
 The norm is continuous, that is, $x \longmapsto \| x\|$ is a continuous mapping of $(X, \| \cdot \|)$ into $\mathbb{R}$.
 \begin{proof}
 Let $d$ denote the metric induced by the norm $\| \cdot \|$, and let $\tilde{d}$ denote the Euclidean metric.
@@ -1644,7 +1643,7 @@ The vector space $X$ of all continuous, real-valued functions on $[a, b]$ forms 
     \|x\|_p = \left( \int_a^b |x(t)|^p dt \right)^{1/p}.
 \end{align*}
 This normed space is not complete. Consider, for example, the Cauchy sequence proposed in Example \ref{continuousincomplete}. To prove that the Cauchy sequence does not converge, one must simply replace the metric from Example \ref{continuousincomplete} with that induced by the norm $\| \cdot \|_p$ and modify each term in the Cauchy sequence to be defined on $[a, b]$ rather than on $[0,1]$.\newline
-In Theorem \ref{}, however, we prove that this normed space $(X, \| \cdot \|_p)$ can be completed. The completion is denoted by $L^p[a, b]$ and is a Banach space. As we shall see in Theorem \ref{}, the operations of the vector space $X$ can be extended to the completion of $X$.\newline
+In Theorem \ref{completionnorm}, however, we prove that this normed space $(X, \| \cdot \|_p)$ can be completed. The completion is denoted by $L^p[a, b]$ and is a Banach space. As we shall see in Theorem \ref{completionnorm}, the operations of the vector space $X$ can be extended to the completion of $X$.\newline
 This is not the only way to construct the $L^p[a, b]$ spaces, though. For instance, let $\tilde{X}$ consist of all Lebesgue measurable functions $x$ on $[a, b]$ such that $|x|^p$ is Lebesgue integrable on $[a, b]$. And define the equivalence relation $\sim$ such that 
 \begin{align*}
     x \sim y \iff \int_a^b |x(t) - y(t)|^p d\mu = 0.
@@ -1700,7 +1699,7 @@ And for nonnegativity, we can invoke axioms (3) and (4) to say
 \end{proof}
 \end{exer}
 
-\begin{exer}
+\begin{exer}\label{euclideannorms}
 There are several norms of practical importance on the vector space of ordered $n$-tuples from Example \ref{euclideanunitarynorm}, notably those defined by
 \begin{enumerate}
     \item $\|x\|_1 = |\xi_1| + |\xi_2| + \ldots + |\xi_n|$
@@ -1742,11 +1741,626 @@ Suppose that $X$ is a nontrivial vector space. Then the discrete metric on $X$, 
 \begin{exer}[Bounded set]
 Show that a subset $M$ in a normed space $X$ is bounded if and only if there is a positive number $c$ such that $\|x\| \leq c$ for every $x \in M$.
 \begin{proof}
-$\implies$ 
-\newline$\impliedby$
-\end{proof}
+$\implies$ Suppose that $M$ is an arbitrary bounded subset of $X$. Then there exists a $\delta(M) \in  \mathbb{R}_+$ such that $d(x, y) \leq \delta(M)$ for every $x, y \in M$. In particular, we can let $\delta(M) = \sup_{x, y \in M} d(x, y)$ be the diameter of $M$. Also, let $x' \in M$ be an arbitrary element of the set $M$. By the triangle inequality
+\begin{align*}
+    x \in M \implies \|x\| \leq  \| x- x'\| + \|x'\| \leq \delta(M) + \|x'\|.
+\end{align*}
+Therefore, for $c = \delta(M) + \|x'\| \in \mathbb{R}_+$ we obtain the desired result.
+\newline$\impliedby$ Now we suppose that $\|x\| \leq c$ for every $x \in M$, where $c \in \mathbb{R}_+$. Let $x$ and $y$ be arbitrary elements of $M$. Once again by the triangle inequality, 
+\begin{align*}
+    d(x, y) = \|x-y\| \leq \|x\| + \|-y\| = \|x\| + \|y\| \leq 2c.
+\end{align*}
+This proves that $\sup_{x, y \in M} d(x, y) \leq 2c$, and so $M$ is a bounded subset of $X$.
+\end{proof} 
 \end{exer}
 
 \subsection{Further Properties of Normed Spaces}
+
+\begin{defn}[Subspace of a normed space]
+A \textbf{subspace} $Y$ of a normed space $X$ is a subspace of $X$ considered as a vector space, with the norm obtained by restricting the norm on $X$ to the subset $Y$. This norm on $Y$ is \textbf{induced by} the norm on $X$. If $Y$ is closed in $X$, then $Y$ is called a closed subspace of $X$. 
+\end{defn}
+
+\begin{note}
+A subspace of a Banach space is not necessarily a Banach space, only a normed space. The following theorem tells us exactly when this subspace will also be a Banach space.
+\end{note}
+
+\begin{thm}[Subspace of a Banach space]
+A subspace $Y$ of a Banach space $X$ is complete if and only if the set $Y$ is closed in $X$.
+\end{thm}
+\begin{proof}
+See Theorem \ref{closedcomplete}
+\end{proof}
+
+\begin{defn}[Convergent, Cauchy sequences in normed spaces]
+From our definitions of convergent and Cauchy sequences in metric spaces (see Section \ref{convergencemetric}), we can analogously define convergent and Cauchy sequences in a normed space:
+\begin{enumerate}
+    \item A sequence $(x_n)$ in a normed space $X$ is \textbf{convergent} if there exists an $x \in X$ such that
+    \begin{align*}
+        \lim_{n \to \infty} \|x_n - x\| = 0.
+    \end{align*}
+    \item A sequence $(x_n)$ in a normed space $X$ is \textbf{Cauchy} if for every $\varepsilon > 0$, there exists a $N_{\varepsilon} \in \mathbb{N}$ such that 
+    \begin{align*}
+        n, m > N_{\varepsilon} \implies \|x_n - x_m\| < \varepsilon.
+    \end{align*}
+\end{enumerate}
+\end{defn}
+
+Frankly, this material repetitive and could have been excluded altogether. The following definition, though, cannot be related to (general) metric spaces since it uses vector addition defined on $X$.
+\begin{defn}[Infinite series]\label{seriesconverge}
+Let $(x_n)$ be a sequence in a normed space $X$. Then the \textbf{sequence of partial sums} $(s_n) \subset X$ associated with $(x_n)$ is defined such that
+\begin{align*}
+    s_n = x_1 + x_2 + \ldots + x_n, \qquad n \in \mathbb{N}.
+\end{align*}
+If this sequence $(s_n)$ converges in the normed space $X$,
+\begin{align*}
+    s_n \longrightarrow s \iff \|s_n - s\| \longrightarrow 0,
+\end{align*}
+then the \textbf{infinite series}
+\begin{align*}
+    \sum_{n=1}^{\infty} x_n = x_1 + x_2 + \ldots
+\end{align*}
+is said to \textbf{converge} or be \textbf{convergent}. The \textbf{sum of the series} is defined to be
+\begin{align*}
+    \sum_{n=1}^{\infty}x_n.
+\end{align*}
+\end{defn}
+
+\begin{defn}[Absolute convergence]
+Let $(x_n)$ be a sequence in a normed space $X$. Then if the series
+\begin{align*}
+    \sum_{n=1}^{\infty} \| x_n\|
+\end{align*}
+converges, the series $(x_n)$ is said to be \textbf{absolutely convergent}.
+\end{defn}
+
+The definitions of convergent and absolutely convergent series in a normed space $X$ leads us to the following theorem, which is important for understanding Banach spaces:
+\begin{thm}\label{banachabsoluteconvergence}
+A normed space $X$ is complete (is a Banach space) if and only if absolute convergence implies convergence.
+\end{thm}
+\begin{proof}
+$\implies$ Let $X$ be a Banach space. And suppose that the series $\sum_{n=1}^{\infty} x_n$ converges absolutely. 
+
+We wish to show that the series $\sum_{n=1}^{\infty} x_n$ converges. In order to do so, let us first define the $n$th partial sum of the aforementioned series, $s_n = x_1 + \ldots + x_n$. Also define the $n$th partial sum of  $\sum_{n=1}^{\infty} \|x_n\|$, $\tilde{s}_n = \|x_1\| + \ldots + \|x_n\|$. Take $\varepsilon > 0$ to be arbitrary. 
+
+By assumption that $\sum_{n=1}^{\infty} x_n$ converges absolutely, there exists a $N_{\varepsilon} \in \mathbb{N}$ such that
+\begin{align*}
+    n, m > N_{\varepsilon}, n > m \implies |\tilde{s}_n - \tilde{s}_m| < \varepsilon \iff \|x_{m+1}\| + \ldots + \|x_n\| < \varepsilon.
+\end{align*}
+Therefore, by the triangle inequality, it holds that
+\begin{align*}
+    n, m > N_{\varepsilon}, n > m \implies \|s_n - s_m\|  = \| x_{m+1} + \ldots + x_n\| \leq \|x_{m+1}\| + \ldots + \|x_n\| < \varepsilon.
+\end{align*}
+
+Because $\varepsilon > 0$ was chosen to be arbitrary, we deduce that the sequence $(s_n)$ is Cauchy in the normed space $X$. And because $X$ is complete, then there exists an $s \in X$ such that $s_n \longrightarrow s$. Thus, by Definition \ref{seriesconverge}, the series $\sum_{n=1}^{\infty} x_n$ converges.
+
+$\impliedby$ Conversely, suppose that $X$ is a normed space such that every absolutely convergent series in $X$ also converges in $X$. And let $(x_n)$ be an arbitrary Cauchy sequence in $X$. From this sequence $(x_n)$, we will construct a series that converges absolutely. 
+
+By assumption that $(x_n)$ is Cauchy, for each $k \in \mathbb{N}$ we can find an $n_k \in \mathbb{N}$ such that
+\begin{align*}
+    n > n_k \implies \|x_n - x_{n_k}\| < 2^{-k}.
+\end{align*}
+In particular, this implies that we can find a subsequence $(x_{n_k})$ of $(x_n)$ such that for each $k \in \mathbb{N}$,
+\begin{align*}
+    \|x_{n_{k+1}} - x_{n_k}\| <  2^{-k}.
+\end{align*}
+From here, define $(y_k) \subset X$ such that $y_k := x_{n_{k+1}} - x_{n_k}$. We point out that we can define a sequence in this way since we are working on a vector space $X$ (as opposed to a metric space, for instance). 
+
+We claim that $\sum_{k=1}^{\infty} y_k$ converges absolutely. To see why this is the case, notice that, by construction, $(\|y_k\|) = (a_k)$, where $a_k = 2^{-k}$. It is a well-known result from analysis that $a_k \longrightarrow 1$, and so we deduce that $\sum_{k=1}^{\infty} y_k$ converges absolutely.
+
+Thus, by our assumption on the normed space $X$, $\sum_{k=1}^{\infty} y_k$ converges. This means that there exists an $x \in X$ such that 
+\begin{align*}
+    &\|s_k - x\| \longrightarrow 0 \iff \|(y_1 + \ldots + y_k) - x\| \longrightarrow 0 \iff \|x_{n_{k+1}} - x_{n_1} - x\| \longrightarrow 0\\
+    &\|x_{n_{k+1}} - (x + x_{n_1})\| \longrightarrow 0.
+\end{align*}
+Here, $s_k = y_1 + y_2 + \ldots + y_k = (x_{n_2} - x_{n_1}) + (x_{n_3} - x_{n_2}) + \ldots + (x_{n_{k+1}} - x_{n_k}) = x_{n_{k+1}}  - x_{n_1}$ denotes the $k$th partial sum of $\sum_{i=1}^{\infty} y_i$. But because $(x_n)$ is Cauchy and has a convergent subsequence $x_{n_k} \longrightarrow (x + x_{n_1})$, then by Exercise \ref{cauchysubsequenceconvergent} we deduce that $x_n \longrightarrow (x + x_{n_1})$. 
+
+$(x_n)$ is an arbitrary Cauchy sequence in $X$, and so we conclude $X$ is a Banach space.
+\end{proof}
+
+\begin{defn}[Schauder basis]
+Let $X$ be a normed space. Suppose that $X$ contains a sequence $(e_n)$ with the property that for every $x \in X$, there exists a \textit{unique} sequence of scalars $(\alpha_n)$ such that
+\begin{align*}
+    \|(\alpha_1 e_1 + \ldots + \alpha_n e_n) - x\| \longrightarrow 0.
+\end{align*}
+Then $(e_n)$ is called a \textbf{Schauder basis} for $X$. The series
+\begin{align*}
+    \sum_{n=1}^{\infty} \alpha_n e_n
+\end{align*}
+is called the \textbf{expansion} of $x$ with respect to $(e_n)$, and we write
+\begin{align*}
+    x = \sum_{n=1}^{\infty}\alpha_n e_n.
+\end{align*}
+\end{defn}
+
+\begin{examp}[A Schauder basis for $\ell^p$]
+Consider the Banach space $\ell^p$ and define $(e_n)$ such that
+\begin{align*}
+    (e_n)_i = \begin{cases}
+    1 & \text{if $i = n$}\\
+    0 & \text{otherwise}
+    \end{cases}, \quad i \in \mathbb{N}.
+\end{align*}
+That is, the $n$th term of $e_n$ is $1$ and all remaining terms are $0$. Then $(e_n)$ forms a Schauder basis for $\ell^p$.
+\end{examp}
+
+\begin{thm}
+If a real or complex normed space has a Schauder basis, then it is separable.
+\end{thm}
+\begin{proof}
+Let $X$ be a real normed space and suppose that $X$ has a Schauder basis $(e_n)$. Define the subset $M$ of $X$ such that 
+\begin{align*}
+    M := \bigcup_{n \in \mathbb{N}} \bigg\{ \sum_{i=1}^n \beta_i e_i  \ | \ \beta_i \in \mathbb{Q} \bigg\}.
+\end{align*}
+That is, $M$ consists of all linear combinations of the vectors $(e_n)$ with rational coefficients. We remark that $M$ is countable since each set $\{ \sum_{i=1}^n \beta_i e_i  \ | \ \beta_n \in \mathbb{Q} \}$ is countable.
+
+Let $x \in X$ be arbitrary. And take $\varepsilon > 0$ to be arbitrary. Then because $(e_n)$ is a Schauder basis for $X$, there exists $\alpha_1, \ldots, \alpha_{N_{\varepsilon}}$ such that
+\begin{align*}
+    \|x - (\alpha_1 e_1 + \ldots + \alpha_{N_{\varepsilon}}e_{N_{\varepsilon}})\| < \frac{\varepsilon}{2}.
+\end{align*}
+Also, for each $1 \leq i \leq N_{\varepsilon}$, there exists a $\beta_i \in \mathbb{Q}$ such that 
+\begin{align*}
+    \|\beta_ie_i - \alpha_i e_i\| = |\beta_i - \alpha_i| \cdot \|e_i\| \leq \frac{\varepsilon}{2N_{\varepsilon}}.
+\end{align*}
+This implies that $m = \beta_1 e_1 + \ldots + \beta_{N_{\varepsilon}} e_{N_{\varepsilon}} \in M$ satisfies
+\begin{align*}
+    \|m - (\alpha_1 e_1 + \ldots + \alpha_{N_{\varepsilon}}e_n)\| \leq \|\beta_ie_i - \alpha_i e_i\| + \ldots + \|\beta_{N_{\varepsilon}} e_{N_{\varepsilon}} - \alpha_{N_{\varepsilon}} e_{N_{\varepsilon}}\| < \frac{\varepsilon}{2}
+\end{align*}
+
+Putting everything together, we have 
+\begin{align*}
+    \|m - x\| \leq \|m - (\alpha_1 e_1 + \ldots + \alpha_{N_{\varepsilon}}e_{N_{\varepsilon}})\| + \|(\alpha_1 e_1 + \ldots + \alpha_{N_{\varepsilon}}e_{N_{\varepsilon}}) - x\| < \varepsilon.
+\end{align*}
+That is, for each $\varepsilon > 0$, there exists a $m \in M$ such that $m \in B_{\varepsilon}(x)$. We conclude that $\bar{M} = X$, and so the normed space $X$ is separable.
+
+For a complex normed space, the argument is exactly the same except for that we consider the $\beta_i$'s to be Gaussian rationals $\mathbb{Q}[i]$, which are dense in $\mathbb{C}$.
+\end{proof}
+
+To conclude this section of our notes, we prove that every (incomplete) normed space can be completed. 
+\begin{thm}[Completion of a normed space]\label{completionnorm}
+Let $X = (X, \|\cdot\|)$ be a normed space. Then there is a Banach space $\hat{X}$ and an isometry $A$ from $X$ onto a subspace $W$ of $\hat{X}$ which is dense in $\hat{X}$. The space $\hat{X}$ is unique, except for isometries. 
+\end{thm}
+\begin{proof}
+By Theorem \ref{completion}, there exists a complete metric space $\hat{X} = (\hat{X}, \hat{d})$ and an isometry $A: X \longrightarrow W = A(X)$, where $W$ is dense in $\hat{X}$ and $\hat{X}$ is unique, except for isometries. Therefore, it remains to make $\hat{X}$ into a vector space and then introduce a suitable norm on $\hat{X}$.
+
+Recall from Theorem \ref{completion} that the elements of $\hat{X}$ are the equivalence classes containing the Cauchy sequences of $X$ under the equivalence relation
+\begin{align*}
+    (x_n) \sim (y_n) \iff \lim_{n \to \infty} d(x_n, y_n) = 0.
+\end{align*}
+The metric defined on $\hat{X}$ is
+\begin{align*}
+    \hat{d}(\hat{x}, \hat{y}) = \lim_{n \to \infty} d(x_n, y_n),
+\end{align*}
+where $(x_n)$ and $(y_n)$ are representatives of the cosets $\hat{x}$ and $\hat{y}$, respectively.
+
+For $(x_n) \in \hat{x}$ and $(y_n) \in \hat{y}$, let us define $(z_n)$ such that $z_n = x_n + y_n, \ n \in \mathbb{N}$. Observe that $(z_n)$ is indeed a Cauchy sequence since
+\begin{align*}
+    \|z_n - z_m\| \leq \|x_n - x_m\| + \|y_n - y_m\|.
+\end{align*}
+Therefore, let $\hat{z}$ denote the coset to which $(z_n)$ belongs. We can then define the operation of vector addition such that $\hat{x} + \hat{y} = \hat{z}$. This operation is independent of our choice of coset representatives, since for $(x_n') \in \hat{x}$,  $(y_n') \in \hat{y}$
+\begin{align*}
+    d(z_n, z_n') = \|z_n - z_n' \| = \|x_n - x_n'\| + \|y_n - y_n'\| \longrightarrow 0 \implies (z_n) \sim (z_n'). 
+\end{align*}
+
+We define scalar multiplication in a similar way. In particular let $(x_n) \in \hat{x}$ be an arbitrary coset representative, and define the sequence $(z_n)$ in $X$ such that $z_n = \alpha x_n, \ n \in \mathbb{N}$. $(z_n)$ is a Cauchy sequence because
+\begin{align*}
+    \|z_n - z_m\| = |\alpha|\|x_n - x_m\|.
+\end{align*}
+Let $\hat{z}$ be the coset to which the Cauchy sequence $(z_n)$ belongs. Then we define $\alpha \hat{x} = \hat{z}$. Just as was the case with vector addition, our definition of scalar multiplication does not depend upon which coset representative from $\hat{x}$ is chosen.
+
+From here, it is easy to check that $\hat{X}$ is a vector space over the same field on which $X$ is defined. The additive identity element $\0_{\hat{X}}$ is the coset to which $A\0_{X}$ belongs (i.e. the coset which contains the constant sequence $(x_n), \ x_n = 0$).
+
+Now to construct a norm on $\hat{X}$, we remark that the isometry $A$ induces on the set $W$ a norm $\|\cdot\|_1$. More specifically, we have
+\begin{align*}
+\|Ax\|_1 = \hat{d}(Ax, A\0_{X}) = d(x, \0_{X}) = \|x\|, \quad x \in X.
+\end{align*}
+The induced metric on $W$ by $\|\cdot\|_1$ is the restriction of $\hat{d}$ to $W$, as we would expect to be the case:
+\begin{align*}
+    \|Ax - Ay\|_1 = \|x - y\| = d(x, y) = \hat{d}(x, y).
+\end{align*}
+
+Finally, we must just extend the norm $\|\cdot\|_1$ to the entirety of $\hat{X}$. We do this by letting $\|\hat{x}\|_2 := \hat{d}(\0_{\hat{X}}, \hat{x}), \ \hat{x} \in X$. Notice that
+\begin{align*}
+\|Ax\|_2 = \hat{d}(\0_{\hat{X}}, A\hat{x}) = d(\0_{X}, x) = \|x\|,
+\end{align*}
+meaning that $\|\cdot\|_2$ is indeed equal to $\|\cdot\|_1$ on $W$. One can verify that $\|\cdot\|_2$ is indeed a valid norm on $\hat{X}$. It also remains to show that $W$ is dense in $\hat{X}$ in the metric induced by $\|\cdot\|_2$ (as opposed to in the metric $\hat{d}$, which we showed in our proof of Theorem \ref{completion}).
+\end{proof}
+
+\begin{exer}
+Show that $x_n \longrightarrow x$ and $y_n \longrightarrow y$ implies $x_n + y_n \longrightarrow x + y$. Show that $\alpha_n \longrightarrow \alpha$ and $x_n \longrightarrow x$ implies $\alpha_n x_n \longrightarrow \alpha x$.
+\begin{proof}
+Fix $\varepsilon > 0$ to be arbitrary.\newline
+Then there exists an $N_{\varepsilon}$ such that
+\begin{align*}
+    n >  N_{\varepsilon} \implies \|x_n - x\| < \frac{\varepsilon}{2}, \|y_n - y\| < \frac{\varepsilon}{2}.
+\end{align*}
+Therefore, we have that
+\begin{align*}
+    n >  N_{\varepsilon} \implies \| (x_n + y_n) - (x + y)\| \leq \| x_n - x\| + \|y_n - y\| < \varepsilon.
+\end{align*}
+This proves that $x_n + y_n \longrightarrow x + y$.\newline
+For the second statement, suppose the field $K$ over which the vector space $X$ is defined is either the real line or complex plane. Let us consider the sequence $(\|x_n\|)$. In particular, since $x_n \longrightarrow x$ and $y \mapsto \|y\|$ is continuous (Theorem \ref{normcontinuous}), then by Theorem \ref{continuousmapping}, $\|x_n\| \longrightarrow \|x\|$. We deduce by Lemma \ref{uniquelimit} that $\sup_{n \in \mathbb{N}} \|x_n\| \leq c$ for some $c \in \mathbb{R}_{++}$ a constant. That is, the sequence $(\|x_n\|)$ is bounded. 
+
+By assumption, there exists a $N_{\varepsilon} \in \mathbb{N}$ such that
+\begin{align*}
+    n > N_{\varepsilon} \implies |\alpha_n - \alpha| < \frac{\varepsilon}{2c}, \|x_n - x\| < \frac{\varepsilon}{2 \cdot \max\{1, |\alpha|\}}.
+\end{align*}
+Consequently, we have
+\begin{align*}
+    n > N_{\varepsilon} \implies \|\alpha_n x_n - \alpha x\| &\leq \|\alpha_n x_n - \alpha x_n\| + \| \alpha x_n - \alpha x\|\\
+    &= |\alpha_n - \alpha| \|x_n\| + |\alpha| \|x_n - x\|\\
+    &< \frac{\varepsilon}{2c} \cdot  c + |\alpha| \cdot \frac{\varepsilon}{2 \cdot \max\{1, |\alpha|\}}\\
+    &\leq \varepsilon
+\end{align*}
+Note that we consider $\max\{1, |\alpha|\}$ as opposed to just $|\alpha|$ in order to avoid dividing by zero. This proves that $\alpha_n x_n \longrightarrow \alpha x$.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Show that the convergence of $\sum_{n=1}^{\infty} \|y_n\|$ may not imply the convergence of $\sum_{n=1}^{\infty} y_n$.\newline
+Hint: Consider $Y$ to be the subspace of $\ell^{\infty}$ consisting of all sequences with only finitely-many nonzero terms. From Exercises \ref{subsetlinfty} and \ref{subsetlinftyclosed} we know that $Y$ is not a Banach space. And take $(y_n) \subset Y$ such that $y_n = \left(\eta_j^{(n)} \right)$, with $\eta_n^{(n)} = n^{-2}$ and $\eta_j^{(n)} = 0$ otherwise.
+
+First, we point out that we need it to be the case that $Y$ is incomplete, since otherwise absolute convergence does imply convergence by Theorem \ref{banachabsoluteconvergence}. Now, we show that $(y_n)$ defined above does converge absolutely. Indeed, $\tilde{s}_n = \|y_1\| +\ldots +\|y_n\| = \sum_{i=1}^n \sup_{j \in \mathbb{N}}|\xi_j^{(i)}| = \sum_{i=1}^n i^{-2}$, and it is well-known from analysis that $\tilde{s}_n \longrightarrow \frac{\pi^2}{6}$. Therefore, the series $\sum_{n=1}^{\infty} y_n$ converges absolutely.
+
+However, we claim that $\sum_{n=1}^{\infty} y_n$ does not converge. To see why this is the case, notice that the $n$th partial sum of the series, $s_n = y_1 + \ldots + y_n$, satisfies
+\begin{align*}
+    s_n = \left(\xi_j^{(n)} \right), \quad \xi_j^{(n)} = 
+    \begin{cases}
+    j^{-2} & \text{if $j \leq n$}\\
+    0 & \text{otherwise}
+    \end{cases}.
+\end{align*}
+And so in the Banach space $\ell^{\infty}$, $s_n \longrightarrow s$, where $s = (\xi_j)$ satisfies $\xi_j = j^{-2}$ for $j \in \mathbb{N}$. That is, when viewed as sequence in the Banach space $\ell^{\infty}$ (rather than in the normed space $Y$), $(s_n)$ converges to a vector $s$ which does not contain only finitely-many nonzero terms, and thus is not contained in $Y$. This then implies that $s_n$ is divergent in $Y$. Otherwise, we would violate the uniqueness of the limit of $(s_n)$ in $\ell^{\infty}$.
+\end{exer}
+
+\begin{exer}[Seminorm]\label{seminorm}
+A \textbf{seminorm} on a vector space is a mapping $p: X \longrightarrow \mathbb{R}$ satisfying axioms (1), (3), and (4) in Definition \ref{normedbanach}. Show that 
+\begin{align*}
+    p(\0) = 0\\
+    |p(x) - p(y)| \leq p(y-x).
+\end{align*}
+Thus, if $p(x) = 0$ implies $x = \0$, then $p$ is a norm.
+\begin{proof}
+By (3), for any $|\alpha| \neq 1$ we have $\|\alpha \0\| = |\alpha| \|\0\| \iff \|\0\|(1-|\alpha|) = 0 \implies \|\0\| = 0$.\newline
+Now to prove the second statement, an analog of the reverse triangle inequality, we have
+\begin{align*}
+    &p(x) = p(x - y + y) \leq p(x-y) + p(y) & \text{axiom (4)}\\
+    &p(x) - p(y) \leq p(x-y).
+\end{align*}
+Similarly,
+\begin{align*}
+    &p(y) = p(y - x + x) \leq p(y-x) + p(x) & \text{axiom (4)}\\
+    &p(y) \leq p(x-y) + p(x) & \text{axiom (3)}\\
+    &p(y) - p(x) \leq p(x-y). 
+\end{align*}
+Altogether, we conclude $|p(x) - p(y)| \leq p(x-y)$, as desired.
+
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Let $Y$ be a closed subspace of a normed space $(X, \| \cdot \|)$. Show that a norm $\|\cdot\|_0$ on $X/Y$ is defined by
+\begin{align*}
+    \|\hat{x}\|_0 := \inf_{x \in \hat{x}} \|x\|, \qquad \hat{x} \in X/Y.
+\end{align*}
+\begin{proof}
+The nonnegativity of the norm $\|\cdot\|_0$ follows directly from that of $\|\cdot\|$: 
+\begin{align*}
+    \|x\| \geq 0, \ \forall x \in X \implies \|\hat{x}\|_0 = \inf_{x \in \hat{x}}\|x\| \geq 0.
+\end{align*}
+
+Now, let $\0_{X/Y}$ be the zero coset. From Exercise \ref{quotientspace}, we know $\0_{X/Y} = \0_X + Y$, which implies $\0_X \in \0_{X/Y}$ because $Y$ is a subspace of $X$. Therefore,
+\begin{align*}
+    \|\0_{X/Y}\|_0 = \inf_{x \in \0_{X/Y}}\|x\| \leq \|\0_X\| = 0 \implies \|\0_{X/Y}\|_0 = 0.
+\end{align*}
+Conversely, suppose $\|\hat{x}\|_0 = 0$. By definition of $\|\cdot\|_0$, this implies that there exists a sequence $(x_n) \subset \hat{x}$ such that $\|x_n\| \longrightarrow 0_X$. By the definition of convergence in the normed space $X$, this implies $x_n \longrightarrow \0$. Finally, $Y$ closed implies that $\hat{x} = x_0 + Y$ , viewed as a set rather than element, is closed. This is the subject of the following lemma:
+
+\begin{lm}
+Let $Y$ be a closed subspace of a normed space $(X, \| \cdot \|)$. And let $\hat{x}$ be an arbitrary coset. Then $\hat{x}$ is closed when viewed as a subset of $X$. 
+\end{lm}
+\begin{proof}
+Let $x_0$ be an arbitrary representative of the coset $\hat{x}$. Then we can write $\hat{x} = x_0 + Y = \{x_0 + y \ | \ y \in Y \}$. Let $x \in \bar{\hat{x}}$ be arbitrary. By Theorem \ref{closedconvergent}, there exists a sequence $(x_0 + y_n), \ y_n \in Y$ such that $x_0 + y_n \longrightarrow x$. And so 
+\begin{align*}
+    \|(x_0 + y_n) - x \| \longrightarrow 0 \iff  \|y_n - (x - x_0) \|  \longrightarrow 0  \iff y_n \longrightarrow x - x_0.
+\end{align*}
+But by assumption that $Y$ is closed, this means $x - x_0 \in Y$. Finally, writing $x = x_0 + (x - x_0)$, we deduce $x \in \hat{x}$.
+\end{proof}
+
+As a consequence, we have 
+\begin{align*}
+    x_n \longrightarrow \0_X, \ (x_n) \subset \hat{x} \implies \0_X \in \hat{x}.
+\end{align*}
+By Exercise \ref{quotientspace}, the cosets partition $X$, and so $\hat{x} =  \0_{X/Y}$.
+
+For the third axiom, suppose $\hat{x} = x_0 + Y$. Then we have 
+\begin{align*}
+    \|\alpha \hat{x}\|_0 &= \inf_{x \in \alpha x_0 + Y} \|x\| = \inf_{y \in Y} \|\alpha x_0 +  y\|  = \inf_{y \in Y} \|\alpha x_0 +  \alpha y\| = |\alpha| \cdot \inf_{y \in Y} \|x_0 +  y\|\\
+    &= |\alpha| \cdot \inf_{x \in x_0 + Y} \|x\| = |\alpha| \|\hat{x}\|_0.
+\end{align*}
+Note that the third equality holds because $Y$ is a subspace.
+
+Finally, for the triangle inequality, let $\hat{x} = x_0 + Y$ and $\hat{y} = y_0 + Y$. Then it holds that
+\begin{align*}
+    \|\hat{x} + \hat{y}\|_0 &= \inf_{x \in (x_0 + y_0)  + Y}\|x \| = \inf_{y \in Y}\|(x_0 + y_0) + y\| \leq \inf_{y \in Y}( \|x_0 + y\| + \|y_0 + y\|)\\
+    &\leq \inf_{y \in Y} \|x_0 + y\| + \inf_{y \in Y} \|y_0 + y\| = \|\hat{x}\|_0 + \|\hat{y}\|_0.
+\end{align*}
+
+We conclude that $\|\cdot\|_0$ is a norm on the quotient space $X/Y$.
+\end{proof}
+\end{exer}
+
+\subsection{Finite-Dimensional Normed Spaces and Subspaces}
+
+In this section, we restrict our attention to finite-dimensional normed spaces. That is, we consider normed spaces whose Hamel bases have finite cardinality.\footnote{Recall from Section \ref{vectorspace} that all Hamel bases of a given vector space have the same cardinality.}
+
+We begin by presenting a result which shows \enquote{in the case of linear independence of vectors, we cannot find a linear combination that involves large scalars but represents a small vector}:
+\begin{lm}\label{coeff}
+Let $\{x_1, \ldots, x_n\}$ be a linearly independent set of vectors in a normed space $X$ (of any dimension). Then there is a $c \in \mathbb{R}_{++}$ such that for every choice of scalars $\alpha_1, \ldots, \alpha_n$,
+\begin{align*}
+    \|\alpha_1 x_1 + \ldots + \alpha_n x_n\| \geq c(|\alpha_1| + \ldots + |\alpha_n|).
+\end{align*}
+\end{lm}
+
+As a consequence of this lemma, we get the following important theorem: 
+\begin{thm}\label{finitecomplete}
+Every finite-dimensional subspace $Y$ of a normed space $X$ is complete. In particular, every finite-dimensional normed space is complete.
+\end{thm}
+\begin{proof}
+Let $(y_m)$ be an arbitrary Cauchy sequence in $Y$. Suppose that $\text{dim}\ Y = n$ and $\{e_1, \ldots, e_n\}$ is a Hamel basis for $Y$. Then we can write
+\begin{align*}
+    y_m = \alpha_1^{(m)}x_1 + \ldots + \alpha_n^{(m)}x_n, \qquad m \in \mathbb{N}. 
+\end{align*}
+
+Fix $\varepsilon > 0$ to be arbitrary. Because $(y_m)$ is a Cauchy sequence, then there exists a $N_{\varepsilon} \in \mathbb{N}$ such that
+\begin{align*}
+    n, m > N_{\varepsilon} \implies \left\|\sum_{j=1}^n (\alpha_j^{(n)} - \alpha_j^{(m)})e_i \right\| = \|y_n - y_m\| < \varepsilon.
+\end{align*}
+And by Lemma \ref{coeff}, there exists a $c \in \mathbb{R}_{++}$ such that $\|\sum_{j=1}^n \beta_j e_j\| \geq c\sum_{j=1}^n |\beta_j|$. Therefore, combining this with the previous statement, we get
+\begin{align*}
+    &n, m > N_{\varepsilon} \implies c|\alpha_j^{(n)} - \alpha_j^{(m)}| <  c\sum_{j=1}^n|\alpha_j^{(n)} - \alpha_j^{(m)}| < \varepsilon\\
+    &n, m > N_{\varepsilon} \implies |\alpha_j^{(n)} - \alpha_j^{(m)}| < \frac{\varepsilon}{c}.
+\end{align*}
+And so for each $1 \leq j \leq n$, we have that $\left(\alpha_j^{(m)} \right) = (\alpha_j^{1}, \alpha_j^{2}, \ldots)$ is Cauchy sequence in $\mathbb{C}$ or $\mathbb{R}$. By Theorem \ref{realcomplete}, we have that both $\mathbb{C}$ and $\mathbb{R}$ are complete, and so $\alpha_j^{(m)} \longrightarrow \alpha_j$ for some $\alpha_j \in \mathbb{R}$. 
+
+Using these limits, define 
+\begin{align*}
+    y = \alpha_1 e_1 + \ldots + \alpha_n e_n.
+\end{align*}
+We propose that $y$ is the limit of the Cauchy sequence $(y_m)$. First, because $Y$ is a subspace, then it must be true by Definition \ref{subspace} that $y \in Y$. Furthermore,
+\begin{align*}
+    \|y_m - y\| = \left\| \sum_{j=1}^n (\alpha_j^{(m)} - \alpha_j)e_j \right\| \leq \sum_{j=1}^n |\alpha_j^{(m)} - \alpha_j|\|e_j\|.
+\end{align*}
+Since $\alpha_j^{(m)} \longrightarrow a_j$, we can choose $N_{\varepsilon} \in \mathbb{N}$ such that $m > N_{\varepsilon} \implies |\alpha_j^{(m)} - \alpha_j| < \frac{\varepsilon}{n \cdot \max\{\|e_1\|, \ldots, \|e_n\|\}}$ for $1 \leq j \leq n$. This means
+\begin{align*}
+    m > N_{\varepsilon} \implies \|y_m - y\| \leq  \sum_{j=1}^n |\alpha_j^{(m)} - \alpha_j|\|e_j\| < \varepsilon.
+\end{align*}
+
+We deduce that $y_m \longrightarrow y$. Because $(y_m)$ was chosen to be an arbitrary Cauchy sequence in $Y$, then we conclude $Y$ is complete.
+\end{proof}
+
+As an immediate consequence of Theorem \ref{finitecomplete}, we get the following result:
+\begin{thm}
+Every finite-dimensional subspace $Y$ of a normed space $X$ is complete.
+\end{thm}
+\begin{proof}
+Let $Y$ be a finite-dimensional subspace of a normed space $X$. By Theorem \ref{finitecomplete}, $Y$ is complete. And so by Theorem \ref{closedcomplete}, $Y$ is closed.
+\end{proof}
+\begin{note}
+An infinite-dimensional subspace of a normed space need not be closed. Consider, for instance the subspace $\mathcal{P}$ of $C[a, b]$ consisting of all polynomials defined on the interval $[a, b] \subset \mathbb{R}$. By the Weierstrass approximation theorem, we know that $\bar{\mathcal{P}} = C[a, b]$ but $\mathcal{P} \neq C[a,b]$. That is, $\mathcal{P}$ is not closed in $C[a,b]$.
+\end{note}
+
+\begin{defn}[Equivalent norms]\label{equivalentnorms}
+A norm $\|\cdot\|$ on a vector space $X$ is said to be \textbf{equivalent} to a norm $\|\cdot\|_0$ on $X$ if there are positive numbers $a, b$ such that for all $x \in X$ we have
+\begin{align*}
+    a\|x\|_0 \leq \|x\| \leq b\|x\|_0.
+\end{align*}
+\end{defn}
+In Exercise \ref{equivalentnormstopology}, we prove that equivalent norms on $X$ define the same topology for $X$. That is, the open subsets of $X$ are the same, regardless of the choice of norm on $X$. We also prove in Exercise \ref{cauchyequivalentnorm} that the Cauchy sequences in $(X, \|\cdot\|)$ and $(X, \|\cdot\|_0)$ are the same.
+
+The notion of equivalent norms leads us to the following theorem:
+\begin{thm}\label{allequivalent}
+On a finite-dimensional vector space $X$, any norm $\|\cdot\|$ is equivalent to any other norm $\|\cdot\|_0$.
+\end{thm}
+\begin{proof}
+Let $\text{dim} \ X = n$ and $\{e_1, \ldots, e_n\}$ be a Hamel basis for $X$. Then for each $x \in X$, there is a unique representation of $x$ as a linear combination of $\{e_1, \ldots, e_n\}$:
+\begin{align*}
+    x = \alpha_1 e_1 + \ldots + \alpha_n e_n.
+\end{align*}
+By Lemma \ref{coeff}, there exists a $c \in \mathbb{R}_{++}$ such that
+\begin{align*}
+    \|x\| \geq c(|\alpha_1| + \ldots + |\alpha_n|).
+\end{align*}
+And letting $k = \max\{\|e_1\|_0, \ldots, \|e_n\|_0\}$, the triangle inequality gives us
+\begin{align*}
+    \|x\|_0 \leq \sum_{j=1}^n|\alpha_j| \|e_j\|_0 \leq k \sum_{j=1}^n|\alpha_j|.
+\end{align*}
+Therefore,
+\begin{align*}
+    \frac{1}{k}\|x\|_0 \leq \frac{1}{c}\|x\| \iff \frac{c}{k}\|x\|_0 \leq \|x\|.
+\end{align*}
+
+Now, let us interchange the role of $\|\cdot\|$ and $\|\cdot\|_0$. Namely, there exists a $c_1 \in \mathbb{R}_{++}$ such that
+\begin{align*}
+    \|x\|_0 \geq c_1 (|\alpha_1| + \ldots + |\alpha_n|).
+\end{align*}
+And letting $k_1 = \max\{\|e_1\|, \ldots, \|e_n\|\}$,
+\begin{align*}
+    \|x\| \leq \sum_{j=1}^n |\alpha_j| \|e_j\| \leq k_1 \sum_{j=1}^n |\alpha_j|.
+\end{align*}
+Thus,
+\begin{align*}
+    \frac{1}{k_1}\|x\| \leq \frac{1}{c_1}\|x\|_0 \iff \|x\| \leq \frac{k_1}{c_1} \|x\|_0
+\end{align*}
+
+We conclude
+\begin{align*}
+   \frac{c}{k} \|x\|_0 \leq \|x\| \leq \frac{k_1}{c_1} \|x\|_0,
+\end{align*}
+and so $\|\cdot\|$ and $\|\cdot\|_0$ are equivalent.
+\end{proof}
+
+Theorem \ref{allequivalent} implies that in a finite-dimensional vector space, the convergence or divergence of a sequence does not depend on the particular choice of norm on that space (see Exercise \ref{convergentequivalentnorm}).
+
+\begin{exer}\label{equivalentnormsequivalencerelation}
+Show that in Definition \ref{equivalentnorms}, the axioms of an equivalence relation hold.
+\begin{proof}
+Let $X$ be a vector space and suppose $\|\cdot\|, \|\cdot\|_1, \|\cdot\|_2$ are (arbitrary) norms on $X$.
+
+First, notice that for all $x \in X$
+\begin{align*}
+    1\|x\| \leq \|x\| \leq 1\|x\|,
+\end{align*}
+which implies that $\|\cdot\| \sim \|\cdot\|$.
+
+Next, suppose that $\|\cdot\| \sim \|\cdot\|_1$, meaning that there exists $a, b \in \mathbb{R}_{++}$ such that
+\begin{align*}
+    a\|x\|_1 \leq \|x\| \leq b\|x\|_1, \qquad x \in X.
+\end{align*}
+The first inequality implies that
+\begin{align*}
+    \|x\|_1 \leq \frac{1}{a}\|x\|, \qquad x \in X.
+\end{align*}
+And the second inequality tells us that
+\begin{align*}
+    \frac{1}{b}\|x\| \leq \|x\|_1, \qquad x \in X.
+\end{align*}
+Overall, we have
+\begin{align*}
+    \frac{1}{b}\|x\| \leq \|x\|_1 \leq \frac{1}{a}\|x\|, \qquad x \in X
+\end{align*}
+with $\frac{1}{b}, \frac{1}{a} \in \mathbb{R}_{++}$. This implies $\|\cdot\|_1 \sim \|\cdot\|$.
+
+Finally, let us suppose $\|\cdot\| \sim \|\cdot\|_1$ and $\|\cdot\|_1 \sim \|\cdot\|_2$. Then there exist constants $a, b, a_1, b_1 \in \mathbb{R}_{++}$ such that 
+\begin{align*}
+    &a\|x\|_1 \leq \|x\| \leq b \|x\|_1\\
+    &a_1\|x\|_2 \leq \|x\|_1 \leq b_1 \|x\|_2, \qquad &x \in X
+\end{align*}
+Notice that from the first inequality, $\|x\|_1 \leq \frac{1}{a}\|x\|$, and so by the second inequality
+\begin{align*}
+    a_1\|x\|_2 \leq \frac{1}{a}\|x\| \iff a_1a\|x\|_2 \leq \|x\|, \qquad x \in X.
+\end{align*}
+Similarly, the first inequality tells us $\frac{1}{b}\|x\| \leq \|x\|_1$ and so by the second inequality
+\begin{align*}
+    \frac{1}{b}\|x\| \leq b_1\|x\|_2 \iff \|x\| \leq b_1 b\|x\|_2, \qquad x \in X.
+\end{align*}
+Altogether,
+\begin{align*}
+    a_1a\|x\|_2 \leq \|x\| \leq b_1 b\|x\|_2, \qquad x \in X
+\end{align*}
+for $a_1a,  b_1 b \in \mathbb{R}_{++}$. And so $\|\cdot\| \sim \|\cdot\|_2$.
+
+This proves that the definition of equivalent norms is an equivalence relation.
+\end{proof}
+\end{exer}
+
+\begin{exer}\label{equivalentnormstopology}
+Show that equivalent norms on a vector space $X$ induce the same topology on $X$.
+\begin{proof}
+Let $\|\cdot\|$ and $\|\cdot\|_0$ be two norms on the vector space $X$. 
+
+We begin by outlining our argument. In particular, we will show that every open ball of radius $r > 0$ in $(X, \|\cdot\|)$ contains an open ball in $(X, \|\cdot\|_0)$ and vice versa. Taking this statement for given, let $A$ be an open set in $(X, \|\cdot\|)$; this means that we can write $A = \bigcup_{x \in A} B_{r_x}(x)$, where $B_{r_x}(x)$ is an open ball of radius $r_x > 0$ in $(X, \|\cdot\|)$. Because each $B_{r_x}(x)$ contains an open ball in $(X, \|\cdot\|_0)$, $B_{r_x'}^0(x)$, we can write $A = \bigcup_{x \in A} B_{r_x'}^0(x)$. Therefore, $A$ is open in $(X, \|\cdot\|_0)$ since it the union of open sets in $(X, \|\cdot\|_0)$. Proving that each open set in $(X, \|\cdot\|_0)$ is also open in $(X, \|\cdot\|)$ follows by the same argument.
+
+Therefore, it only remains to show the inclusion of the open balls in $(X, \|\cdot\|)$ and $(X, \|\cdot\|_0)$.
+Recall that because  $\|\cdot\|$ and $\|\cdot\|_0$ are equivalent, then there exists $a, b \in \mathbb{R}_{++}$ such that
+\begin{align*}
+    a\|x\|_0 \leq \|x\| \leq b \|x\|_0, \qquad x \in X.
+\end{align*}
+
+Let $B_r(x_0) = \{x \in X \ | \ \|x - x_0\| < r\}$ be an open ball in $(X, \|\cdot\|)$. Also, consider the open ball $B_{\frac{r}{b}}^0(x_0) = \{x \in X \ | \ \|x - x_0\|_0 < \frac{r}{b} \}$ in $(X, \|\cdot\|_0)$. Then
+\begin{align*}
+    x \in B_{\frac{r}{b}}^0(x_0) \implies \|x - x_0\| \leq b\|x - x_0\|_0 < r \implies x \in B_r(x_0).
+\end{align*}
+And so we conclude $B_{\frac{r}{b}}^0(x_0) \subseteq B_r(x_0)$.
+
+Similarly, let $B_r^0(x_0) = \{x \in X \ | \ \|x - x_0\|_0 < r\}$ be an open ball in $(X, \|\cdot\|_0)$. And take the open ball $B_{ar}(x_0) = \{x \in X \ | \ \|x - x_0\| < ar\}$ in $(X, \|\cdot\|)$. Then
+\begin{align*}
+    x \in B_{ar}(x_0) \implies \|x - x_0\|_0 <\frac{1}{a}\|x - x_0\| < r \implies x \in B_r^0(x_0).
+\end{align*}
+And so we conclude $B_{ar}(x_0) \subset B_r^0(x_0)$.
+\end{proof}
+
+\begin{note}
+One can also prove that if the topology induced on $X$ by $\|\cdot\|$ and $\|\cdot\|_0$ are the same, then $\|\cdot\|$ and $\|\cdot\|_0$ are equivalent.
+\end{note}
+\end{exer}
+
+\begin{exer}\label{cauchyequivalentnorm}
+If $\|\cdot\|$ and $\|\cdot\|_0$ are equivalent norms on $X$, show that the Cauchy sequences in $(X, \|\cdot\|)$ and $(X, \|\cdot\|_0)$ are the same.
+\begin{proof}
+Since $\|\cdot\|$ and $\|\cdot\|_0$ are equivalent norms, then there exist $a, b \in \mathbb{R}_{++}$ such that
+\begin{align*}
+    a\|x\| \leq \|x\|_0 \leq b\|x\|, \qquad x \in X.
+\end{align*}
+In particular, this implies that
+\begin{align*}
+    &a\|x - y\| \leq \|x - y\|_0 \leq b\|x - y\|, \qquad x, y \in X\\
+    &ad(x, y) \leq d_0(x, y) \leq bd(x, y), \qquad x, y \in X.
+\end{align*}
+Here, $d$ and $d_0$ denote the metrics induced by the norms $\|\cdot\|$ and $\|\cdot\|_0$, respectively. 
+
+By Exercise \ref{equivalentmetrics}, the Cauchy sequences in $(X, d)$ and $(X, d_0)$ are the same, which implies that the Cauchy sequences in $(X, \|\cdot\|)$ and $(X, \|\cdot\|_0)$ are the same.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Show that the norms $\|\cdot\|_1$ and $\|\cdot\|_2$ in Exercise \ref{euclideannorms} satisfy
+\begin{align*}
+    \frac{1}{\sqrt{n}}\|x\|_1 \leq \|x\|_2 \leq \|x\|_1.
+\end{align*}
+\begin{proof}
+Let $x = (\xi_1, \ldots, \xi_n) \in \mathbb{C}^n$ be an arbitrary vector.
+
+For the first inequality, we invoke the Cauchy-Schwarz inequality for $\mathbb{R}^n$:
+\begin{align*}
+    &\|x\|_1 = \sum_{i=1}^n |1 \cdot \xi_i| \leq \sqrt{\sum_{i=1}^n 1} \cdot \sqrt{\sum_{i=1}^n |\xi_i|^2} = \sqrt{n} \|x\|_2\\
+    \implies& \frac{1}{\sqrt{n}}\|x\|_1 \leq \|x\|_2
+\end{align*}
+
+And for the second inequality,
+\begin{align*}
+    &\|x\|_2^2  = \sum_{i=1}^n |\xi_i|^2 \leq \left(\sum_{i=1}^n |\xi_i| \right)^2 = \|x\|_1^2\\
+    \implies& \|x\|_2 \leq \|x\|_1
+\end{align*}
+The inequality on the first line follows from the multinomial theorem as well as the fact that each term in the sum  $\sum_{i=1}^n |\xi_i|$ is nonnegative.
+
+Altogether, we conclude
+\begin{align*}
+    \frac{1}{\sqrt{n}}\|x\|_1 \leq \|x\|_2 \leq \|x\|_1, \qquad x \in X.
+\end{align*}
+\end{proof}
+\end{exer}
+
+\begin{exer}\label{convergentequivalentnorm}
+If two norms $\|\cdot\|$ and $\|\cdot\|_0$ on a vector space $X$ are equivalent, show that 
+\begin{align*}
+    \|x_n -x\| \longrightarrow 0 \iff \|x_n -x\|_0 \longrightarrow 0.
+\end{align*}
+\begin{proof}
+By Exercise \ref{equivalentnormsequivalencerelation}, it suffices to prove that
+\begin{align*}
+    \|x_n -x\| \longrightarrow 0 \implies \|x_n-x\|_0 \longrightarrow 0.
+\end{align*}
+Because $\|\cdot\|$ and $\|\cdot\|_0$ are equivalent, then there exists $a, b \in \mathbb{R}_{++}$ such that
+\begin{align*}
+    a \|x\|_0 \leq \|x\| \leq b\|x\|_0, \qquad x \in X.
+\end{align*}
+
+Fix $\varepsilon > 0$ to be arbitrary. Since $\|x_n -x\| \longrightarrow 0$, then there exists a $N_{\varepsilon} \in \mathbb{N}$ such that 
+\begin{align*}
+    n > N_{\varepsilon} \implies  \|x_n - x\| < a\varepsilon.
+\end{align*}
+Therefore, 
+\begin{align*}
+    n > N_{\varepsilon} \implies \|x_n - x\|_0 \leq \frac{1}{a}\|x_n - x\| < \varepsilon.
+\end{align*}
+
+Because $\varepsilon > 0$ was taken to be arbitrary, this proves $\|x_n - x\| \longrightarrow 0$.
+\end{proof}
+
+\begin{note}
+The statement can be equivalently written as $x_n \longrightarrow x$ in $(X, \|\cdot\|)$ if and only if $x_n \longrightarrow x$ in $(X, \|\cdot\|_0)$.
+\end{note}
+\end{exer}
+
+\subsection{Compactness and Finite Dimension}
 
 \end{document}
