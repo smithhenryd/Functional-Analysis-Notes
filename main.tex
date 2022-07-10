@@ -1738,7 +1738,7 @@ Show that the discrete metric space on a vector space $X \neq \{\0\}$ cannot be 
 Suppose that $X$ is a nontrivial vector space. Then the discrete metric on $X$, which defines the metric space $(X, d)$, is not translation invariant. To see why this is the case, let $x \neq y$ be any pair of vectors in $X$. Then $d(\alpha x, \alpha y) = 1 \neq |\alpha| = |\alpha| d(x, y)$ for any $\alpha \notin \{0, \pm 1\}$. By the contrapositive to Theorem \ref{translationinvariant}, we conclude that the discrete metric $d$ cannot be induced by a norm on $X$.
 \end{exer}
 
-\begin{exer}[Bounded set]
+\begin{exer}[Bounded set]\label{boundednorm}
 Show that a subset $M$ in a normed space $X$ is bounded if and only if there is a positive number $c$ such that $\|x\| \leq c$ for every $x \in M$.
 \begin{proof}
 $\implies$ Suppose that $M$ is an arbitrary bounded subset of $X$. Then there exists a $\delta(M) \in  \mathbb{R}_+$ such that $d(x, y) \leq \delta(M)$ for every $x, y \in M$. In particular, we can let $\delta(M) = \sup_{x, y \in M} d(x, y)$ be the diameter of $M$. Also, let $x' \in M$ be an arbitrary element of the set $M$. By the triangle inequality
@@ -2138,8 +2138,8 @@ We deduce that $y_m \longrightarrow y$. Because $(y_m)$ was chosen to be an arbi
 \end{proof}
 
 As an immediate consequence of Theorem \ref{finitecomplete}, we get the following result:
-\begin{thm}
-Every finite-dimensional subspace $Y$ of a normed space $X$ is complete.
+\begin{thm}\label{finiteclosed}
+Every finite-dimensional subspace $Y$ of a normed space $X$ is closed in $X$.
 \end{thm}
 \begin{proof}
 Let $Y$ be a finite-dimensional subspace of a normed space $X$. By Theorem \ref{finitecomplete}, $Y$ is complete. And so by Theorem \ref{closedcomplete}, $Y$ is closed.
@@ -2362,5 +2362,168 @@ The statement can be equivalently written as $x_n \longrightarrow x$ in $(X, \|\
 \end{exer}
 
 \subsection{Compactness and Finite Dimension}
+
+\begin{defn}[Compactness]\label{compact}
+A metric space $X = (X, d)$ is \textbf{compact} if for every collection of open sets $\mathcal{C}$ such that 
+\begin{align*}
+    X = \bigcup_{c \in \mathcal{C}} c
+\end{align*}
+then there exists a \textit{finite} subcollection of sets $\mathcal{F} \subseteq \mathcal{C}$ such that
+\begin{align*}
+    X = \bigcup_{f \in \mathcal{F}} f.
+\end{align*}
+More succinctly, $X$ is compact if each of its open covers has a finite subcover.
+\end{defn}
+
+\begin{defn}[Sequentially compact]\label{sequentiallycompact}
+A metric space $X = (X, d)$ is \textbf{sequentially compact} if every sequence in $X$ has a convergent subsequence. A subset $M$ of $X$ is said to be compact if $M$ is compact considered as a subspace of $X$, that is, if every subsequence in $M$ has a convergent subsequence whose limit is in $M$.
+\end{defn}
+
+Although our definitions of compactness and sequential compactness may seem quite different, they are in fact equivalent when considering a metric space $X$:
+\begin{thm}
+Suppose that $X$ is a metric space. Then the following statements are equivalent:
+\begin{enumerate}[(a)]
+    \item $X$ is compact
+    \item $X$ is sequentially compact
+\end{enumerate}
+\end{thm}
+Therefore, from here on out we will refer to metric spaces that satisfy Definition \ref{sequentiallycompact} as compact.
+
+Before proceeding, we take this opportunity to remind ourselves of two fundamental results from analysis that relate to compactness:
+\begin{thm}[Heine-Borel]\label{heine-borel}
+A subspace of the real line $(\mathbb{R}, d)$ is compact if and only if it is closed and bounded.
+\end{thm}
+
+\begin{thm}[Bolzano-Weierstrass]\label{bolzano-weierstrass}
+Each bounded sequence on the real line $(\mathbb{R}, d)$ has a convergent subsequence.
+\end{thm}
+
+Now that we have done this, let us return to our discussion of compactness
+\begin{lm}[Compactness]\label{compactclosedbounded}
+A compact subset $M$ of a metric space $X = (X, d)$ is closed and bounded.
+\end{lm}
+\begin{proof}
+Let $x \in \bar{M}$ be arbitrary. By Theorem \ref{closedconvergent}, there exists a sequence $(x_n) \subset M$ such that $x_n \longrightarrow x$. But by assumption that $M$ is compact, there is a subsequence $(x_{n_k})$ of $(x_n)$ that converges in $M$. And so because $(x_n)$ is convergent in $X$ with a convergent subsequence $(x_{n_k})$, then $(x_n)$ must converge to the same limit as $(x_{n_k})$. That is, we must have $x \in M$. We chose $x \in \bar{M}$ to be arbitrary, so we conclude $\bar{M} = M$, meaning $M$ is closed.
+
+Now, suppose towards contradiction that $M$ is unbounded. That is, for any fixed element $m \in M$, $M$ contains a sequence $(x_n)$ such that $d(m, x_n) > n$. Since $M$ is compact, $(x_n)$ must have a convergent subsequence. This is impossible, though, because by Lemma \ref{uniquelimit} every convergent sequence must be bounded.
+\end{proof}
+
+\begin{note}
+The converse to Lemma \ref{compactclosedbounded} is, in general, false.
+
+As a counterexample, consider the following sequence $(x_n)$ in $\ell^2$. Define
+\begin{align*}
+    (x_n)_i := 
+    \begin{cases}
+    1 & i = n\\
+    0 & \text{otherwise}
+    \end{cases}, \qquad i \in \mathbb{N}.
+\end{align*}
+That is, the point $x_n$ has $1$ as its $n$th term and $0$ as all remaining terms. 
+
+We claim that the point set $(x_n)$ is closed and bounded but not compact.  By Exercise \ref{boundednorm}, we know that $(x_n)$ is bounded because $\|x_n\| \leq 1$. And $(x_n)$ is closed because its only limit points are $x_n, \ n \in \mathbb{N}$. For the same reason, however, $M$ is not compact. 
+\end{note}
+
+\begin{defn}[Heine-Borel property]
+A metric space $X = (X,d)$ has the \textbf{Heine-Borel property} if every closed and bounded subset $M$ of $X$ is compact.
+\end{defn}
+In the above note, we showed that $\ell^2$ does not have the Heine-Borel property.
+
+\begin{thm}\label{heine-borel-property}
+Every finite-dimensional normed space has the Heine-Borel property.
+\end{thm}
+\begin{proof}
+Suppose $X = (X, \|\cdot\|)$ is a normed space with $\text{dim} \ X = n$ and Hamel basis $\{e_1, \ldots, e_n\}$. And choose $M \subset X$ to be any closed and bounded subset of $X$.
+
+Let $(x_m)$ be an arbitrary sequence in $M$. Then by the definition of $\{e_1, \ldots, e_n\}$ a Hamel basis, there exists a unique representation
+\begin{align*}
+    x_m = \xi_1^{(m)} e_1 + \ldots + \xi_n^{(m)} e_n
+\end{align*}
+for each $m \in \mathbb{N}$. By assumption that the set $M$ is bounded, there exists a $k \in \mathbb{R}_+$ such that $\|x_m\| \leq k$ (Exercise \ref{boundednorm}). And by Lemma \ref{coeff}, there exists a $c \in \mathbb{R}_{++}$ such that
+\begin{align*}
+    &k \geq \|x_m\| = \left\| \sum_{i=1}^n \xi_i^{(m)} e_i \right\| \geq c\sum_{i=1}^n\left|\xi_i^{(m)}\right|\\
+    \implies&\frac{k}{c} \geq \left|\xi_i^{(m)}\right|, \qquad i = 1, \ldots, n
+\end{align*}
+
+That is, for each $i = 1, \ldots, n$, the sequence $\left(|\xi_i^{(m)}| \right)$ is bounded in the Euclidean metric space. Therefore by the Bolzano-Weierstrass Theorem, there exists a subsequence $\left(|\xi_i^{(m_k)}| \right)$ of $\left(|\xi_i^{(m)}| \right)$ that converges to a limit $\xi_i$. Just as in the proof of Theorem \ref{coeff}, we conclude that there exists a subsequence $(z_m)$ of $(x_m)$ which converges to $z = \sum_{i=1}^n \xi_ie_i$. To see how one would explicitly construct this subsequence $(z_m)$, we encourage the reader to reference pp.~72-73 of Kreyszig. Lastly, by assumption that $M$ is closed, then $z_m \longrightarrow z \implies z \in M$. 
+
+Therefore, we have proven that for an arbitrary sequence $(x_m)$ in the closed, bounded set $M$, then there exists a subsequence $(z_m)$ of $(x_m)$ such that $z_m \longrightarrow z$. We conclude that $M$ is compact. 
+
+Because $M$ was chosen to be an arbitrary closed and bounded subset of $X$, this proves that $(X, \|\cdot\|)$ has the Heine-Borel property.
+\end{proof}
+As a consequence of Theorem \ref{heine-borel-property}, we have that in the Euclidean normed space $(X, \|\cdot\|)$, the compact sets are exactly the closed and bounded subsets. 
+
+\begin{lm}[Riesz's Lemma]
+Let $Y$ and $Z$ be subspaces of a normed space $X$ (of any dimension), and suppose $Y$ is closed and is a proper subset of $Z$. Then for every $\theta \in (0,1)$, there is a $z \in Z$ such that
+\begin{align*}
+    \|z\| = 1, \qquad \|z - y\| \geq \theta, \ \forall y \in Y
+\end{align*}
+\end{lm}
+
+In a finite-dimensional normed space, the closed unit ball is compact by Theorem \ref{heine-borel-property}. Riesz's Lemma allows us to prove the converse:
+\begin{thm}[Finite dimension]
+If a normed space $X$ has the property that the closed unit ball $M = \{x \ | \ \|x\| \leq 1\}$ is compact, then $X$ is finite-dimensional.
+\end{thm}
+\begin{proof}
+Suppose towards contradiction that $M$ is compact but $\text{dim}\ X = \infty$. Choose any $x_1 \in X$ with $\|x_1\| = 1$. Then $X_1 = \text{span}\{x_1\}$ is a one-dimensional subspace of $X$, and thus is closed by Theorem \ref{finiteclosed}. Also, since $\text{dim} \ X = \infty$, we know $X_1$ is a proper subspace of $X$.
+
+Therefore, invoking Riesz's lemma, there is an $x_2 \in X$ with $\|x_2\| = 1$ such that
+\begin{align*}
+    \|x_2 - x_1\| \geq \frac{1}{2}
+\end{align*}
+The elements $x_1, x_2$ generate a two-dimensional proper, closed subspace $X_2$ of $X$.
+
+Once again by Riesz's lemma, there is an $x_3$ satisfying $\|x_3\| = 1$ such that for all $x \in X_2$,
+\begin{align*}
+    \|x_3 - x\| \geq \frac{1}{2}.
+\end{align*}
+In particular,
+\begin{align*}
+    &\|x_3 - x_1\| \geq \frac{1}{2},\\
+    &\|x_3 - x_2\| \geq \frac{1}{2}.
+\end{align*}
+
+Proceeding by induction, we obtain a sequence $(x_n)$ of elements $x_n \in M$ such that
+\begin{align*}
+    \|x_m - x_n\| \geq \frac{1}{2} \quad m \neq n.
+\end{align*}
+Clearly, $(x_n)$ cannot have a convergent subsequence. However, this contradicts our assumption that $M$ is compact.
+
+Hence, we conclude $\text{dim} \ X < \infty$.
+\end{proof}
+
+Another important property of compact sets is that they are preserved under continuous maps:
+\begin{thm}\label{continuouscompact}
+Let $X$ and $Y$ be metric spaces and $T: X \longrightarrow Y$ a continuous mapping. Then the image of a compact subset $M$ of $X$ under $T$ is also compact.
+\end{thm}
+\begin{proof}
+By the definition of $T(M)$ compact, we must show that for every sequence $(y_n) \subset T(M)$, there exists a subsequence $(y_{n_k})$ of $(y_n)$ that converges. Because $(y_n) \subset T(M)$, then there exists a sequence $(x_n) \subset M$ such that $y_n = Tx_n$ for each $n \in \mathbb{N}$. But because the sequence $(x_n)$ is contained in the compact set $M$, there exists a subsequence $(x_{n_k})$ such that $x_{n_k} \longrightarrow x$ for $x \in M$. Finally, by Theorem \ref{continuousmapping}, $T$ continuous and $x_{n_k} \longrightarrow x$ implies $y_{n_k} = Tx_{n_k} \longrightarrow Tx$. 
+
+And so we have shown there exists a subsequence $(y_{n_k})$ of $(y_n)$ with $y_{n_k} \longrightarrow Tx$, where $x \in M \implies x \in T(M)$. Because $(y_n) \subset T(M)$ was chosen to be arbitrary, we conclude $T(M)$ is a compact subset of $Y$.
+\end{proof}
+
+Lastly, we prove a generalization of the Weierstrass Extreme Value Theorem. In order to do so, we first prove the following lemma:
+\begin{lm}\label{infsup}
+Suppose $A \subset \mathbb{R}$ is closed and bounded. Then $\sup A, \inf A  \in A$.
+\end{lm}
+\begin{proof}
+First, if $A$ is empty, then $\sup A$ and $\inf A$ do not exist. Therefore, assume that $A$ is nonempty.
+
+By assumption that $A$ is bounded, we have that $\sup A, \inf A \in \mathbb{R}$. Otherwise, it is possible $\sup A = +\infty$, $\inf A = -\infty$.
+
+We first begin with $\sup A$. By the definition of the supremum, for every $n \in \mathbb{N}$ we can find an element $a_n \in A$ such that $\sup A - \frac{1}{n} < a_n \leq \sup A$. And so let us consider the sequence $(a_n)$. It is easy to see that $a_n \longrightarrow \sup A$. But $A$ is closed, which implies $\sup A \in A$.
+
+We use a similar argument for $\inf A$. Namely, we construct the sequence $(a_n') \subset A$ such that $\inf A \leq a_n' < \inf A + \frac{1}{n}$ for each $n \in \mathbb{N}$. Then $a_n' \longrightarrow \inf A$. And $A$ closed implies $\inf A \in A$.
+\end{proof}
+
+Now, we are ready to prove the main result:
+\begin{thm}
+A continuous mapping $T$ of a compact subset $M$ of a metric space $X$ into $\mathbb{R}$ assumes a maximum and a minimum at some points of $M$.
+\end{thm}
+\begin{proof}
+By Theorem \ref{continuouscompact}, the image of $M$ under the continuous map $T$, $T(M)$ is compact, and so by Lemma \ref{compactclosedbounded} it is closed and bounded. Further, by Lemma \ref{infsup} we have $\sup T(M), \ \inf T(M) \in T(M)$. The points in $M$ at which $T$ is maximized and minimized are $T^{-1}\sup T(M)$ and $T^{-1}\inf T(M)$, respectively.
+\end{proof}
+
+\subsection{Linear Operators}
 
 \end{document}
