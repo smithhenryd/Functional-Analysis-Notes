@@ -409,7 +409,7 @@ $T$ is said to be \textbf{continuous} if it is continuous at all points $x \in X
 \end{defn}
 
 Continuous mappings have an important connection with open sets as summarized by the following theorem:
-\begin{thm}[Continuous Mapping]
+\begin{thm}[Continuous Mapping]\label{continuousmapping}
 A mapping $T$ of a metric space $X$ into a metric space $Y$ is continuous if and only if the inverse image of any open subset of $Y$ is an open subset of $X$.
 \end{thm}
 \begin{proof}
@@ -963,7 +963,7 @@ Show that the subspace $Y \subset C[a,b]$ consisting of all $x \in C[a,b]$ such 
     \begin{align*}
         &n > N_{\varepsilon} \implies |y_n(a) - y(a)| < \varepsilon, |y_n(b) - y(b)| < \varepsilon.
     \end{align*}
-Therefore, the sequence $(y_n(a))$ satisfies $y_n(a) \longrightarrow y(a)$ and $(y_n(b))$ satisfies $y_n(b) \longrightarrow y(b)$ in the Euclidean metric space $(\mathbb{R}, d)$. But because $(y_n) \subset Y$, we know $y_n(a) = y_n(b), \forall n \in \mathbb{N}$. And so we have proven both $y_n(a) \longrightarrow y(a)$ and $y_n(a) \longrightarrow y(b)$ for $y(a) \neq y(b)$. This, though, contradicts the uniqueness of the limit of a convergent sequence (Theorem \ref{uniquelimit}).\newline
+Therefore, the sequence $(y_n(a))$ satisfies $y_n(a) \longrightarrow y(a)$ and $(y_n(b))$ satisfies $y_n(b) \longrightarrow y(b)$ in the Euclidean metric space $(\mathbb{R}, d)$. But because $(y_n) \subset Y$, we know $y_n(a) = y_n(b), \forall n \in \mathbb{N}$. And so we have proven both $y_n(a) \longrightarrow y(a)$ and $y_n(a) \longrightarrow y(b)$ for $y(a) \neq y(b)$. This, though, contradicts the uniqueness of the limit of a convergent sequence (Lemma \ref{uniquelimit}).\newline
 Thus $y \in Y$, which implies that $\bar{Y} = Y$ since we chose $y$ to be arbitrary. Finally  by Theorem \ref{closedcomplete}, $Y$ closed in $C[a,b]$ implies $Y$ is a complete metric space.
 \end{proof}
 \end{exer}
@@ -2453,7 +2453,7 @@ Because $M$ was chosen to be an arbitrary closed and bounded subset of $X$, this
 \end{proof}
 As a consequence of Theorem \ref{heine-borel-property}, we have that in the Euclidean normed space $(X, \|\cdot\|)$, the compact sets are exactly the closed and bounded subsets. 
 
-\begin{lm}[Riesz's Lemma]
+\begin{lm}[Riesz's Lemma]\label{rieszlemma}
 Let $Y$ and $Z$ be subspaces of a normed space $X$ (of any dimension), and suppose $Y$ is closed and is a proper subset of $Z$. Then for every $\theta \in (0,1)$, there is a $z \in Z$ such that
 \begin{align*}
     \|z\| = 1, \qquad \|z - y\| \geq \theta, \ \forall y \in Y
@@ -2467,9 +2467,9 @@ If a normed space $X$ has the property that the closed unit ball $M = \{x \ | \ 
 \begin{proof}
 Suppose towards contradiction that $M$ is compact but $\text{dim}\ X = \infty$. Choose any $x_1 \in X$ with $\|x_1\| = 1$. Then $X_1 = \text{span}\{x_1\}$ is a one-dimensional subspace of $X$, and thus is closed by Theorem \ref{finiteclosed}. Also, since $\text{dim} \ X = \infty$, we know $X_1$ is a proper subspace of $X$.
 
-Therefore, invoking Riesz's lemma, there is an $x_2 \in X$ with $\|x_2\| = 1$ such that
+Therefore, invoking Riesz's lemma with $Y = X_1$ and $Z = X$, there is an $x_2 \in X$ with $\|x_2\| = 1$ such that
 \begin{align*}
-    \|x_2 - x_1\| \geq \frac{1}{2}
+    \|x_2 - x_1\| \geq \frac{1}{2}.
 \end{align*}
 The elements $x_1, x_2$ generate a two-dimensional proper, closed subspace $X_2$ of $X$.
 
@@ -2523,6 +2523,106 @@ A continuous mapping $T$ of a compact subset $M$ of a metric space $X$ into $\ma
 \begin{proof}
 By Theorem \ref{continuouscompact}, the image of $M$ under the continuous map $T$, $T(M)$ is compact, and so by Lemma \ref{compactclosedbounded} it is closed and bounded. Further, by Lemma \ref{infsup} we have $\sup T(M), \ \inf T(M) \in T(M)$. The points in $M$ at which $T$ is maximized and minimized are $T^{-1}\sup T(M)$ and $T^{-1}\inf T(M)$, respectively.
 \end{proof}
+
+\begin{exer}\label{euclideannotcompact}
+Show that $\mathbb{R}^n$ and $\mathbb{C}^n$ are not compact.\newline
+Let $(\mathbb{C}^n, d)$ be the unitary metric space and consider the sequence $(x_n)$ defined 
+\begin{align*}
+    (x_n)_i := \begin{cases}
+    n & \text{if $i = 1$}\\
+    0 & \text{otherwise}
+    \end{cases}, \quad 1 \leq i \leq n.
+\end{align*}
+That is, the first coordinate of the $n$th term in the sequence is equal to $n$, and and all other coordinates are zero. It is evident that $(x_n)$ does not have any limit points, though, and so it cannot have a convergent subsequence. This implies that $\mathbb{R}^n$ and $\mathbb{C}^n$ are not compact.
+\end{exer}
+
+\begin{exer}[Local Compactness]\label{locallycompact}
+A metric space $X$ is said to be locally compact if every point of $X$ has a compact neighborhood. Show that $\mathbb{R}$ and $\mathbb{C}$ and, more generally, $\mathbb{R}^n$ and $\mathbb{C}^n$ are locally compact.
+\begin{proof}
+We prove the result for $\mathbb{C}^n$, although the proof is identical for $\mathbb{R}^n$. Let $x_0 \in \mathbb{C}^n$ be an arbitrary point. And consider the closed ball with unit radius centered at $x_0$, $\tilde{B}_{r =1}(x_0) = \{x \in \mathbb{C}^n \ | \ \|x - x_0\| \leq 1\}$. By Theorem \ref{heine-borel-property}, since the normed space $\mathbb{C}^n$ is finite-dimensional, it has the Heine-Borel property. Thus, $\tilde{B}_{r =1}(x_0)$ closed and bounded implies $\tilde{B}_{r =1}(x_0)$ compact. We deduce $x_0$ has a compact neighborhood. And because $x_0$ was chosen to be arbitrary, then every point of $\mathbb{C}^n$ has a compact neighborhood. We conclude $\mathbb{C}^n$ is locally compact.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Show that a compact metric space $X$ is locally compact.
+\begin{proof}
+This result is trivial. Let $x \in X$ be an arbitrary point. Then $X$ itself is a neighborhood of $x$ because $B_{r=1}(x) \subset X$. This is true for any point $x \in X$, and so we conclude $X$ is locally compact.
+\end{proof}
+\begin{note}
+Be careful--the converse to this statement is not generally true. Consider, for instance, the Euclidean normed space $X = \mathbb{R}^n$. As we demonstrated in Exercise \ref{locallycompact}, $X$ is locally compact. But as we also know from Exercise \ref{euclideannotcompact}, $X$ is not compact.
+\end{note}
+\end{exer}
+
+\begin{exer}
+If $\text{dim} \ Y < \infty$ in Lemma \ref{rieszlemma}, show that one can even choose $\theta = 1$.
+\begin{proof}
+Let $e_1, \ldots, e_n$ be a Hamel basis for $Y$. Also, take $v \in Z\setminus Y$ be an arbitrary element. Then because $Y$ is closed, we must have $a := \inf_{y \in Y}\|y - v\| > 0$. Otherwise, we would have a sequence $(y_k')$ that satisfies $\|y_k' - v\| \longrightarrow 0 \implies y_k' \longrightarrow v$, meaning $v \in Y$.
+
+Now, by the definition of the infimum, there exists a sequence $(y_k)$ in $Y$ which satisfies $\|y_k - v\| \longrightarrow a$. Notice that the sequence $(\|y_k - v\|)$ is convergent, and so it is bounded (Lemma \ref{uniquelimit}). Therefore,
+\begin{align*}
+    &l \geq \|y_k - v\| \geq | \|y_k\| - \|v\| | \geq \|y_k\| - \|v\|\\
+    \implies&l' := l + \|v\| \geq \|y_k - v\| + \|v\| \geq \|y_k\|,
+\end{align*}
+which means that the sequence $(y_k)$ is also bounded.
+
+Since $e_1, \ldots, e_n$ is a Hamel basis for $Y$, we can write
+\begin{align*}
+    y_k = \xi_1^{(k)}e_1 + \ldots + \xi_n^{(k)}e_n.
+\end{align*}
+And so by combining our previous result with Lemma \ref{coeff}, there exists a $c > 0$ such that
+\begin{align*}
+    &l' \geq \|y_k\| \geq c\sum_{i=1}^n \left|\xi_i^{(k)} \right|\\
+    \implies&\frac{l'}{c} \geq \left|\xi_i^{(k)} \right|, \quad i = 1, \ldots, n.
+\end{align*}
+That is, we have shown each sequence $\left( \xi_i^{(k)}  \right)$, $i = 1, \ldots, n$ is bounded on the real line. Therefore, by the Bolzano-Weierstrass Theorem (Theorem \ref{bolzano-weierstrass}) for each $i = 1, \ldots, n$ there is a subsequence $\left( \xi_{i_p}^{(k)} \right)$ with $\xi_{i_p}^{(k)} \longrightarrow \xi_i$.
+
+Using these $n$ individual sequences $\left( \xi_{i_p}^{(k)} \right)$, we can construct a subsequence $(y_{k_p})$ of $(y_k)$ such that $y_{k_p} \longrightarrow \tilde{y}$, where
+\begin{align*}
+    \tilde{y} = \xi_1 e_1 + \ldots + \xi_n e_n.
+\end{align*}
+Because $Y$ is closed, we know that $\tilde{y} \in Y$. Also, invoking the triangle inequality, we have
+\begin{align*}
+    \|\tilde{y} - v\| \leq \|\tilde{y} - y_{k_p}\| + \|y_{k_p} - v\| = \sum_{i=1}^n\underset{\longrightarrow0}{|\xi_i^{(k_p)} - \xi_i|} \|e_i\| + \underset{\longrightarrow a}{\|y_{k_p} - v\|}.
+\end{align*}
+And so $\|\tilde{y} - v\| \leq a \implies \|\tilde{y} - v\| = a$. That is, we have shown that the distance of $Y$ to $v$ is attained by some element $\tilde{y} \in Y$.
+
+To complete the proof, let us define the unit vector
+\begin{align*}
+    z = a^{-1}(v - \tilde{y})
+\end{align*}
+And so for every $y \in Y$,
+\begin{align*}
+    \| y - z\| &= \|y - a^{-1}(v  - \tilde{y})\|\\
+    &= a^{-1}\| ay - (v - \tilde{y})\|\\
+    &= a^{-1}\|y_1 - v\|
+\end{align*}
+where
+\begin{align*}
+    y_1 = ay + \tilde{y}.
+\end{align*}
+Clearly, since $Y$ is a subspace, then $y_1 \in Y$. And so by the definition of $a$, $y_1 \in Y \implies \|y_1 - v\| \geq a$. We deduce
+\begin{align*}
+    \|y - z\| = a^{-1}\|y_1 - v\| \geq \frac{a}{a}= 1.
+\end{align*}
+\end{proof}
+\end{exer}
+
+\begin{exer}\label{closedcompact}
+If $X$ is a compact metric space and $M \subset X$ is closed, show that $M$ is compact.
+\begin{proof}
+Let $(x_n)$ be an arbitrary sequence in $M$, where the metric is that induced by $X$. Since $X$ is compact, there exists a subsequence $(x_{n_k})$ of $(x_n)$ such that $x_{n_k} \longrightarrow x$ for some $x \in X$. But $M$ is closed, meaning it contains all of its limit point. That is, $(x_{n_k}) \subset M$ and $x_{n_k} \longrightarrow x$ implies $x \in M$. Because $(x_n)$ was chosen to be arbitrary, we conclude that $M$ is compact.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+Let $X$ and $Y$ be metric spaces, $X$ compact, and $T: X \longrightarrow Y$ bijective and continuous. Show that $T$ is a homeomorphism.
+\begin{proof}
+Recall from Theorem \ref{continuousmapping} that $T^{-1}: Y \longrightarrow X$ is continuous if and only if the inverse image of any open set (in $X$) is open (in $Y$). Equivalently, $T^{-1}$ is continuous if and only if the inverse image of any closed set is closed. This is because, definitionally, the complement of any open set is closed and vice versa. And so it suffices to show that the inverse image of a closed set under $T^{-1}$ is closed.
+
+Therefore, let $A \subseteq X$ be an arbitrary closed set. By Exercise \ref{closedcompact}, we know that $X$ compact and $A$ closed implies $A$ compact. Also, by the Theorem \ref{continuouscompact}, since $(T^{-1})^{-1} = T$ is continuous and $A$ is compact, then $(T^{-1})^{-1}(A) = T(A)$ is a compact subset of $Y$. Finally, by Lemma \ref{compactclosedbounded}, $(T^{-1})^{-1}(A)$ compact implies $(T^{-1})^{-1}(A)$ closed. Since $A$ was chosen to be an abitrary closed set in $X$, this proves that the inverse image of any closed set in $X$ under $T^{-1}$ is also closed. Thus, $T^{-1}$ is continuous.
+\end{proof}
+\end{exer}
+
 
 \subsection{Linear Operators}
 
