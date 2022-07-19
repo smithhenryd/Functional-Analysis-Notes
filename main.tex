@@ -1446,6 +1446,53 @@ The \textbf{dimension} of a vector space $X$ is the cardinality of any of its ba
 Let $X$ be an $n$-dimensional vector space. Then any proper subspace of $X$ has dimension less than $X$.
 \end{thm}
 
+\begin{thm}[Constructing bases]\label{constructbasis}
+Suppose $X$ is a finite dimensional vector space such that $\text{dim} \ X = n$. Then:
+\begin{enumerate}[(a)]
+    \item If the set of vectors $\{v_1, \ldots, v_m\}$ satisfies $\text{span}\{v_1, \ldots, v_m\} = X$, there exists subset $\mathcal{B} \subseteq \{v_1, \ldots, v_m\}$ such that $\mathcal{B}$ is a basis for $X$.
+    \item If the set of vectors $\{v_1, \ldots, v_m\}$ is linearly independent, then there exists a set $\mathcal{B} \subset X$ such that $\{v_1, \ldots, v_m\} \subseteq \mathcal{B}$ and $\mathcal{B}$ is a basis for $X$.
+\end{enumerate}
+\end{thm}
+\begin{proof}
+\begin{enumerate}[(a)]
+    \item Suppose $\text{span}\{v_1, \ldots, v_m\} = X$. If $X = \{\0\}$ there does not exist a basis for $X$, so there is nothing to do. Otherwise, we construct a basis $\mathcal{B}$ from $\{v_1, \ldots, v_m\}$ as follows:
+    
+    First consider $v_1$. If $v_1 = \0$, remove it from $\{v_1, \ldots, v_m\}$; otherwise, keep it. Now for $v_2$, if $v_2 \in \text{span}\{v_1\}$ remove it; otherwise, keep it. We repeat this procedure for each vector in the set $\{v_1, \ldots, v_m\}$: if $v_j \in \text{span}\{v_1, \ldots, v_{j-1}\}$, remove it; otherwise, keep it.
+    
+    We claim that the resulting set $\mathcal{B}$ is a linear independent set which spans $X$. First, it spans $X$ since $\text{span}\{v_1, \ldots, v_m\} = X$ and we removed only those vectors $v_j$ that are in the span of $\{v_1, \ldots, v_{j-1}, v_{j+1}, \ldots, v_m\}$. Also, the set is linearly independent by construction. Let $\mathcal{B} = \{v_{m_1}, \ldots, v_{m_k}\}$, where $1 \leq m_1 < \ldots < m_k \leq m$. Suppose towards contradiction that
+    \begin{align*}
+    v_{m_j} = a_{m_1}v_{m_1} + \ldots +  a_{m_{j-1}}v_{m_{j-1}} + a_{m_{j+1}}v_{m_{j+1}} + \ldots + a_{m_k}v_{m_k}.
+    \end{align*}
+    Then because there are only finitely-many vectors in $\mathcal{B}$, let $j' = \max( \{ i \in [k] \ | \ a_{m_i} \neq 0 \}\cup\{j\})$. Then the previous linear combination of $v_{m_j}$ implies that we can write
+    \begin{align*}
+    v_{m_{j'}} = a_{m_1}'v_{m_1} + \ldots +  a_{m_{j'-1}}'v_{m_{j'-1}}.
+    \end{align*}
+    Here, $a_{m_i}' = -a_{m_i}/a_{m_{j'}}, \ i \neq j$ and $a_{m_j}' = -1/a_{m_{j'}}$. Note that we exclude all vectors $v_{m_i}, \ i > j'$ since $a_{m_i} = 0 \implies a_{m_i}' = 0$. This, though, is a contradiction, since we have constructed $\mathcal{B}$ such that $v_j \notin \text{span}\{v_1, \ldots, v_{j-1}\}$.
+    
+    We deduce $\mathcal{B} \subseteq \{v_1, \ldots, v_m\}$ is a linearly independent set that generates $X$. Thus, $\mathcal{B}$ is a basis for $X$. This also implies that $k = n$. That is, $\mathcal{B}$ contains exactly $n$ vectors
+    
+    \item Now, suppose that $\{v_1, \ldots, v_m\}$ are linearly independent. Since $\text{dim} \ X = n$, there exists a basis $\{e_1, \ldots, e_n\}$ for $X$. We will use this basis to build up $\{v_1, \ldots, v_m\}$ into a basis itself. We do so using the following iterative procedure:
+    
+    Let us start with the first basis vector $e_1$. If $e_1 \notin \text{span}\{v_1, \ldots, v_n\}$, then add it to the set $\{v_1, \ldots, v_n\}$ so that we have $\{v_1, \ldots, v_n, e_1\}$. Otherwise, do not add it. Similarly, if $e_2 \notin \text{span}\{v_1, \ldots, v_n, e_1\}$, then add it; otherwise, do not. We repeat this for each of the $n$ vectors $\{e_1, \ldots, e_n\}$: if $e_j \notin \text{span}\{v_1, \ldots, v_n, e_1, \ldots, e_{j-1}\}$, add it; otherwise, do not.
+    
+    We claim that the resulting set $\mathcal{B} = \{v_1, \ldots, v_m, e_{n_1}, \ldots, e_{n_k}\}$, where $1 \leq n_1 < \ldots < n_k \leq n$, is a basis for $X$. First, $\mathcal{B}$ is linearly independent by construction of $\mathcal{B}$. A formal proof of this result is similar to that given in (a). And to see that  $\text{span} \ \mathcal{B} = X$, let
+    \begin{align*}
+        x = a_1 e_1 + \ldots a_n e_n.
+    \end{align*}
+    If $e_j \in \mathcal{B}, \ 1 \leq j \leq n$, then there is nothing to do. Otherwise, by our construction of $\mathcal{B}$, we can write
+    \begin{align*}
+        e_j = b_1v_1 + \ldots + b_mv_m + b_{n_1}e_{n_1} + \ldots + b_{n_k}e_{n_k}.
+    \end{align*}
+    where $b_{n_i} = 0$ for $n_i > j$. Substituting this back into the expression for $x$, though, we see that $x$ can be written as a linear combination of the vectors in $\mathcal{B}$. This proves that $\mathcal{B}$ generates all of $X$.
+    
+    We conclude $\mathcal{B} = \{v_1, \ldots, v_m, e_{n_1}, \ldots, e_{n_k}\}$ is a linearly independent set that spans $X$. Thus, it is a basis for $X$ and $|\mathcal{B}| = n$.
+\end{enumerate}
+\end{proof}
+
+\begin{note}
+An immediate consequence of Theorem \ref{constructbasis} is that if $\text{span}\{v_1, \ldots, v_n\} = X$, then $\text{dim} \ X \leq n$. Also, if $\{v_1, \ldots, v_n\}$ is a linearly independent set, then $\text{dim} \ X \geq n$.
+\end{note}
+
 \begin{exer}
 Show that in an $n$-dimensional vector space $X$, the representation of any $x$ as a linear combination of given basis vectors $e_1, \ldots, e_n$ is unique.
 \begin{proof}
@@ -2626,4 +2673,389 @@ Therefore, let $A \subseteq X$ be an arbitrary closed set. By Exercise \ref{clos
 
 \subsection{Linear Operators}
 
+\begin{defn}[Linear operator]\label{linearoperator}
+A \textbf{linear operator} $T$ is an operator such that 
+\begin{enumerate}
+    \item The \textbf{domain} $\mathscr{D}(T)$ of $T$ \textit{is a vector space} and the \textbf{range} $\mathscr{R}(T)$ lies in a vector space \textit{over the same field}
+    \item For all $x, y \in \mathscr{D}(T)$ and scalars $\alpha$,
+    \begin{align*}
+        &T(x + y) = Tx + Ty\\
+        &T(\alpha x) = \alpha Tx
+    \end{align*}
+\end{enumerate}
+\end{defn}
+
+\begin{defn}[Null space]\label{nullspace}
+The \textbf{null space} or \textbf{kernel} of a linear operator $T$ is the set of $x \in \mathscr{D}(T)$ such that $Tx = \0$. The null space is denoted by $\mathscr{N}(T)$.
+
+From Definition \ref{linearoperator}, we remark that for every linear operator $T$, $\0 \in \mathscr{N}(T)$.
+\end{defn}
+
+\begin{note}
+A quick remark on notation. Let $\mathscr{D}(T) \subset X$ and $\mathscr{R}(T) \subset Y$, where $X$ and $Y$ are vector spaces. We say
+\begin{enumerate}
+    \item $T: \mathscr{D}(T) \longrightarrow \mathscr{R}(T)$, $T$ is an operator from $\mathscr{D}(T)$ \textit{onto} $\mathscr{R}(T)$
+    \item $T: \mathscr{D}(T) \longrightarrow Y$, $T$ is an operator from $\mathscr{D}(T)$ \textit{into} $Y$
+    \item If $\mathscr{D}(T) = X$, $T: X \longrightarrow Y$
+\end{enumerate}
+\end{note}
+
+\begin{examp}[Identity operator]
+The \textbf{identity operator} $I_X: X \longrightarrow X$ is defined such that $I_X x := x$ for every $x \in X$. For shorthand, we write $I_X = I$. One should notice that $I$ is a bijection.
+\end{examp}
+
+\begin{examp}[Zero operator]
+The \textbf{zero operator} $\0: X \longrightarrow Y$ is defined such that $\0x := \0_Y$ for every $x \in X$.
+\end{examp}
+
+\begin{examp}[Differentiation operator]
+Let $X$ be the vector space consisting of all polynomials on $[a, b]$. We may define a linear operator by setting
+\begin{align*}
+    Tx := \frac{d}{dt}x(t), \qquad t \in [a,b]
+\end{align*}
+for every $x \in X$. This operator into onto $X$, but is not injective.
+\end{examp}
+
+\begin{examp}[Integration operator]
+A linear operator $T$ from $C[a,b]$ into itself can be defined such that
+\begin{align*}
+    Tx := \int_a^t x(s) ds, \qquad t \in [a, b].
+\end{align*}
+
+$T$ is not onto $C[a,b]$, though. To see why this is the case, by the Fundamental Theorem of Calculus:
+\begin{align*}
+    \frac{d}{dt}Tx = x(t).
+\end{align*}
+That is, all $y \in \mathscr{R}(T)$ must have a continuous derivative. This is not true of all continuous functions. 
+
+As a counterexample, take
+\begin{align*}
+    x(t) = 
+    \begin{cases}
+    t^2\sin(1/t) & t \neq 0\\
+    0 & t = 0
+    \end{cases}
+\end{align*}
+defined on any interval $[a, b]$ containing $ t = 0$. $x(t)$ is everywhere differentiable on $\mathbb{R}$, including at $t = 0$, and its derivative is given by
+\begin{align*}
+    x'(t) = 
+    \begin{cases}
+    2t\sin(1/t) - \cos(1/t) &t \neq 0\\
+    0 & t = 0
+    \end{cases}
+\end{align*}
+which is discontinuous at $t=0$. Thus, $x \notin \mathscr{R}(T)$, which means that $\mathscr{R}(T) \neq C[a,b]$.
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[axis lines=middle, scaled ticks=false, samples=1000, xlabel={$t$}, xticklabels={}, yticklabels={}]
+\addplot[semithick][name path=f, domain=0.001:0.1] {x^2*sin(deg(1/x)))};
+\addplot[semithick][name path=f1, domain=-0.1:-0.001] {x^2*sin(deg(1/x)))};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\caption*{$x(t)$ plotted on $[-0.1, 0.1]$}
+\end{figure}
+\end{examp}
+
+\begin{examp}[Matrix multiplication]
+Consider a field $K$. Let $A$ be an $m \times n$ matrix whose entries are elements of $K$. That is, we have
+\begin{align*}
+    A = 
+    \begin{bmatrix}
+    a_{1,1} & a_{1, 2} & \cdots & a_{1,n}\\
+    a_{2, 1} & a_{2, 2} & \cdots & a_{2, n}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    a_{m, 1}& a_{m, 2} & \cdots & a_{m, n}
+    \end{bmatrix}
+\end{align*}
+where $(a_{i,j})_{i \in [m], j \in [n]} \subset K$. Then we can define an operator $T: K^n \longrightarrow K^m$ by
+\begin{align*}
+    Tx := Ax, \qquad x \in K^n.
+\end{align*}
+Here $K^n$ denotes the vector space consisting of all $n$-tuples whose entries are elements of $K$.
+\end{examp}
+
+\begin{thm}\label{rangevectorspace}
+Let $T: \mathscr{D}(T) \longrightarrow Y$ be a linear operator. Then
+\begin{enumerate}[(a)]
+    \item $\mathscr{R}(T)$ is a vector space
+    \item If $\text{dim} \ \mathscr{D}(T) = n < \infty$, then $\text{dim} \ \mathscr{R}(T) \leq n$
+    \item The null space $\mathscr{N}(T)$ is a vector space
+\end{enumerate}
+\end{thm}
+\begin{proof}
+\begin{enumerate}[(a)]
+    \item Since $\mathscr{R}(T) \subset Y$, where $Y$ is a vector space, it suffices to prove that $\mathscr{R}(T)$ is a subspace of $Y$. That is, $\mathscr{R}(T)$ itself is a vector space with the algebraic operations of vector addition and scalar multiplication induced by $Y$. 
+    
+    Let $x, y \in \mathscr{R}(T)$ and $\alpha, \beta \in K$ be arbitrary. Then, by assumption, there exist $x', y' \in \mathscr{D}(T)$ that satisfy $Tx' = x$ and $Ty' = y$, respectively. And so
+    \begin{align*}
+        \alpha x + \beta y = \alpha Tx' + \beta Ty' = T(\alpha x' + \beta y').
+    \end{align*}
+    By assumption, $\mathscr{D}(T)$ is a vector space, which means that $\alpha x' + \beta y' \in \mathscr{D}(T)$. This implies
+    \begin{align*}
+         \alpha x + \beta y = T(\alpha x' + \beta y') \in \mathscr{R}(T).
+    \end{align*}
+    
+    \item Suppose $\{e_1, \ldots, e_n\}$ is a Hamel basis for $\mathscr{D}(T)$. We wish to show that $\text{span}\{Te_1, \ldots, Te_n\} = \mathscr{R}(T)$. By Theorem \ref{constructbasis}, this would then imply that $\text{dim} \ \mathscr{R}(T) \leq n$ since there is a subset of $\{Te_1, \ldots, Te_n\}$ that forms a basis for $\mathscr{R}(T)$.
+    
+    Let $y \in \mathscr{R}(T)$ be arbitrary. Then there exists an $x \in \mathscr{D}(T)$ such that $Tx = y$. Therefore, there are $a_1, \ldots, a_n \in K$ that satisfy
+    \begin{align*}
+        x = a_1 e_1 + \ldots + a_n e_n.
+    \end{align*}
+    Applying the linear transformation $T$ to both sides of the equality, we have
+    \begin{align*}
+        Tx &= T(a_1 e_1 + \ldots + a_n e_n)\\
+        &= a_1 Te_1 + \ldots + a_n Te_n,
+    \end{align*}
+    which implies $y \in \text{span}\{Te_1, \ldots, Te_n\}$. Because we chose $y \in \mathscr{R}(T)$ to be arbitrary, this implies $\text{span}\{Te_1, \ldots, Te_n\} = \mathscr{R}(T)$.
+    
+    \item Just as in our proof of (a), it suffices to prove that $\mathscr{N}(T)$ is a subspace of $\mathscr{D}(T)$. Let $x, y \in \mathscr{N}(T)$ as well as $\alpha, \beta \in K$ be arbitrary. Then because $T$ is a linear operator, $\alpha x + \beta y$ satisfies
+    \begin{align*}
+        T(\alpha x + \beta y) = \alpha Tx + \beta Ty = \alpha \0_Y + \beta \0_Y = \0_Y.
+    \end{align*}
+    Thus, $\alpha x + \beta y \in \mathscr{N}(T)$.
+\end{enumerate}
+\end{proof}
+Statement (b) implies that linear operators preserve linear dependence. 
+
+\begin{defn}[Inverse operator]
+Suppose that the operator $T: \mathscr{D}(T) \longrightarrow Y$ is \textbf{injective} or \textbf{one-to-one}. Then there exists a mapping $T^{-1}: \mathscr{R}(T) \longrightarrow \mathscr{D}(T)$ which maps every $y_0 \in \mathscr{R}(T)$ onto that $x_0 \in \mathscr{D}(T)$ for which $Tx_0 = y_0$.
+
+The mapping $T^{-1}$ is called the \textbf{inverse} of $T$.
+
+The inverse mapping $T^{-1}$ satisfies 
+\begin{enumerate}[(a)]
+    \item $T^{-1}Tx = x$, \qquad for all $x \in \mathscr{D}(T)$.
+    \item $TT^{-1}y = y$, \qquad for all $y \in \mathscr{R}(T)$.
+\end{enumerate}
+\end{defn}
+
+\begin{thm}[Inverse operator]\label{inverseproperties}
+Let $X$ and $Y$ be vector spaces, both real or complex. Let $T: \mathscr{D}(T) \longrightarrow Y$ be a linear operator with domain $\mathscr{D}(T) \subset X$ and range $\mathscr{R}(T) \subset Y$. Then:
+\begin{enumerate}[(a)]
+    \item The inverse $T^{-1}: \mathscr{R}(T) \longrightarrow \mathscr{D}(T)$ exists if and only if
+    \begin{align*}
+        Tx = \0_Y \implies x = \0_X.
+    \end{align*}
+    \item If $T^{-1}$ exists, it is a linear operator.
+    \item If $\text{dim} \ \mathscr{D}(T) = n < \infty$ and $T^{-1}$ exists, then $\text{dim} \ \mathscr{R}(T) = \text{dim} \ \mathscr{D}(T)$.
+\end{enumerate}
+\end{thm}
+\begin{proof}
+\begin{enumerate}[(a)]
+    \item $\implies$ Suppose $T^{-1}$ exists. Notice that $T\0_X = \0_Y \implies T^{-1}\0_Y = \0_X$. Therefore,
+    \begin{align*}
+        Tx = \0_Y \implies T^{-1}Tx = T^{-1}\0_Y \implies x = \0_X.
+    \end{align*}
+    $\impliedby$ Conversely, suppose $Tx = \0_Y \implies x = \0_X$. And let $x_1, x_2 \in \mathscr{D}(T)$ satisfy $Tx_1 = Tx_2$. This implies
+    \begin{align*}
+    &Tx_1 = Tx_2\\
+    \implies& T(x_1 - x_2) = \0_Y\\
+    \implies& x_1 - x_2 = \0_X\\
+    \implies& x_1 = x_2.
+    \end{align*}
+    And so $T$ is one-to-one, meaning $T^{-1}: \mathscr{R}(T) \longrightarrow \mathscr{D}(T)$ exists.
+    
+    \item Suppose $T^{-1}: \mathscr{R}(T) \longrightarrow \mathscr{D}(T)$ exists. Let $y_1, y_2 \in \mathscr{R}(T)$ and $\alpha. \beta \in K$ be arbitrary. Then there exist $x_1, x_2 \in \mathscr{D}(T)$ such that $Tx_1 = y_1$ and $Tx_2 = y_2$. This implies $T^{-1}y_1 = x_1$ and $T^{-1}y_2 = x_2$. Because $T$ is linear, we also know
+    \begin{align*}
+        &T(\alpha x_1 + \beta x_2) = \alpha y_1+ \beta y_2\\
+        \implies& T^{-1}(\alpha y_1+ \beta y_2) = \alpha x_1 + \beta x_2.
+    \end{align*}
+    And so altogether, we have shown 
+    \begin{align*}
+        T^{-1}(\alpha y_1+ \beta y_2) = \alpha x_1 + \beta x_2 = \alpha T^{-1} y_1 + \beta T^{-1} y_2.
+    \end{align*}
+    This proves that $T^{-1}$ is linear.
+    
+    \item By Theorem \ref{rangevectorspace}, since $T$ is linear we know that $\text{dim} \ \mathscr{R}(T) \leq n$. Similarly, because $T^{-1}$ is linear we know that $n = \text{dim} \ \mathscr{D}(T) \leq \text{dim} \ \mathscr{R}(T)$. Thus, $\text{dim} \ \mathscr{D}(T) = \text{dim} \ \mathscr{R}(T) = n$.
+\end{enumerate}
+\end{proof}
+
+\begin{lm}[Inverse of produce]\label{inversecomposition}
+Let $T: X \longrightarrow Y$ and $S: Y \longrightarrow Z$ be bijective linear operators. Then the inverse $(ST)^{-1}$ of the product (i.e. the composition) $ST$ exists, and
+\begin{align*}
+    (ST)^{-1} = T^{-1}S^{-1}.
+\end{align*}
+\end{lm}
+\begin{proof}
+Since each of $T: X \longrightarrow Y$ and $S: Y \longrightarrow Z$ is bijective, then so is $ST: X \longrightarrow Z$. Thus, $(ST)^{-1}: Z \longrightarrow X$ exists. This implies that
+\begin{align*}
+    ST(ST)^{-1} = I_Z.
+\end{align*}
+Now, applying the map $S^{-1}$ to both sides of the equation,
+\begin{align*}
+    &(S^{-1}S)T(ST)^{-1} = S^{-1}I_Z\\
+    \implies& T(ST)^{-1} = S^{-1}.
+\end{align*}
+Similarly, by applying $T^{-1}$ to both sides,
+\begin{align*}
+    &(T^{-1}T)(ST)^{-1} = T^{-1}S^{-1}\\
+    \implies& (ST)^{-1} = T^{-1}S^{-1}.
+\end{align*}
+\end{proof}
+
+\begin{note}
+Lemma \ref{inversecomposition} is commonly used in the setting of matrix multiplication. Namely, for invertible matrices $A, B$ over the field $K$, we have $(AB)^{-1} = B^{-1}A^{-1}$.
+\end{note}
+
+\begin{exer}
+Formulate condition (a) of Theorem \ref{inverseproperties} in terms of the null space of $T$.
+
+\begin{align*}
+    Tx = \0_Y \implies x = \0_X
+\end{align*}
+is equivalent to
+\begin{align*}
+    \mathscr{N}(T) = \{\0_X\}.
+\end{align*}
+\end{exer}
+
+\begin{exer}\label{invertiblepreserveindependence}
+Let $T: \mathscr{D}(T) \longrightarrow Y$ be a linear operator whose inverse exists. If $\{x_1, \ldots, x_n\}$ is a linearly independent set in $\mathscr{D}(T)$, show that the set $\{Tx_1, \ldots, Tx_n\}$ is linearly independent in $Y$.
+\begin{proof}
+Suppose towards contradiction that $\{Tx_1, \ldots, Tx_n\}$ is linearly dependent. Then there exists scalars $a_1, \ldots, a_n \in K$ not all zero such
+\begin{align*}
+    \0_Y = a_1Tx_1 + \ldots + a_nTx_n
+\end{align*}
+By Theorem \ref{inverseproperties}, since $T^{-1}$ exists, then $T$ must satisfy $Tx_0 = \0_Y \implies x_0 = \0_X$. Therefore,
+\begin{align*}
+    &\0_Y = a_1Tx_1 + \ldots + a_nTx_n\\
+    \implies& \0_Y = T(a_1x_1 + a_nx_n)\\
+    \implies&\0_X = a_1x_1 + a_nx_n
+\end{align*}
+But this is a contradiction to the assumption that $\{x_1, \ldots, x_n\}$ is a linearly independent set in $\mathscr{D}(T)$. We conclude that $\{Tx_1, \ldots, Tx_n\}$ must be linearly independent in $Y$.
+\end{proof}
+\end{exer}
+
+\begin{exer}\label{inverserange}
+Let $T: X \longrightarrow Y$ be a linear operator and $\text{dim} \ X = \text{dim} \ Y = n < \infty$. Show that $\mathscr{R}(T) = Y$ if and only if $T^{-1}$ exists.
+\begin{proof}
+$\implies$ Let $\mathscr{R}(T) = Y$. And suppose towards contradiction that $\mathscr{N}(T) \neq \{\0\}$. Then by Theorem \ref{rangevectorspace}, $\mathscr{N}(T)$ is a subspace of $X$ and there exists a basis $\{e_1, \ldots, e_k\}$ for $\mathscr{N}(T)$. Here, because $\text{dim} \ \mathscr{N}(T) > 0$, then $k > 0$. By Theorem \ref{constructbasis}, we can extend this basis for $\mathscr{N}(T)$ to a basis for $X$, which we denote by $\mathcal{B}$. 
+
+From our proof of Theorem \ref{rangevectorspace}, we know that $\text{span} \ T(\mathcal{B}) = \mathscr{R}(T)$; that is, the image of basis $\mathcal{B}$ spans the range of $T$. Therefore, $\text{dim} \ \mathscr{R}(T) = \text{dim} \ \text{span} \ T(\mathcal{B})$. But we know that $\text{dim} \ \mathscr{N}(T) = k > 0$ where $\{e_1, \ldots, e_k\} \subseteq \mathcal{B}$ is a basis for $\mathscr{N}(T)$. Thus, we deduce $\text{dim} \ \mathscr{R}(T) = \text{dim} \ \text{span} \ T(\mathcal{B}) < n$. This is a contradiction since $\text{dim} \ \mathscr{R}(T) < \text{dim} \ Y \implies \mathscr{R}(T) \neq Y$.
+
+And so it must be the case that $\mathscr{N}(T) = \{\0\}$, which implies by Theorem \ref{inverseproperties} that $T^{-1}$ exists.
+
+$\impliedby$ Conversely, suppose that $T^{-1}$ exists. Let $\mathcal{B}$ be a basis for $X$. By the proof of Theorem \ref{rangevectorspace}, we know that $\text{span} \  T(\mathcal{B}) = \mathscr{R}(T)$. Also, by Exercise \ref{invertiblepreserveindependence}, we know that because $T^{-1}$ exists, then $T(\mathcal{B})$ is linearly independent. 
+
+Thus, we have shown $T(\mathcal{B})$ is a linearly independent set that spans $\mathscr{R}(T)$, which implies it is a basis for $\mathscr{R}(T)$. But since $\text{dim} \ Y = n$, then it also a basis for $Y$. This implies $\mathscr{R}(T) = \text{span} \ T(\mathcal{B}) = Y$.
+\end{proof}
+\end{exer}
+
+\begin{exer}
+    Consider the vector space $X$ of all real-valued functions which are defined on $\mathbb{R}$ and have derivatives of all orders everywhere on $\mathbb{R}$. Define $T: X \longrightarrow X$ by $Tx(t) := \frac{d}{dt}x(t)$. Show that $\mathscr{R}(T) = X$ but $T$ does not exist. Compare this with Exercise \ref{inverserange}.
+    
+    \begin{proof}
+    Let $x \in X$ be an arbitrary vector. Since $x$ is everywhere differentiable, then it is also continuous on all of $\mathbb{R}$. Thus, $x$ is Riemann integrable on any closed, bounded interval. More specifically, define 
+    \begin{align*}
+        \tilde{x}(t) = \int_0^t  x(s) ds.
+    \end{align*}
+    Then by the Fundamental Theorem of Calculus, 
+    \begin{align*}
+        T\tilde{x}(t) = x(t), \qquad t \in \mathbb{R}.
+    \end{align*}
+    Also, because $x$ is infinitely differentiable on $\mathbb{R}$, we have
+    \begin{align*}
+        \frac{d^{n}}{dt^{n}}\tilde{x}(t) = \frac{d^{(n-1)}}{dt^{(n-1)}}x(t), \qquad  t \in \mathbb{R}.
+    \end{align*}
+    which implies $\tilde{x} \in X$. Because we have found an element $\tilde{x} \in X$ such that $T\tilde{x} = x$, then $\mathscr{R}(T) = X$.
+    
+    However, we immediately notice that $\mathscr{N}(T) \neq \{\0_X\}$. In particular, the set of constant functions $\{ x(t) = C  \ | \ C \in \mathbb{R} \}$ is contained in $\mathscr{N}(T)$. Therefore, by Theorem \ref{inverseproperties}, $T^{-1}$ does not exist.
+    
+    This result does not contradict Exercise \ref{inverserange} since $\text{dim} \ X = \infty$. To see that this is the case, let $x_n(t) := t^n$ be a polynomial of order $n$. Then $\{x_n\}_{n=0}^{\infty} \subset X$ is a linearly independent set consisting of infinitely-many vectors.
+    \end{proof}
+\end{exer}
+
+\subsection{Bounded and Continuous Linear Operators}
+
+\begin{defn}[Bounded linear operator]\label{boundedlinearoperator}
+Let $X$ and $Y$ be normed spaces and $T: \mathscr{D}(T) \longrightarrow Y$ a linear operator, where $\mathscr{D}(T) \subseteq X$. The operator $T$ is said to be \textbf{bounded} if there exists a $c \in \mathbb{R}_+$ such that for all $x \in \mathscr{D}(T)$
+\begin{align*}
+    \|Tx\| \leq c \|x\|.
+\end{align*}
+\end{defn}
+
+This definition leads us to the question of how large must $c$ be. In particular, what is the smallest $c$ such that the inequality in Definition \ref{boundedlinearoperator} holds? To answer this question, we divide both sides of the inequality by $\|x\|$ for $x \neq 0_X$:
+\begin{align*}
+    \frac{\|Tx\|}{\|x\|} \leq c, \qquad x \neq \0_X.
+\end{align*}
+Thus, $c$ must be at least as large as the supremum of the left-hand side taken over $\mathscr{D}(T)\setminus\{\0_X\}$. That is, the smallest possible $c$ such that Definition \ref{boundedlinearoperator} holds is 
+\begin{align*}
+c = \sup_{x \in \mathscr{D}(T)\setminus\{\0_X\}}\frac{\|Tx\|}{\|x\|}.
+\end{align*}
+This $c$ has a special name: it is called the norm of the operator $T$.
+
+\begin{defn}[Operator norm]\label{operatornorm}
+Suppose $T: \mathscr{D}(T) \longrightarrow Y$ is a bounded linear operator. Then the operator norm of $T$ is
+\begin{align*}
+    \|T\| := \sup_{x \in \mathscr{D}(T)\setminus\{\0_X\}} \frac{\|Tx\|}{\|x\|}.
+\end{align*}
+\end{defn}
+
+\begin{lm}\label{operatornormisnorm}
+Let $T: X \longrightarrow Y$ be a bounded linear operator. Then:
+\begin{enumerate}[(a)]
+    \item An equivalent definition of the operator norm is
+    \begin{align*}
+        \|T\| := \sup_{\substack{x \in \mathscr{D}(T)\\ \|x\| = 1}} \|Tx\|
+    \end{align*}
+    
+    \item The operator norm is a norm in the sense of Definition \ref{normedbanach}. The vector space on which the norm is defined is $B(X, Y)$, the \textbf{vector space of all bounded linear operators} from $X$ to $Y$. $B(X, Y)$ is defined over the same field as each of $X$ and $Y$. The operation of vector addition is defined such that
+    \begin{align*}
+        (S + T)x := Sx + Tx.
+    \end{align*}
+    And scalar multiplication is defined such that
+    \begin{align*}
+        (aT)x := a(Tx).
+    \end{align*}
+\end{enumerate}
+\end{lm}
+\begin{proof}
+\begin{enumerate}[(a)]
+    \item This result is a consequence of the linearity of the operator $T$:
+    \begin{align*}
+        \sup_{x \in \mathscr{D}(T)\setminus\{\0_X\}} \frac{\|Tx\|}{\|x\|} = 
+        \sup_{x \in \mathscr{D}(T)\setminus\{\0_X\}} \left\Vert \frac{1}{\|x\|} Tx \right\Vert = \sup_{x \in \mathscr{D}(T)\setminus\{\0_X\}} \left\Vert T \frac{x}{\|x\|} \right\Vert = \sup_{\substack{y \in \mathscr{D}(T)\\ \|y\| = 1}} \|Ty\|.
+    \end{align*}
+    
+    \item For the first axiom, notice that by Definition \ref{operatornorm}, $\|Tx\| \geq 0, \ x \in X$ and $\|x\| > 0, \ x \in X \setminus \{\0_X\}$, which implies
+    \begin{align*}
+        \frac{\|Tx\|}{\|x\|} \geq 0, \quad \forall x \in X \setminus \{\0_X\}.
+    \end{align*}
+    Therefore, $\|T\| \geq 0$. 
+    
+    Next, since $\0_{B(X, Y)}$ satisfies $\0_{B(X, Y)}x = \0_Y$ for every $x \in X$, then 
+    \begin{align*}
+        \frac{\|\0_{B(X, Y)}x\|}{\|x\|} = 0, \quad \forall x \in X \setminus \{\0_X\}.
+    \end{align*}
+    We deduce $\|\0_{B(X, Y)}\| = 0$. For the converse, if $\|T\| = 0$, then we have
+    \begin{align*}
+        \frac{\|Tx\|}{\|x\|} \leq 0, \quad \forall x \in X \setminus \{\0_X\}.
+    \end{align*}
+    Combining this with the inequality we proved for the first axiom, we have
+    \begin{align*}
+        &\frac{\|Tx\|}{\|x\|} = 0, \quad \forall x \in X \setminus \{\0_X\}\\
+        \iff&Tx = \0_Y, \quad \forall x \in X \setminus \{\0_X\}\\
+        \iff&T = \0_{B(X, Y)}.
+    \end{align*}
+    
+    Next, using the homogeneity of the norm on $Y$, we have
+    \begin{align*}
+        \|aT\| = \sup_{x \in X\setminus\{\0_X\}} \frac{\|a(Tx)\|}{\|x\|} = \sup_{x \in X\setminus\{\0_X\}} |a| \frac{\|Tx\|}{\|x\|} = |a| \sup_{x \in X\setminus\{\0_X\}} \frac{\|Tx\|}{\|x\|} = |a| \|T\|.
+    \end{align*}
+    
+    Finally, we must prove that the triangle inequality holds. In a similar fashion to as in the previous axiom, we use the triangle inequality for the norm on $Y$:
+    \begin{align*}
+        \|S + T\| &= \sup_{x \in X\setminus\{\0_X\}} \frac{\|(S +T)x\|}{\|x\|} = \sup_{x \in X\setminus\{\0_X\}} \frac{\|Sx + Tx\|}{\|x\|} \leq \sup_{x \in X\setminus\{\0_X\}} \frac{\|Sx\| + \|Tx\|}{\|x\|}\\
+        &= \sup_{x \in X\setminus\{\0_X\}} \left( \frac{\|Sx\|}{\|x\|} + \frac{\|Tx\|}{\|x\|} \right) \leq \sup_{x \in X\setminus\{\0_X\}} \frac{\|Sx\|}{\|x\|} + \sup_{x \in X\setminus\{\0_X\}} \frac{\|Tx\|}{\|x\|}\\
+        &= \|S\| + \|T\|.
+    \end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{examp}
+
+\end{examp}
 \end{document}
